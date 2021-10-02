@@ -10,6 +10,7 @@ type MainScreenProps = {
   mainFilmCard: MainFilmCard,
 }
 
+const SMALL_FILM_CARDS_AMOUNT = 20;
 
 function MainScreen({mainFilmCard}: MainScreenProps): JSX.Element {
   return (
@@ -112,7 +113,7 @@ function MainScreen({mainFilmCard}: MainScreenProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <SmallFilmCard />
+            {new Array(SMALL_FILM_CARDS_AMOUNT).fill(null).map((item, index) => <SmallFilmCard key="index" />)}
           </div>
 
           <div className="catalog__more">
