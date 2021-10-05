@@ -1,3 +1,6 @@
+import { RouteProps } from 'react-router';
+import { AuthorizationStatus } from '../const';
+
 export type MainFilmCard = {
   title: string,
   genre: string,
@@ -9,4 +12,8 @@ export type MainScreenProps = {
 }
 export type LogoProps = {
   theme?: 'light',
+}
+
+export type PrivateRouteProps = RouteProps & {
+  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus],
 }
