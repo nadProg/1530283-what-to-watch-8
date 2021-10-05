@@ -7,3 +7,6 @@ export type MainFilmCard = {
 export type MainScreenProps = {
   mainFilmCard: MainFilmCard,
 }
+export type LogoProps = {
+  theme?: 'light',
+}
