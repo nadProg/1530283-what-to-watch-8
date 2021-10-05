@@ -1,14 +1,5 @@
 import SmallFilmCard from '../small-film-card/small-film-card';
-
-type MainFilmCard = {
-  title: string,
-  genre: string,
-  year: number,
-}
-
-type MainScreenProps = {
-  mainFilmCard: MainFilmCard,
-}
+import type {MainScreenProps} from '../../types/types';
 
 const SMALL_FILM_CARDS_AMOUNT = 20;
 

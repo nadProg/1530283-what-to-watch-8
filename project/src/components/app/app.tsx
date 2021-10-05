@@ -1,10 +1,5 @@
 import MainScreen from '../main-screen/main-screen';
-
-type MainFilmCard = {
-  title: string,
-  genre: string,
-  year: number,
-}
+import type {MainFilmCard} from '../../types/types';
 
 const mainFilmCard: MainFilmCard = {
   title: 'The Grand Budapest Hotel',
