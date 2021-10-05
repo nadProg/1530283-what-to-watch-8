@@ -3,6 +3,9 @@ import type { MainScreenProps } from '../../types/types';
 import Logo from '../logo/logo';
 
 const SMALL_FILM_CARDS_AMOUNT = 20;
+const smallFilmCards = new Array(SMALL_FILM_CARDS_AMOUNT)
+  .fill('small-film-card')
+  .map((item, index) => `${item}-${index}`);
 
 function MainScreen({mainFilmCard}: MainScreenProps): JSX.Element {
   return (
@@ -99,7 +102,7 @@ function MainScreen({mainFilmCard}: MainScreenProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {new Array(SMALL_FILM_CARDS_AMOUNT).fill(null).map((item, index) => <SmallFilmCard key="index" />)}
+            {smallFilmCards.map((item) => <SmallFilmCard key={item} />)}
           </div>
 
           <div className="catalog__more">
