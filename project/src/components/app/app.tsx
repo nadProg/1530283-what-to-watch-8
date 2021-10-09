@@ -46,7 +46,7 @@ function App({films}: AppProps): JSX.Element {
           <MyListScreen getFavoriteFilms={getFavoriteFilms} />
         </PrivateRoute>
         <PrivateRoute path={AppRoute.Review} exact authorizationStatus={AuthorizationStatus.Auth}>
-          <ReviewScreen />
+          <ReviewScreen getFilmById={getFilmById} />
         </PrivateRoute>
         <Route>
           <NotFoundScreen />

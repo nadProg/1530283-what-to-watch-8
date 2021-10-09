@@ -39,12 +39,20 @@ export type MyListScreenProps = {
   getFavoriteFilms: () => Film[],
 }
 
+export type ReviewScreenProps = {
+  getFilmById: (id: number) => Film,
+}
+
 export type FilmCardProps = {
   film: Film,
 }
 
 export type LogoProps = {
   theme?: 'light',
+}
+
+export type Params = {
+  id: string
 }
 
 export type PrivateRouteProps = RouteProps & {
