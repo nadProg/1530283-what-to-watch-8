@@ -6,7 +6,7 @@ import MainScreen from '../main-screen/main-screen';
 import FilmScreen from '../film-screen/film-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import LoginScreen from '../login-screen/login-screen';
-import MyListscreen from '../my-list-screen/my-list-screen';
+import MyListScreen from '../my-list-screen/my-list-screen';
 import ReviewScreen from '../review-screen/review-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
@@ -25,6 +25,8 @@ function App({films}: AppProps): JSX.Element {
 
   const getSimilarFilms = () => films.slice(2, 6);
 
+  const getFavoriteFilms = () => films.filter((film) => film.isFavorite);
+
   return (
     <BrowserRouter>
       <Switch>
@@ -41,7 +43,7 @@ function App({films}: AppProps): JSX.Element {
           <LoginScreen />
         </Route>
         <PrivateRoute path={AppRoute.MyList} exact authorizationStatus={AuthorizationStatus.Auth}>
-          <MyListscreen />
+          <MyListScreen getFavoriteFilms={getFavoriteFilms} />
         </PrivateRoute>
         <PrivateRoute path={AppRoute.Review} exact authorizationStatus={AuthorizationStatus.Auth}>
           <ReviewScreen />

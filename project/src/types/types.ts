@@ -35,6 +35,10 @@ export type FilmsScreenProps = {
   getSimilarFilms: () => Film[],
 }
 
+export type MyListScreenProps = {
+  getFavoriteFilms: () => Film[],
+}
+
 export type FilmCardProps = {
   film: Film,
 }
