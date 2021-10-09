@@ -37,7 +37,7 @@ function App({films}: AppProps): JSX.Element {
           <FilmScreen getFilmById={getFilmById} getSimilarFilms={getSimilarFilms} />
         </Route>
         <Route path={AppRoute.Player} exact>
-          <PlayerScreen />
+          <PlayerScreen getFilmById={getFilmById} />
         </Route>
         <Route path={AppRoute.Login} exact>
           <LoginScreen />

@@ -1,6 +1,9 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import type { Params, PlayerScreenProps } from '../../types/types';
 
-function PlayerScreen(): JSX.Element {
+function PlayerScreen({getFilmById}: PlayerScreenProps): JSX.Element {
+  const { id } = useParams() as Params;
+  const film = getFilmById(Number(id));
   const history = useHistory();
 
   const onExitButtonClick = () => {
@@ -9,7 +12,7 @@ function PlayerScreen(): JSX.Element {
 
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
 
       <button type="button" className="player__exit" onClick={onExitButtonClick}>Exit</button>
 
@@ -29,7 +32,7 @@ function PlayerScreen(): JSX.Element {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{film.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">

@@ -43,6 +43,10 @@ export type ReviewScreenProps = {
   getFilmById: (id: number) => Film,
 }
 
+export type PlayerScreenProps = {
+  getFilmById: (id: number) => Film,
+}
+
 export type FilmCardProps = {
   film: Film,
 }
