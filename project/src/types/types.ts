@@ -30,11 +30,12 @@ export type MainScreenProps = {
   films: Film[],
 }
 
-export type PromoFilmCardProps = {
-  film: Film,
+export type FilmsScreenProps = {
+  getFilmById: (id: number) => Film,
+  getSimilarFilms: () => Film[],
 }
 
-export type SmallFilmCardProps = {
+export type FilmCardProps = {
   film: Film,
 }
 

@@ -13,6 +13,18 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 function App({films}: AppProps): JSX.Element {
   const promoFilm = films[0];
 
+  const getFilmById = (id: number) => {
+    const foundFilm = films.find((film) => film.id === id);
+
+    if (!foundFilm) {
+      throw new Error(`Film with id=${id} does not exist`);
+    }
+
+    return foundFilm;
+  };
+
+  const getSimilarFilms = () => films.slice(2, 6);
+
   return (
     <BrowserRouter>
       <Switch>
@@ -20,7 +32,7 @@ function App({films}: AppProps): JSX.Element {
           <MainScreen promoFilm={promoFilm} films={films} />
         </Route>
         <Route path={AppRoute.Film} exact>
-          <FilmScreen />
+          <FilmScreen getFilmById={getFilmById} getSimilarFilms={getSimilarFilms} />
         </Route>
         <Route path={AppRoute.Player} exact>
           <PlayerScreen />

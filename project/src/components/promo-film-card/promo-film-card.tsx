@@ -1,9 +1,9 @@
 import { useHistory } from 'react-router-dom';
-import type { PromoFilmCardProps } from '../../types/types';
+import type { FilmCardProps } from '../../types/types';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 
-function PromoFilmCard({film}: PromoFilmCardProps): JSX.Element {
+function PromoFilmCard({film}: FilmCardProps): JSX.Element {
   const history = useHistory();
   const handlePlayButtonClick = () => {
     history.push(`/player/${film.id}`);
