@@ -59,6 +59,6 @@ export type Params = {
   id: string
 }
 
-export type PrivateRouteProps = RouteProps & {
+export type CustomRouteProps = RouteProps & {
   authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus],
 }
