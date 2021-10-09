@@ -27,9 +27,14 @@ export type AppProps = {
 
 export type MainScreenProps = {
   promoFilm: Film,
+  films: Film[],
 }
 
 export type PromoFilmCardProps = {
+  film: Film,
+}
+
+export type SmallFilmCardProps = {
   film: Film,
 }
 

@@ -17,7 +17,7 @@ function App({films}: AppProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Root} exact>
-          <MainScreen promoFilm={promoFilm}/>
+          <MainScreen promoFilm={promoFilm} films={films} />
         </Route>
         <Route path={AppRoute.Film} exact>
           <FilmScreen />
@@ -28,10 +28,10 @@ function App({films}: AppProps): JSX.Element {
         <Route path={AppRoute.Login} exact>
           <LoginScreen />
         </Route>
-        <PrivateRoute path={AppRoute.MyList} exact authorizationStatus={AuthorizationStatus.NotAuth}>
+        <PrivateRoute path={AppRoute.MyList} exact authorizationStatus={AuthorizationStatus.Auth}>
           <MyListscreen />
         </PrivateRoute>
-        <PrivateRoute path={AppRoute.Review} exact authorizationStatus={AuthorizationStatus.NotAuth}>
+        <PrivateRoute path={AppRoute.Review} exact authorizationStatus={AuthorizationStatus.Auth}>
           <ReviewScreen />
         </PrivateRoute>
         <Route>

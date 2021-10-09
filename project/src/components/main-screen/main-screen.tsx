@@ -3,12 +3,7 @@ import type { MainScreenProps } from '../../types/types';
 import Logo from '../logo/logo';
 import PromoFilmCard from '../promo-film-card/promo-film-card';
 
-const SMALL_FILM_CARDS_AMOUNT = 20;
-const smallFilmCards = new Array(SMALL_FILM_CARDS_AMOUNT)
-  .fill('small-film-card')
-  .map((item, index) => `${item}-${index}`);
-
-function MainScreen({promoFilm}: MainScreenProps): JSX.Element {
+function MainScreen({promoFilm, films}: MainScreenProps): JSX.Element {
   return (
     <>
       <PromoFilmCard film={promoFilm} />
@@ -51,7 +46,7 @@ function MainScreen({promoFilm}: MainScreenProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {smallFilmCards.map((item) => <SmallFilmCard key={item} />)}
+            {films.map((film) => <SmallFilmCard key={film.id} film={film} />)}
           </div>
 
           <div className="catalog__more">
