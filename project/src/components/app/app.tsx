@@ -1,5 +1,5 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import type { MainFilmCard } from '../../types/types';
+import type { AppProps } from '../../types/types';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import MainScreen from '../main-screen/main-screen';
@@ -10,18 +10,14 @@ import MyListscreen from '../my-list-screen/my-list-screen';
 import ReviewScreen from '../review-screen/review-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-const mainFilmCard: MainFilmCard = {
-  title: 'The Grand Budapest Hotel',
-  genre:  'Drama',
-  year: 2014,
-};
+function App({films}: AppProps): JSX.Element {
+  const promoFilm = films[0];
 
-function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Root} exact>
-          <MainScreen mainFilmCard={mainFilmCard}/>
+          <MainScreen promoFilm={promoFilm}/>
         </Route>
         <Route path={AppRoute.Film} exact>
           <FilmScreen />
