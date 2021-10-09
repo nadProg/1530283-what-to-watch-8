@@ -26,7 +26,7 @@ function App({films}: AppProps): JSX.Element {
     return foundFilm;
   };
 
-  const getSimilarFilms = () => films.slice(2, 6);
+  const getSimilarFilms = () => films.slice().sort(() => Math.random() - 0.5).slice(0, 4);
 
   const getFavoriteFilms = () => films.filter((film) => film.isFavorite);
 

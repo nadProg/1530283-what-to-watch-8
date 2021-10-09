@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import type { FilmsScreenProps, Params } from '../../types/types';
-import SmallFilmCard from '../small-film-card/small-film-card';
+import FilmCardsList from '../films-list/films-list';
 import FullFilmCard from '../full-film-card/full-film-card';
 import Logo from '../logo/logo';
 
@@ -17,9 +17,7 @@ function FilmScreen({getFilmById, getSimilarFilms}: FilmsScreenProps): JSX.Eleme
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            {similarFilms.map((similarFilm) => <SmallFilmCard key={similarFilm.id} film={similarFilm} />)}
-          </div>
+          <FilmCardsList films={similarFilms} />
         </section>
 
         <footer className="page-footer">

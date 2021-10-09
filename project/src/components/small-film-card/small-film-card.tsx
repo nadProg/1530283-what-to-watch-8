@@ -1,9 +1,21 @@
 import { Link } from 'react-router-dom';
-import type { FilmCardProps } from '../../types/types';
+import type { FilmCardProps, Film } from '../../types/types';
 
-function SmallFilmCard({film}: FilmCardProps): JSX.Element {
+type SmallFilmCardProps = FilmCardProps & {
+  setActiveFilm: (film: Film | null) => void,
+}
+
+function SmallFilmCard({film, setActiveFilm}: SmallFilmCardProps): JSX.Element {
+  const handleMouseEnter = () => {
+    setActiveFilm(film);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveFilm(null);
+  };
+
   return (
-    <article className="small-film-card catalog__films-card">
+    <article className="small-film-card catalog__films-card" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="small-film-card__image">
         <img src={film.posterImage} alt={film.name} width="280" height="175" />
       </div>

@@ -1,4 +1,4 @@
-import SmallFilmCard from '../small-film-card/small-film-card';
+import FilmCardsList from '../films-list/films-list';
 import type { MainScreenProps } from '../../types/types';
 import Logo from '../logo/logo';
 import PromoFilmCard from '../promo-film-card/promo-film-card';
@@ -45,9 +45,7 @@ function MainScreen({promoFilm, films}: MainScreenProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            {films.map((film) => <SmallFilmCard key={film.id} film={film} />)}
-          </div>
+          <FilmCardsList films={films} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
