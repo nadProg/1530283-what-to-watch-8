@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 const BASE_CLASS = 'logo__link';
 
 type LogoProps = {
-  theme?: 'light',
+  footer?: boolean,
 }
 
-function Logo({ theme }: LogoProps): JSX.Element {
-  const themedClassName = theme ? `${BASE_CLASS}--${theme}` : '';
+function Logo({ footer }: LogoProps): JSX.Element {
+  const themedClassName = footer ? `${BASE_CLASS}--light` : '';
   const fullClassName = `${BASE_CLASS} ${themedClassName}`;
 
   return (

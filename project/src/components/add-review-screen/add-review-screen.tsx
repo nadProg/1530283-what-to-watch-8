@@ -1,7 +1,9 @@
-import { Link, useParams } from 'react-router-dom';
-import Logo from '../logo/logo';
+import { useParams } from 'react-router-dom';
+import FilmCardBackground from '../ui/film-card-background/film-card-background';
+import FilmCardPoster from '../ui/film-card-poster/film-card-poster';
+import Logo from '../ui/logo/logo';
 import UserBlock from '../user-block/user-block';
-import ReviewForm from '../review-form/review-form';
+import AddReviewForm from '../add-review-form/add-review-form';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import type { Film, Params } from '../../types/types';
 
@@ -16,9 +18,7 @@ function AddReviewScreen({getFilmById}: AddReviewScreenProps): JSX.Element {
   return (
     <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
       <div className="film-card__header">
-        <div className="film-card__bg">
-          <img src={film.backgroundImage} alt={film.name} />
-        </div>
+        <FilmCardBackground src={film.backgroundImage} alt={film.name} />
 
         <h1 className="visually-hidden">WTW</h1>
 
@@ -28,15 +28,10 @@ function AddReviewScreen({getFilmById}: AddReviewScreenProps): JSX.Element {
           <UserBlock />
         </header>
 
-        <div className="film-card__poster film-card__poster--small">
-          <img src={film.posterImage} alt={film.name} width="218" height="327" />
-        </div>
+        <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} small />
       </div>
 
-      <div className="add-review">
-        <ReviewForm />
-      </div>
-
+      <AddReviewForm />
     </section>
   );
 }

@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import type { CommentGet, Film, Params } from '../../types/types';
 import FilmCardsList from '../films-list/films-list';
 import FullFilmCard from '../full-film-card/full-film-card';
-import Logo from '../logo/logo';
+import Footer from '../ui/footer/footer';
 
 type FilmsScreenProps = {
   getFilmById: (id: number) => Film,
@@ -25,13 +25,7 @@ function FilmScreen({getFilmById, getSimilarFilms, getComments}: FilmsScreenProp
           <FilmCardsList films={similarFilms}/>
         </section>
 
-        <footer className="page-footer">
-          <Logo theme="light" />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

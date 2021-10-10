@@ -1,6 +1,6 @@
 import FilmCardsList from '../films-list/films-list';
 import type { Film } from '../../types/types';
-import Logo from '../logo/logo';
+import Footer from '../ui/footer/footer';
 import PromoFilmCard from '../promo-film-card/promo-film-card';
 import GenreFilter from '../genre-filter/genre-filter';
 
@@ -27,13 +27,7 @@ function MainScreen({promoFilm, films}: MainScreenProps): JSX.Element {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <Logo theme="light" />
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

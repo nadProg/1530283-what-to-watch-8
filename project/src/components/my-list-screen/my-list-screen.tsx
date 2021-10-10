@@ -1,7 +1,8 @@
 import type { Film } from '../../types/types';
-import Logo from '../logo/logo';
+import Logo from '../ui/logo/logo';
 import UserBlock from '../user-block/user-block';
 import FilmCardsList from '../films-list/films-list';
+import Footer from '../ui/footer/footer';
 
 export type MyListScreenProps = {
   getFavoriteFilms: () => Film[],
@@ -24,13 +25,7 @@ function MyListScreen({getFavoriteFilms}: MyListScreenProps): JSX.Element {
         <FilmCardsList films={favoriteFilms} />
       </section>
 
-      <footer className="page-footer">
-        <Logo theme="light" />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
