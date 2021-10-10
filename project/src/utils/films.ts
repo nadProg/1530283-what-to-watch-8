@@ -1,4 +1,3 @@
-import type { RatingDescriptionType } from '../types/types';
 import { RatingDescription, ratingDescriptionToUpperLimit } from '../const';
 
 const MAX_OVERVIEW_ACTORS_COUNT = 4;
@@ -14,7 +13,7 @@ export const formatOverviewActors = (actors: string[]): string => {
   return actors.length > MAX_OVERVIEW_ACTORS_COUNT ? `${formattedActors} and others` : formattedActors;
 };
 
-export const getRatingDescription = (rating:number): RatingDescriptionType => {
+export const getRatingDescription = (rating:number): typeof RatingDescription[keyof typeof RatingDescription] => {
   for (const [name, description] of Object.entries(RatingDescription)) {
     if (rating <= ratingDescriptionToUpperLimit[name]) {
       return description;

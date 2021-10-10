@@ -12,6 +12,11 @@ export const AuthorizationStatus = {
   NotAuth: 'NOT_AUTH',
 } as const;
 
+export const CustomRouteType = {
+  Guest: 'GUEST',
+  Private: 'PRIVATE',
+} as const;
+
 export const NavigationItem = {
   Overview: 'overview',
   Details: 'details',

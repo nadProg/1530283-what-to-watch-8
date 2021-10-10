@@ -1,12 +1,16 @@
 import { useHistory, useParams } from 'react-router-dom';
-import type { Params, PlayerScreenProps } from '../../types/types';
+import type { Params, Film } from '../../types/types';
+
+export type PlayerScreenProps = {
+  getFilmById: (id: number) => Film,
+}
 
 function PlayerScreen({getFilmById}: PlayerScreenProps): JSX.Element {
   const { id } = useParams() as Params;
   const film = getFilmById(Number(id));
   const history = useHistory();
 
-  const onExitButtonClick = () => {
+  const handleExitButtonClick = () => {
     history.goBack();
   };
 
@@ -14,7 +18,7 @@ function PlayerScreen({getFilmById}: PlayerScreenProps): JSX.Element {
     <div className="player">
       <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
 
-      <button type="button" className="player__exit" onClick={onExitButtonClick}>Exit</button>
+      <button type="button" className="player__exit" onClick={handleExitButtonClick}>Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">

@@ -78,15 +78,13 @@ function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
 
           <div className="film-card__desc">
             <FilmNavigation />
-
             {
               {
-                overview: <FilmOverview film={film} />,
                 details: <FilmDetails film={film} />,
+                overview: <FilmOverview film={film} />,
                 reviews: <FilmReviews comments={comments} />,
               }[location.hash.slice(1)]
             }
-
           </div>
         </div>
       </div>

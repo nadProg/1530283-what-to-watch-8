@@ -1,7 +1,11 @@
-import type { MyListScreenProps } from '../../types/types';
+import type { Film } from '../../types/types';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import FilmCardsList from '../films-list/films-list';
+
+export type MyListScreenProps = {
+  getFavoriteFilms: () => Film[],
+}
 
 function MyListScreen({getFavoriteFilms}: MyListScreenProps): JSX.Element {
   const favoriteFilms = getFavoriteFilms();

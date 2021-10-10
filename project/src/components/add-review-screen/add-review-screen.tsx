@@ -2,9 +2,14 @@ import { Link, useParams } from 'react-router-dom';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import ReviewForm from '../review-form/review-form';
-import type { ReviewScreenProps, Params } from '../../types/types';
+import Breadcrumbs from '../breadcrumbs/breadcrumbs';
+import type { Film, Params } from '../../types/types';
 
-function ReviewScreen({getFilmById}: ReviewScreenProps): JSX.Element {
+export type AddReviewScreenProps = {
+  getFilmById: (id: number) => Film,
+}
+
+function AddReviewScreen({getFilmById}: AddReviewScreenProps): JSX.Element {
   const { id } = useParams() as Params;
   const film = getFilmById(Number(id));
 
@@ -19,18 +24,7 @@ function ReviewScreen({getFilmById}: ReviewScreenProps): JSX.Element {
 
         <header className="page-header">
           <Logo />
-
-          <nav className="breadcrumbs">
-            <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
-                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
-              </li>
-              <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
-              </li>
-            </ul>
-          </nav>
-
+          <Breadcrumbs film={film} />
           <UserBlock />
         </header>
 
@@ -47,4 +41,4 @@ function ReviewScreen({getFilmById}: ReviewScreenProps): JSX.Element {
   );
 }
 
-export default ReviewScreen;
+export default AddReviewScreen;
