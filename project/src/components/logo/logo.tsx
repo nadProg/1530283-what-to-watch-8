@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
-import type { LogoProps } from '../../types/types';
 
 const BASE_CLASS = 'logo__link';
+
+type LogoProps = {
+  theme?: 'light',
+}
 
 function Logo({ theme }: LogoProps): JSX.Element {
   const themedClassName = theme ? `${BASE_CLASS}--${theme}` : '';

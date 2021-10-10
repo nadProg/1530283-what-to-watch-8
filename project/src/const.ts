@@ -11,3 +11,9 @@ export const AuthorizationStatus = {
   Auth: 'AUTH',
   NotAuth: 'NOT_AUTH',
 } as const;
+
+export const NavigationItem = {
+  Overview: 'overview',
+  Details: 'details',
+  Reviews: 'reviews',
+} as const;

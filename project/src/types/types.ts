@@ -21,15 +21,6 @@ export type Film = {
   isFavorite: boolean,
 }
 
-export type AppProps = {
-  films: Film[],
-}
-
-export type MainScreenProps = {
-  promoFilm: Film,
-  films: Film[],
-}
-
 export type FilmsScreenProps = {
   getFilmById: (id: number) => Film,
   getSimilarFilms: () => Film[],
@@ -45,14 +36,6 @@ export type ReviewScreenProps = {
 
 export type PlayerScreenProps = {
   getFilmById: (id: number) => Film,
-}
-
-export type FilmCardProps = {
-  film: Film,
-}
-
-export type LogoProps = {
-  theme?: 'light',
 }
 
 export type Params = {

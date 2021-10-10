@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import type { FilmCardProps, Film } from '../../types/types';
+import type { Film } from '../../types/types';
 
-type SmallFilmCardProps = FilmCardProps & {
+type SmallFilmCardProps = {
+  film: Film,
   setActiveFilm: (film: Film | null) => void,
 }
 

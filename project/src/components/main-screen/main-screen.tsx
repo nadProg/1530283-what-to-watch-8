@@ -1,8 +1,13 @@
 import FilmCardsList from '../films-list/films-list';
-import type { MainScreenProps } from '../../types/types';
+import type { Film } from '../../types/types';
 import Logo from '../logo/logo';
 import PromoFilmCard from '../promo-film-card/promo-film-card';
 import GenreFilter from '../genre-filter/genre-filter';
+
+type MainScreenProps = {
+  promoFilm: Film,
+  films: Film[],
+}
 
 function MainScreen({promoFilm, films}: MainScreenProps): JSX.Element {
   return (

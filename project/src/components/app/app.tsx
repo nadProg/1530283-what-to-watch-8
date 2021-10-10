@@ -1,5 +1,5 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import type { AppProps } from '../../types/types';
+import type { Film } from '../../types/types';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import GuestRoute from '../guest-route/guest-route';
@@ -10,6 +10,10 @@ import LoginScreen from '../login-screen/login-screen';
 import MyListScreen from '../my-list-screen/my-list-screen';
 import ReviewScreen from '../review-screen/review-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+
+type AppProps = {
+  films: Film[],
+}
 
 function App({films}: AppProps): JSX.Element {
   const authorizationStatus = AuthorizationStatus.Auth;

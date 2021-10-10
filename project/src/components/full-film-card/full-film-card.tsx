@@ -1,10 +1,29 @@
-import { useHistory, Link } from 'react-router-dom';
-import type { FilmCardProps } from '../../types/types';
+import { useHistory, Link, useLocation, Redirect } from 'react-router-dom';
+import type { Film } from '../../types/types';
+import { NavigationItem } from '../../const';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
+import FilmNavigation from './film-navigation';
+import FilmOverview from './film-overview';
+import FilmDetails from './film-details';
+import FilmReviews from './film-reviews';
 
-function FullFilmCard({film}: FilmCardProps): JSX.Element {
+type FullFilmCardProps = {
+  film: Film,
+}
+
+function FullFilmCard({film}: FullFilmCardProps): JSX.Element {
   const history = useHistory();
+  const location = useLocation();
+
+  const currentNavigationItem = location.hash.slice(1);
+  const isNavigationCorrect = Object.values(NavigationItem)
+    .some((navigationItem) => navigationItem === currentNavigationItem);
+
+  if (!isNavigationCorrect) {
+    return <Redirect to={`${location.pathname}#${NavigationItem.Overview}`} />;
+  }
+
   const handlePlayButtonClick = () => {
     history.push(`/player/${film.id}`);
   };
@@ -57,35 +76,16 @@ function FullFilmCard({film}: FilmCardProps): JSX.Element {
           </div>
 
           <div className="film-card__desc">
-            <nav className="film-nav film-card__nav">
-              <ul className="film-nav__list">
-                <li className="film-nav__item film-nav__item--active">
-                  <a href="#" className="film-nav__link">Overview</a>
-                </li>
-                <li className="film-nav__item">
-                  <a href="#" className="film-nav__link">Details</a>
-                </li>
-                <li className="film-nav__item">
-                  <a href="#" className="film-nav__link">Reviews</a>
-                </li>
-              </ul>
-            </nav>
+            <FilmNavigation />
 
-            <div className="film-rating">
-              <div className="film-rating__score">{film.rating}</div>
-              <p className="film-rating__meta">
-                <span className="film-rating__level">Very good</span>
-                <span className="film-rating__count">{film.scoresCount} ratings</span>
-              </p>
-            </div>
+            {
+              {
+                overview: <FilmOverview film={film} />,
+                details: <FilmDetails />,
+                reviews: <FilmReviews />,
+              }[location.hash.slice(1)]
+            }
 
-            <div className="film-card__text">
-              <p>{film.description}</p>
-
-              <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
-              <p className="film-card__starring"><strong>Starring: {film.starring}</strong></p>
-            </div>
           </div>
         </div>
       </div>
