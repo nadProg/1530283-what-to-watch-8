@@ -1,4 +1,5 @@
 import { CommentGet } from '../../types/types';
+import { splitArrayInTwo } from '../../utils/common';
 import Review from '../review/review';
 
 type FilmReviewsProps = {
@@ -7,14 +8,15 @@ type FilmReviewsProps = {
 
 function FilmReviews({comments}: FilmReviewsProps): JSX.Element {
   const reviews = comments.map((comment) => <Review key={comment.id} comment={comment} />);
-  const middleIndex = Math.ceil(comments.length / 2);
+  const [ leftReviews, rightReviews ] = splitArrayInTwo(reviews);
+
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        { reviews.slice(0, middleIndex) }
+        { leftReviews }
       </div>
       <div className="film-card__reviews-col">
-        { reviews.slice(middleIndex) }
+        { rightReviews }
       </div>
     </div>
   );

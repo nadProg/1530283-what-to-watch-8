@@ -12,3 +12,7 @@ export const getRandomItemFromArray = <T>(items: T[]): T => {
   return items[index];
 };
 
+export const splitArrayInTwo = <T>(items: T[]): [T[], T[]] => {
+  const middleIndex = Math.ceil(items.length / 2);
+  return [ items.slice(0, middleIndex), items.slice(middleIndex)];
+};
