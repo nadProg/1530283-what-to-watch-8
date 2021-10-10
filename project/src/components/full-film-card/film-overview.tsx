@@ -1,4 +1,5 @@
 import type { Film } from '../../types/types';
+import { getRatingDescription, formatRating, formatOverviewActors } from '../../utils/films';
 
 type FilmOverviewProps = {
   film: Film,
@@ -8,9 +9,9 @@ function FilmOverview({film}: FilmOverviewProps): JSX.Element {
   return (
     <>
       <div className="film-rating">
-        <div className="film-rating__score">{film.rating}</div>
+        <div className="film-rating__score">{formatRating(film.rating)}</div>
         <p className="film-rating__meta">
-          <span className="film-rating__level">Very good</span>
+          <span className="film-rating__level">{getRatingDescription(film.rating)}</span>
           <span className="film-rating__count">{film.scoresCount} ratings</span>
         </p>
       </div>
@@ -20,7 +21,7 @@ function FilmOverview({film}: FilmOverviewProps): JSX.Element {
 
         <p className="film-card__director"><strong>Director: {film.director}</strong></p>
 
-        <p className="film-card__starring"><strong>Starring: {film.actors}</strong></p>
+        <p className="film-card__starring"><strong>Starring: {formatOverviewActors(film.actors)}</strong></p>
       </div>
     </>
   );

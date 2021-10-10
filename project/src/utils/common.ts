@@ -11,3 +11,4 @@ export const getRandomItemFromArray = <T>(items: T[]): T => {
   const index = getRandomInteger(0, items.length - 1);
   return items[index];
 };
+

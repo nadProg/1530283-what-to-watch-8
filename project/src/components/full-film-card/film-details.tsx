@@ -1,5 +1,16 @@
 import { Fragment } from 'react';
 import type { Film } from '../../types/types';
+import { formatRuntime } from '../../utils/date';
+
+const formatOverviewActors = (actors: string[]) => actors.map((actor, index, array) => {
+  const key = `${actor}-${index}`;
+  const isNotLast = index < array.length - 1;
+  return (
+    <Fragment key={key}>
+      {actor}{isNotLast && <br/>}
+    </Fragment>
+  );
+});
 
 type FilmDetailsProps = {
   film: Film,
@@ -16,17 +27,7 @@ function FilmDetails({film}: FilmDetailsProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {
-              film.actors.map((actor, index, array) => {
-                const key = `${actor}-${index}`;
-                const isNotLast = index < array.length - 1;
-                return (
-                  <Fragment key={key}>
-                    {actor}{isNotLast && <br/>}
-                  </Fragment>
-                );
-              })
-            }
+            {formatOverviewActors(film.actors)}
           </span>
         </p>
       </div>
@@ -34,7 +35,7 @@ function FilmDetails({film}: FilmDetailsProps): JSX.Element {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{film.runTime}</span>
+          <span className="film-card__details-value">{formatRuntime(film.runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

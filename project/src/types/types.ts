@@ -1,5 +1,5 @@
 import { RouteProps } from 'react-router';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, RatingDescription } from '../const';
 
 export type Film = {
   id: number,
@@ -56,6 +56,10 @@ export type Params = {
   id: string
 }
 
+export type AuthorizationStatusType = typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
+
+export type RatingDescriptionType = typeof RatingDescription[keyof typeof RatingDescription];
+
 export type CustomRouteProps = RouteProps & {
-  authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus],
+  authorizationStatus: AuthorizationStatusType,
 }

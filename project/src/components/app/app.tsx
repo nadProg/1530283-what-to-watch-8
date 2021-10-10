@@ -16,6 +16,8 @@ type AppProps = {
 }
 
 function App({films}: AppProps): JSX.Element {
+  console.log(films);
+
   const authorizationStatus = AuthorizationStatus.Auth;
 
   const promoFilm = films[0];

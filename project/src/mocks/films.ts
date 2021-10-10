@@ -48,7 +48,7 @@ const films: Film[] = new Array(FILMS_COUNT).fill(null).map((item, index) => ({
   rating: getRandomItemFromArray(ratings),
   scoresCount: getRandomInteger(10, 300),
   director: getRandomItemFromArray(directors),
-  actors: shuffle(actors).slice(0, getRandomInteger(4, 8)),
+  actors: shuffle(actors).slice(0, getRandomInteger(2, 8)),
   runTime: getRandomInteger(30, 180),
   genre: getRandomItemFromArray(genres),
   released: getRandomInteger(1995, 2021),
