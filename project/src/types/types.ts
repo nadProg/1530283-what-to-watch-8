@@ -21,6 +21,20 @@ export type Film = {
   isFavorite: boolean,
 }
 
+export type CommentPost = {
+  rating: number,
+  comment: string,
+}
+
+export type CommentGet = CommentPost & {
+  id: number,
+  user: {
+    id: number,
+    name: string,
+  },
+  date: Date,
+}
+
 export type FilmsScreenProps = {
   getFilmById: (id: number) => Film,
   getSimilarFilms: () => Film[],
