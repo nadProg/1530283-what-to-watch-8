@@ -15,11 +15,11 @@ const posterImages = [
 
 const genres = ['Comedy', 'Western', 'Thriller', 'History', 'Comedy', 'Western', 'Thriller', 'History'];
 
-const ratings = [5.0, 7.1, 8.5, 6.6, 7.7, 8.5, 5.6, 8.8];
+const ratings = [5.0, 7.0, 8.0, 6.6, 7.7, 8.5, 5.6, 8.8];
 
 const years = [2018, 1998, 2005, 2015, 2018, 1995, 2020, 2001];
 
-const starring = ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'];
+const actors = ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'];
 
 const directors = ['Wes Anderson', 'James Cameron', 'Willem Dafoe', 'Saoirse Ronan', 'Edward Norton', 'Martin Scorsese', 'James Cameron', 'Edward Norton'];
 
@@ -36,7 +36,7 @@ const films: Film[] = new Array(filmsCount).fill(null).map((item, index) => ({
   rating: ratings[index],
   scoresCount: 240,
   director: directors[index],
-  starring,
+  actors,
   runTime: 99,
   genre: genres[index],
   released: years[index],

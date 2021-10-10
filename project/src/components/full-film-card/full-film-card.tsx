@@ -81,7 +81,7 @@ function FullFilmCard({film}: FullFilmCardProps): JSX.Element {
             {
               {
                 overview: <FilmOverview film={film} />,
-                details: <FilmDetails />,
+                details: <FilmDetails film={film} />,
                 reviews: <FilmReviews />,
               }[location.hash.slice(1)]
             }
