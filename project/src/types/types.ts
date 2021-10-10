@@ -35,11 +35,6 @@ export type CommentGet = CommentPost & {
   date: Date,
 }
 
-export type FilmsScreenProps = {
-  getFilmById: (id: number) => Film,
-  getSimilarFilms: () => Film[],
-}
-
 export type MyListScreenProps = {
   getFavoriteFilms: () => Film[],
 }

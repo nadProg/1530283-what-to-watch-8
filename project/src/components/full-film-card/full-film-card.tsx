@@ -1,5 +1,5 @@
 import { useHistory, Link, useLocation, Redirect } from 'react-router-dom';
-import type { Film } from '../../types/types';
+import type { CommentGet, Film } from '../../types/types';
 import { NavigationItem } from '../../const';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
@@ -10,9 +10,10 @@ import FilmReviews from './film-reviews';
 
 type FullFilmCardProps = {
   film: Film,
+  comments: CommentGet[];
 }
 
-function FullFilmCard({film}: FullFilmCardProps): JSX.Element {
+function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
   const history = useHistory();
   const location = useLocation();
 
@@ -82,7 +83,7 @@ function FullFilmCard({film}: FullFilmCardProps): JSX.Element {
               {
                 overview: <FilmOverview film={film} />,
                 details: <FilmDetails film={film} />,
-                reviews: <FilmReviews />,
+                reviews: <FilmReviews comments={comments} />,
               }[location.hash.slice(1)]
             }
 

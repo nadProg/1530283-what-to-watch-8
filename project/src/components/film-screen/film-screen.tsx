@@ -1,23 +1,28 @@
 import { useParams } from 'react-router-dom';
-import type { FilmsScreenProps, Params } from '../../types/types';
+import type { CommentGet, Film, Params } from '../../types/types';
 import FilmCardsList from '../films-list/films-list';
 import FullFilmCard from '../full-film-card/full-film-card';
 import Logo from '../logo/logo';
 
-function FilmScreen({getFilmById, getSimilarFilms}: FilmsScreenProps): JSX.Element {
+type FilmsScreenProps = {
+  getFilmById: (id: number) => Film,
+  getSimilarFilms: () => Film[],
+  getComments: () => CommentGet[],
+}
+function FilmScreen({getFilmById, getSimilarFilms, getComments}: FilmsScreenProps): JSX.Element {
   const { id } = useParams() as Params;
   const film = getFilmById(Number(id));
   const similarFilms = getSimilarFilms();
 
   return (
     <>
-      <FullFilmCard film={film} />
+      <FullFilmCard film={film} comments={getComments()} />
 
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmCardsList films={similarFilms} />
+          <FilmCardsList films={similarFilms}/>
         </section>
 
         <footer className="page-footer">
