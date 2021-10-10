@@ -36,3 +36,5 @@ export type CommentGet = CommentPost & {
 export type Params = {
   id: string
 }
+
+export type ValuesOf<T> = T[keyof T]

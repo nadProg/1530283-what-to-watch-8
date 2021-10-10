@@ -1,9 +1,10 @@
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { AuthorizationStatus, CustomRouteType, AppRoute } from '../../const';
+import type { ValuesOf } from '../../types/types';
 
 type CustomRouteProps = RouteProps & {
-  type: typeof CustomRouteType[keyof typeof CustomRouteType],
-  authorizationStatus:  typeof AuthorizationStatus[keyof typeof AuthorizationStatus],
+  type: ValuesOf<typeof CustomRouteType>,
+  authorizationStatus:  ValuesOf<typeof AuthorizationStatus>,
 }
 
 function CustomRoute({authorizationStatus, type, ...props}: CustomRouteProps): JSX.Element {

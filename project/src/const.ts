@@ -32,11 +32,11 @@ export const RatingDescription = {
 } as const;
 
 export const ratingDescriptionToUpperLimit: {
-  [key: string]: number
+  [key in keyof typeof RatingDescription]: number
 } = {
   Bad: 3,
   Normal: 5,
   Good: 8,
   VeryGood: 10,
   Awesome: Infinity,
-} as const;
+};
