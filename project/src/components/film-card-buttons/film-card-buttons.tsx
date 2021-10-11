@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type FilmCardButtonsProps = {
@@ -14,6 +14,14 @@ function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButton
     history.push(AppRoute.Player(filmId));
   };
 
+  const handleFavoriteButtonClick = () => {
+    // Обработка добавления в избранное
+  };
+
+  const handleAddReviewButtonClick = () => {
+    history.push(AppRoute.AddReview(filmId));
+  };
+
   return (
     <div className="film-card__buttons">
       <button className="btn btn--play film-card__button" type="button" onClick={handlePlayButtonClick}>
@@ -22,13 +30,18 @@ function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButton
         </svg>
         <span>Play</span>
       </button>
-      <button className="btn btn--list film-card__button" type="button">
+      <button className="btn btn--list film-card__button" type="button" onClick={handleFavoriteButtonClick}>
         <svg viewBox="0 0 19 20" width="19" height="20">
           <use xlinkHref={isFilmFavorite ? '#in-list' : '#add'}></use>
         </svg>
         <span>My list</span>
       </button>
-      {withAddReview && <Link to={AppRoute.Review(filmId)} className="btn film-card__button">Add review</Link>}
+      {
+        withAddReview &&
+        <button className="btn film-card__button" type="button" onClick={handleAddReviewButtonClick}>
+          <span>Add review</span>
+        </button>
+      }
     </div>
   );
 }

@@ -5,7 +5,7 @@ export const AppRoute = {
   Login: () => '/login',
   MyList: () => '/mylist',
   Film: (id:string | number = ':id') => `/films/${id}`,
-  Review: (id:string | number = ':id') => `/films/${id}/review`,
+  AddReview: (id:string | number = ':id') => `/films/${id}/review`,
   Player: (id:string | number = ':id') => `/player/${id}`,
 } as const;
 

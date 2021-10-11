@@ -54,7 +54,7 @@ function App({films, comments}: AppProps): JSX.Element {
         <CustomRoute path={AppRoute.MyList()} exact type={CustomRouteType.Private} authorizationStatus={authorizationStatus}>
           <MyListScreen getFavoriteFilms={getFavoriteFilms} />
         </CustomRoute>
-        <CustomRoute path={AppRoute.Review()} exact type={CustomRouteType.Private} authorizationStatus={authorizationStatus}>
+        <CustomRoute path={AppRoute.AddReview()} exact type={CustomRouteType.Private} authorizationStatus={authorizationStatus}>
           <AddReviewScreen getFilmById={getFilmById} />
         </CustomRoute>
         <Route>
