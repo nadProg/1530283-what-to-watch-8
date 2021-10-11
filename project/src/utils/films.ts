@@ -17,7 +17,7 @@ export const formatOverviewActors = (actors: string[]): string => {
 export const getRatingDescription = (rating:number): ValuesOf<typeof RatingDescription> => {
   const keys = Object.keys(RatingDescription).reverse() as Array<keyof typeof RatingDescription>;
   for (const key of keys) {
-    if (rating > ratingDescriptionToLowerLimit[key]) {
+    if (rating >= ratingDescriptionToLowerLimit[key]) {
       return RatingDescription[key];
     }
   }
