@@ -1,4 +1,4 @@
-import { RatingDescription, ratingDescriptionToUpperLimit } from '../const';
+import { RatingDescription, ratingDescriptionToLowerLimit } from '../const';
 import type { ValuesOf } from '../types/types';
 
 const MAX_OVERVIEW_ACTORS_COUNT = 4;
@@ -15,11 +15,12 @@ export const formatOverviewActors = (actors: string[]): string => {
 };
 
 export const getRatingDescription = (rating:number): ValuesOf<typeof RatingDescription> => {
-  for (const key of Object.keys(RatingDescription) as Array<keyof typeof RatingDescription>) {
-    if (rating <= ratingDescriptionToUpperLimit[key]) {
+  const keys = Object.keys(RatingDescription).reverse() as Array<keyof typeof RatingDescription>;
+  for (const key of keys) {
+    if (rating > ratingDescriptionToLowerLimit[key]) {
       return RatingDescription[key];
     }
   }
 
-  return RatingDescription.Normal;
+  return RatingDescription.Bad;
 };

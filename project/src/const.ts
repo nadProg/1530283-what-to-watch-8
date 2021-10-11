@@ -31,12 +31,12 @@ export const RatingDescription = {
   Awesome: 'Awesome',
 } as const;
 
-export const ratingDescriptionToUpperLimit: {
+export const ratingDescriptionToLowerLimit: {
   [key in keyof typeof RatingDescription]: number
 } = {
-  Bad: 3,
-  Normal: 5,
-  Good: 8,
-  VeryGood: 10,
-  Awesome: Infinity,
+  Bad: 0,
+  Normal: 3,
+  Good: 5,
+  VeryGood: 8,
+  Awesome: 10,
 };
