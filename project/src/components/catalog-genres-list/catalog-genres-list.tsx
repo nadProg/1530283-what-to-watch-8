@@ -1,36 +1,36 @@
-function CatalogGenresList(): JSX.Element {
+import { SyntheticEvent } from 'react';
+
+type CatalogGenresListProps = {
+  genres: string[],
+  activeGenre: string,
+  setActiveGenre: (genre: string) => void,
+}
+
+const BASE_CLASSNAME = 'catalog__genres-item';
+
+
+function CatalogGenresList({genres, activeGenre, setActiveGenre}: CatalogGenresListProps): JSX.Element {
+  const handleCatalogItemClick = (evt: SyntheticEvent<HTMLElement>) => {
+    evt.preventDefault();
+    const newActiveGenre = evt.currentTarget.dataset.value as string;
+    setActiveGenre(newActiveGenre);
+  };
+
   return (
     <ul className="catalog__genres-list">
-      <li className="catalog__genres-item catalog__genres-item--active">
-        <a href="#all-genres" className="catalog__genres-link">All genres</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#comedy" className="catalog__genres-link">Comedies</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#crime" className="catalog__genres-link">Crime</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#documentary" className="catalog__genres-link">Documentary</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#dramas" className="catalog__genres-link">Dramas</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#horror" className="catalog__genres-link">Horror</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#kids-n-family" className="catalog__genres-link">Kids & Family</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#romance" className="catalog__genres-link">Romance</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#sci-fi" className="catalog__genres-link">Sci-Fi</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="#thrillers" className="catalog__genres-link">Thrillers</a>
-      </li>
+      {
+        genres.map((genre) => {
+          const activeClassName = genre === activeGenre ? `${BASE_CLASSNAME}--active` : '';
+          const fullClassName = `${BASE_CLASSNAME} ${activeClassName}`;
+
+          return (
+            <li key={genre} className={fullClassName}>
+              <a href="#genre" className="catalog__genres-link" data-value={genre} onClick={handleCatalogItemClick}>{genre}</a>
+            </li>
+          );
+        },
+        )
+      }
     </ul>
   );
 }
