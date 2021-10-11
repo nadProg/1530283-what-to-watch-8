@@ -4,7 +4,7 @@ import { AppRoute } from '../../const';
 function UserBlock():JSX.Element {
   const history = useHistory();
   const handleAvatarClick = () => {
-    history.push(AppRoute.MyList);
+    history.push(AppRoute.MyList());
   };
 
   return (
@@ -15,7 +15,7 @@ function UserBlock():JSX.Element {
         </div>
       </li>
       <li className="user-block__item">
-        <Link to={AppRoute.Login} className="user-block__link">Sign out</Link>
+        <Link to={AppRoute.Login()} className="user-block__link">Sign out</Link>
       </li>
     </ul>
   );

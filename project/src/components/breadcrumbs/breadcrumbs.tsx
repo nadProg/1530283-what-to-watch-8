@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Film } from '../../types/types';
+import { AppRoute } from '../../const';
 
 type BreadcrumbsProps = {
   film: Film
@@ -10,7 +11,7 @@ function Breadcrumbs({film}: BreadcrumbsProps): JSX.Element {
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
+          <Link to={AppRoute.Film(film.id)} className="breadcrumbs__link">{film.name}</Link>
         </li>
         <li className="breadcrumbs__item">
           <a className="breadcrumbs__link">Add review</a>

@@ -1,10 +1,12 @@
+
+
 export const AppRoute = {
-  Root: '/',
-  Login: '/login',
-  MyList: '/mylist',
-  Film: '/films/:id',
-  Review: '/films/:id/review',
-  Player: '/player/:id',
+  Root: () => '/',
+  Login: () => '/login',
+  MyList: () => '/mylist',
+  Film: (id:string | number = ':id') => `/films/${id}`,
+  Review: (id:string | number = ':id') => `/films/${id}/review`,
+  Player: (id:string | number = ':id') => `/player/${id}`,
 } as const;
 
 export const AuthorizationStatus = {

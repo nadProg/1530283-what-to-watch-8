@@ -12,13 +12,13 @@ function CustomRoute({authorizationStatus, type, ...props}: CustomRouteProps): J
     case CustomRouteType.Private:
       return (
         <Route { ...props }>
-          { authorizationStatus === AuthorizationStatus.Auth ? props.children : <Redirect to={AppRoute.Login} />}
+          { authorizationStatus === AuthorizationStatus.Auth ? props.children : <Redirect to={AppRoute.Login()} />}
         </Route>
       );
     case CustomRouteType.Guest:
       return (
         <Route { ...props }>
-          { authorizationStatus === AuthorizationStatus.NotAuth ? props.children : <Redirect to={AppRoute.Root} />}
+          { authorizationStatus === AuthorizationStatus.NotAuth ? props.children : <Redirect to={AppRoute.Root()} />}
         </Route>
       );
     default:

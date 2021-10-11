@@ -39,22 +39,22 @@ function App({films, comments}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={AppRoute.Root} exact>
+        <Route path={AppRoute.Root()} exact>
           <MainScreen promoFilm={promoFilm} films={films} />
         </Route>
-        <Route path={AppRoute.Film} exact>
+        <Route path={AppRoute.Film()} exact>
           <FilmScreen getFilmById={getFilmById} getComments={getComments} getSimilarFilms={getSimilarFilms} />
         </Route>
-        <Route path={AppRoute.Player} exact>
+        <Route path={AppRoute.Player()} exact>
           <PlayerScreen getFilmById={getFilmById} />
         </Route>
-        <CustomRoute path={AppRoute.Login} exact type={CustomRouteType.Guest} authorizationStatus={authorizationStatus}>
+        <CustomRoute path={AppRoute.Login()} exact type={CustomRouteType.Guest} authorizationStatus={authorizationStatus}>
           <LoginScreen />
         </CustomRoute>
-        <CustomRoute path={AppRoute.MyList} exact type={CustomRouteType.Private} authorizationStatus={authorizationStatus}>
+        <CustomRoute path={AppRoute.MyList()} exact type={CustomRouteType.Private} authorizationStatus={authorizationStatus}>
           <MyListScreen getFavoriteFilms={getFavoriteFilms} />
         </CustomRoute>
-        <CustomRoute path={AppRoute.Review} exact type={CustomRouteType.Private} authorizationStatus={authorizationStatus}>
+        <CustomRoute path={AppRoute.Review()} exact type={CustomRouteType.Private} authorizationStatus={authorizationStatus}>
           <AddReviewScreen getFilmById={getFilmById} />
         </CustomRoute>
         <Route>

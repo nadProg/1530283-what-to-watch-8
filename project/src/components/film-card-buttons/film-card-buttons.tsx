@@ -1,4 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type FilmCardButtonsProps = {
   filmId: number,
@@ -10,7 +11,7 @@ function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButton
   const history = useHistory();
 
   const handlePlayButtonClick = () => {
-    history.push(`/player/${filmId}`);
+    history.push(AppRoute.Player(filmId));
   };
 
   return (
@@ -27,7 +28,7 @@ function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButton
         </svg>
         <span>My list</span>
       </button>
-      {withAddReview && <Link to={`/films/${filmId}/review`} className="btn film-card__button">Add review</Link>}
+      {withAddReview && <Link to={AppRoute.Review(filmId)} className="btn film-card__button">Add review</Link>}
     </div>
   );
 }

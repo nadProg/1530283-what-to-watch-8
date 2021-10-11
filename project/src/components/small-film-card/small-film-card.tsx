@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Film } from '../../types/types';
+import { AppRoute } from '../../const';
 
 type SmallFilmCardProps = {
   film: Film,
@@ -21,7 +22,7 @@ function SmallFilmCard({film, setActiveFilm}: SmallFilmCardProps): JSX.Element {
         <img src={film.posterImage} alt={film.name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/films/${film.id}`} className="small-film-card__link" href="film-page.html">{film.name}</Link>
+        <Link to={AppRoute.Film(film.id)} className="small-film-card__link" href="film-page.html">{film.name}</Link>
       </h3>
     </article>
   );
