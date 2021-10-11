@@ -1,5 +1,5 @@
 import { useLocation, Redirect } from 'react-router-dom';
-import type { CommentGet, Film } from '../../types/types';
+import type { CommentGet, Film, ValuesOf } from '../../types/types';
 import { NavigationItem } from '../../const';
 import FilmCardBackground from '../film-card-background/film-card-background';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
@@ -19,13 +19,23 @@ type FullFilmCardProps = {
 function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
   const location = useLocation();
 
-  const currentNavigationItem = location.hash.slice(1);
+  const parsedNavigationItem = location.hash.slice(1);
   const isNavigationCorrect = Object.values(NavigationItem)
-    .some((navigationItem) => navigationItem === currentNavigationItem);
+    .some((navigationItem) => navigationItem === parsedNavigationItem);
 
   if (!isNavigationCorrect) {
     return <Redirect to={`${location.pathname}#${NavigationItem.Overview}`} />;
   }
+
+  const currentNavigationItem = parsedNavigationItem as ValuesOf<typeof NavigationItem>;
+
+  const navigationItemToContent: {
+    [key in ValuesOf<typeof NavigationItem>]: JSX.Element
+  } = {
+    [NavigationItem.Details]: <FilmCardDetails film={film} />,
+    [NavigationItem.Overview]: <FilmCardOverview film={film} />,
+    [NavigationItem.Reviews]: <FilmCardReviews comments={comments} />,
+  };
 
   return (
     <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
@@ -53,13 +63,7 @@ function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
           <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} big />
           <div className="film-card__desc">
             <FilmCardNavigation />
-            {
-              {
-                details: <FilmCardDetails film={film} />,
-                overview: <FilmCardOverview film={film} />,
-                reviews: <FilmCardReviews comments={comments} />,
-              }[location.hash.slice(1)]
-            }
+            { navigationItemToContent[currentNavigationItem] }
           </div>
         </div>
       </div>
