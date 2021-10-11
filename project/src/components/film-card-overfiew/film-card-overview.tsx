@@ -5,7 +5,7 @@ type FilmOverviewProps = {
   film: Film,
 }
 
-function FilmOverview({film}: FilmOverviewProps): JSX.Element {
+function FilmCardOverview({film}: FilmOverviewProps): JSX.Element {
   return (
     <>
       <div className="film-rating">
@@ -18,13 +18,11 @@ function FilmOverview({film}: FilmOverviewProps): JSX.Element {
 
       <div className="film-card__text">
         <p>{film.description}</p>
-
         <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
         <p className="film-card__starring"><strong>Starring: {formatOverviewActors(film.actors)}</strong></p>
       </div>
     </>
   );
 }
 
-export default FilmOverview;
+export default FilmCardOverview;

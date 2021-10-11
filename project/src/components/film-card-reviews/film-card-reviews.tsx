@@ -6,7 +6,7 @@ type FilmReviewsProps = {
   comments: CommentGet[],
 }
 
-function FilmReviews({comments}: FilmReviewsProps): JSX.Element {
+function FilmCardReviews({comments}: FilmReviewsProps): JSX.Element {
   const reviews = comments.map((comment) => <Review key={comment.id} comment={comment} />);
   const [ leftReviews, rightReviews ] = splitArrayInTwo(reviews);
 
@@ -22,4 +22,4 @@ function FilmReviews({comments}: FilmReviewsProps): JSX.Element {
   );
 }
 
-export default FilmReviews;
+export default FilmCardReviews;

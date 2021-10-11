@@ -1,8 +1,9 @@
-import FilmCardsList from '../films-list/films-list';
 import type { Film } from '../../types/types';
-import Footer from '../ui/footer/footer';
+import PageFooter from '../page-footer/page-footer';
 import PromoFilmCard from '../promo-film-card/promo-film-card';
-import GenreFilter from '../genre-filter/genre-filter';
+import CatalogGenresList from '../catalog-genres-list/catalog-genres-list';
+import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
+import CatalogMoreButton from '../catalog-more-button/catalog-more-button';
 
 type MainScreenProps = {
   promoFilm: Film,
@@ -13,21 +14,14 @@ function MainScreen({promoFilm, films}: MainScreenProps): JSX.Element {
   return (
     <>
       <PromoFilmCard film={promoFilm} />
-
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-          <GenreFilter />
-
-          <FilmCardsList films={films} />
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <CatalogGenresList />
+          <CatalogFilmsList films={films} />
+          <CatalogMoreButton />
         </section>
-
-        <Footer />
+        <PageFooter />
       </div>
     </>
   );

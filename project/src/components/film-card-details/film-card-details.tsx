@@ -16,7 +16,7 @@ type FilmDetailsProps = {
   film: Film,
 }
 
-function FilmDetails({film}: FilmDetailsProps): JSX.Element {
+function FilmCardDetails({film}: FilmDetailsProps): JSX.Element {
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">
@@ -50,4 +50,4 @@ function FilmDetails({film}: FilmDetailsProps): JSX.Element {
   );
 }
 
-export default FilmDetails;
+export default FilmCardDetails;

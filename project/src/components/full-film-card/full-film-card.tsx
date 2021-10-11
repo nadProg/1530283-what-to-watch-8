@@ -1,15 +1,15 @@
 import { useLocation, Redirect } from 'react-router-dom';
 import type { CommentGet, Film } from '../../types/types';
 import { NavigationItem } from '../../const';
-import FilmCardBackground from '../ui/film-card-background/film-card-background';
-import FilmCardPoster from '../ui/film-card-poster/film-card-poster';
-import Logo from '../ui/logo/logo';
+import FilmCardBackground from '../film-card-background/film-card-background';
+import FilmCardPoster from '../film-card-poster/film-card-poster';
+import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import FilmCardButtons from '../film-card-buttons/film-card-buttons';
-import FilmNavigation from './film-navigation';
-import FilmOverview from './film-overview';
-import FilmDetails from './film-details';
-import FilmReviews from './film-reviews';
+import FilmCardNavigation from '../film-card-navigation/film-card-navigation';
+import FilmCardOverview from '../film-card-overfiew/film-card-overview';
+import FilmCardDetails from '../film-card-details/film-card-details';
+import FilmCardReviews from '../film-card-reviews/film-card-reviews';
 
 type FullFilmCardProps = {
   film: Film,
@@ -31,14 +31,11 @@ function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
     <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
       <div className="film-card__hero">
         <FilmCardBackground src={film.backgroundImage} alt={film.name} />
-
         <h1 className="visually-hidden">WTW</h1>
-
         <header className="page-header film-card__head">
           <Logo />
           <UserBlock />
         </header>
-
         <div className="film-card__wrap">
           <div className="film-card__desc">
             <h2 className="film-card__title">{film.name}</h2>
@@ -46,7 +43,6 @@ function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
               <span className="film-card__genre">{film.genre}</span>
               <span className="film-card__year">{film.released}</span>
             </p>
-
             <FilmCardButtons filmId={film.id} isFilmFavorite={film.isFavorite} withAddReview />
           </div>
         </div>
@@ -55,14 +51,13 @@ function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
       <div className="film-card__wrap film-card__translate-top">
         <div className="film-card__info">
           <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} big />
-
           <div className="film-card__desc">
-            <FilmNavigation />
+            <FilmCardNavigation />
             {
               {
-                details: <FilmDetails film={film} />,
-                overview: <FilmOverview film={film} />,
-                reviews: <FilmReviews comments={comments} />,
+                details: <FilmCardDetails film={film} />,
+                overview: <FilmCardOverview film={film} />,
+                reviews: <FilmCardReviews comments={comments} />,
               }[location.hash.slice(1)]
             }
           </div>

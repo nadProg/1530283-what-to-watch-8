@@ -1,5 +1,5 @@
-import Logo from '../ui/logo/logo';
-import Footer from '../ui/footer/footer';
+import Logo from '../logo/logo';
+import PageFooter from '../page-footer/page-footer';
 
 function LoginScreen(): JSX.Element {
   return (
@@ -28,7 +28,7 @@ function LoginScreen(): JSX.Element {
         </form>
       </div>
 
-      <Footer />
+      <PageFooter />
     </div>
   );
 }

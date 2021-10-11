@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 import type { CommentGet, Film, Params } from '../../types/types';
-import FilmCardsList from '../films-list/films-list';
+import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
 import FullFilmCard from '../full-film-card/full-film-card';
-import Footer from '../ui/footer/footer';
+import PageFooter from '../page-footer/page-footer';
 
 type FilmsScreenProps = {
   getFilmById: (id: number) => Film,
@@ -17,15 +17,12 @@ function FilmScreen({getFilmById, getSimilarFilms, getComments}: FilmsScreenProp
   return (
     <>
       <FullFilmCard film={film} comments={getComments()} />
-
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <FilmCardsList films={similarFilms}/>
+          <CatalogFilmsList films={similarFilms}/>
         </section>
-
-        <Footer />
+        <PageFooter />
       </div>
     </>
   );

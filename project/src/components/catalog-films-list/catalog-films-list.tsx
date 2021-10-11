@@ -2,11 +2,11 @@ import { useState } from 'react';
 import type { Film } from '../../types/types';
 import SmallFilmCard from '../small-film-card/small-film-card';
 
-type FilmCardsListProps = {
+type CatalogFilmsListProps = {
   films: Film[];
 }
 
-function FilmCardsList({films}: FilmCardsListProps): JSX.Element {
+function CatalogFilmsList({films}: CatalogFilmsListProps): JSX.Element {
   const [ , setActiveFilm ] = useState<Film | null>(null);
 
   const changeActiveFilm = (film: Film | null) => {
@@ -20,6 +20,6 @@ function FilmCardsList({films}: FilmCardsListProps): JSX.Element {
   );
 }
 
-export default FilmCardsList;
+export default CatalogFilmsList;
 
 

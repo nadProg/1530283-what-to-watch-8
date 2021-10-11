@@ -3,7 +3,7 @@ import { NavigationItem } from '../../const';
 
 const BASE_CLASSNAME = 'film-nav__item';
 
-function FilmNavigation(): JSX.Element {
+function FilmCardNavigation(): JSX.Element {
   const location = useLocation();
 
   return (
@@ -28,4 +28,4 @@ function FilmNavigation(): JSX.Element {
   );
 }
 
-export default FilmNavigation;
+export default FilmCardNavigation;

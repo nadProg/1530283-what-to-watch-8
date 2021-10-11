@@ -1,4 +1,4 @@
-function GenreFilter(): JSX.Element {
+function CatalogGenresList(): JSX.Element {
   return (
     <ul className="catalog__genres-list">
       <li className="catalog__genres-item catalog__genres-item--active">
@@ -35,4 +35,4 @@ function GenreFilter(): JSX.Element {
   );
 }
 
-export default GenreFilter;
+export default CatalogGenresList;
