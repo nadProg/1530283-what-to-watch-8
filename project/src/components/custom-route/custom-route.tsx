@@ -1,6 +1,7 @@
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { AuthorizationStatus, CustomRouteType, AppRoute } from '../../const';
 import type { ValuesOf } from '../../types/types';
+import { isAllCasesChecked } from '../../utils/common';
 
 type CustomRouteProps = RouteProps & {
   type: ValuesOf<typeof CustomRouteType>,
@@ -21,9 +22,9 @@ function CustomRoute({authorizationStatus, type, ...props}: CustomRouteProps): J
           { authorizationStatus === AuthorizationStatus.NotAuth ? props.children : <Redirect to={AppRoute.Root()} />}
         </Route>
       );
-    default:
-      throw new Error(`Type ${type} of CustomRoute does not exist!`);
   }
+
+  isAllCasesChecked(type);
 }
 
 export default CustomRoute;

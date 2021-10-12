@@ -16,3 +16,7 @@ export const splitArrayInTwo = <T>(items: T[]): [T[], T[]] => {
   const middleIndex = Math.ceil(items.length / 2);
   return [ items.slice(0, middleIndex), items.slice(middleIndex)];
 };
+
+export const isAllCasesChecked = (argument: never): never => {
+  throw new Error('Not all cases was checked');
+};
