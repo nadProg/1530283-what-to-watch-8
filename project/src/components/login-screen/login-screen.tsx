@@ -1,4 +1,5 @@
 import Logo from '../logo/logo';
+import PageFooter from '../page-footer/page-footer';
 
 function LoginScreen(): JSX.Element {
   return (
@@ -27,13 +28,7 @@ function LoginScreen(): JSX.Element {
         </form>
       </div>
 
-      <footer className="page-footer">
-        <Logo theme="light" />
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <PageFooter />
     </div>
   );
 }
