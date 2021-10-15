@@ -6,6 +6,7 @@ import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
 import CatalogMoreButton from '../catalog-more-button/catalog-more-button';
 import { getGenresList, ALL_GENRES } from '../../utils/genres';
 import { useState } from 'react';
+import Catalog from '../catalog/catalog';
 
 type MainScreenProps = {
   promoFilm: Film,
@@ -20,12 +21,11 @@ function MainScreen({promoFilm, films}: MainScreenProps): JSX.Element {
     <>
       <PromoFilmCard film={promoFilm} />
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
+        <Catalog hiddenTitle="Catalog">
           <CatalogGenresList genres={genres} activeGenre={activeGenre} setActiveGenre={setActiveGenre} />
           <CatalogFilmsList films={films} />
           <CatalogMoreButton />
-        </section>
+        </Catalog>
         <PageFooter />
       </div>
     </>

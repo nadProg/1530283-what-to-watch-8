@@ -32,7 +32,10 @@ function App({films, comments}: AppProps): JSX.Element {
 
   const getComments = () => comments.slice();
 
-  const getSimilarFilms = () => films.slice().sort(() => Math.random() - 0.5).slice(0, 4);
+  const getSimilarFilms = (id: number) => {
+    const referenceFilm = getFilmById(id);
+    return films.filter((film) => film.id !== id && film.genre === referenceFilm.genre);
+  };
 
   const getFavoriteFilms = () => films.filter((film) => film.isFavorite);
 
