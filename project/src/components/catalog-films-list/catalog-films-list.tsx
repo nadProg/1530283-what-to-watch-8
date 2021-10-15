@@ -8,7 +8,7 @@ type CatalogFilmsListProps = {
 function CatalogFilmsList({films}: CatalogFilmsListProps): JSX.Element {
   return (
     <div className="catalog__films-list">
-      {films.map((film) => <SmallFilmCard key={film.id} film={film} />)}
+      {films.map((film) => <SmallFilmCard key={film.id} film={film} className="catalog__films-card" />)}
     </div>
   );
 }

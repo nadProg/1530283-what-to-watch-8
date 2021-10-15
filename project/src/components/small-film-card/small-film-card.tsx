@@ -2,23 +2,24 @@ import { Link, useHistory } from 'react-router-dom';
 import type { Film } from '../../types/types';
 import { AppRoute } from '../../constants';
 import { useEffect, useState, useRef } from 'react';
+import SmallFilmCardVideo from '../small-film-card-video/small-film-card-video';
+import SmallFilmCardImage from '../small-film-card-image/small-film-card-image';
+
+const BASE_CLASSNAME = 'small-film-card';
 
 const HOVER_DELAY = 1000;
 
-const VIDEO_WRAPPER_STYLES = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
 type SmallFilmCardProps = {
   film: Film,
+  className?: string;
 }
 
-function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
+function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
   const timer = useRef<NodeJS.Timeout | null>(null);
   const [ isHovered, setHovered ] = useState(false);
   const [ isDelayedHovered, setDelayedHovered ] = useState(false);
+
+  const fullClassName = `${BASE_CLASSNAME} ${className}`.trim();
 
   const history = useHistory();
 
@@ -56,15 +57,11 @@ function SmallFilmCard({film}: SmallFilmCardProps): JSX.Element {
   }, [isHovered]);
 
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onClick={() => history.push(AppRoute.Film(film.id))}>
+    <article className={fullClassName} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onClick={() => history.push(AppRoute.Film(film.id))}>
       {
         isDelayedHovered ?
-          <div style={VIDEO_WRAPPER_STYLES}>
-            <video src={film.previewVideoLink} autoPlay muted poster={film.previewImage} width="280" height="175" style={{objectFit: 'cover'}} />
-          </div> :
-          <div className="small-film-card__image">
-            <img src={film.posterImage} alt={film.name} width="280" height="175" />
-          </div>
+          <SmallFilmCardVideo src={film.previewVideoLink} poster={film.previewImage} /> :
+          <SmallFilmCardImage src={film.previewImage} alt={film.name} />
       }
       <h3 className="small-film-card__title">
         <Link to={AppRoute.Film(film.id)} className="small-film-card__link" href="film-page.html">{film.name}</Link>
