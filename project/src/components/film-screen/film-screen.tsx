@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import type { CommentGet, Film, Params } from '../../types/types';
+import type { CommentGet, Film, ParamsWithId } from '../../types/types';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
 import FullFilmCard from '../full-film-card/full-film-card';
 import PageFooter from '../page-footer/page-footer';
@@ -10,7 +10,7 @@ type FilmsScreenProps = {
   getComments: () => CommentGet[],
 }
 function FilmScreen({getFilmById, getSimilarFilms, getComments}: FilmsScreenProps): JSX.Element {
-  const { id } = useParams() as Params;
+  const { id } = useParams() as ParamsWithId;
   const film = getFilmById(Number(id));
   const similarFilms = getSimilarFilms();
 

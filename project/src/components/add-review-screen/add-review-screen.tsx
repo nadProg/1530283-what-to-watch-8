@@ -5,14 +5,14 @@ import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import AddReviewForm from '../add-review-form/add-review-form';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import type { Film, Params } from '../../types/types';
+import type { Film, ParamsWithId } from '../../types/types';
 
 export type AddReviewScreenProps = {
   getFilmById: (id: number) => Film,
 }
 
 function AddReviewScreen({getFilmById}: AddReviewScreenProps): JSX.Element {
-  const { id } = useParams() as Params;
+  const { id } = useParams() as ParamsWithId;
   const film = getFilmById(Number(id));
 
   return (
