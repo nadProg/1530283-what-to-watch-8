@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../constants';
 
 type FilmCardButtonsProps = {
   filmId: number,

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { NavigationItem } from '../../const';
+import { NavigationItem } from '../../constants';
 
 const BASE_CLASSNAME = 'film-nav__item';
 

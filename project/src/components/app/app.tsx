@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import type { Film, CommentGet } from '../../types/types';
-import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../const';
+import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
 import CustomRoute from '../custom-route/custom-route';
 import MainScreen from '../main-screen/main-screen';
 import FilmScreen from '../film-screen/film-screen';

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Film } from '../../types/types';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../constants';
 
 type SmallFilmCardProps = {
   film: Film,
