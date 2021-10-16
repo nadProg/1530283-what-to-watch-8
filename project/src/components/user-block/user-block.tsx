@@ -1,5 +1,5 @@
 import { useHistory, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute } from '../../constants';
 
 function UserBlock():JSX.Element {
   const history = useHistory();

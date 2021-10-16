@@ -1,4 +1,4 @@
-import { RatingDescription, ratingDescriptionToLowerLimit } from '../const';
+import { RatingDescription, ratingDescriptionToLowerLimit } from '../constants';
 import type { ValuesOf } from '../types/types';
 
 const MAX_OVERVIEW_ACTORS_COUNT = 4;

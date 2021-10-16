@@ -3,6 +3,7 @@ import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
 import PageFooter from '../page-footer/page-footer';
+import Catalog from '../catalog/catalog';
 
 export type MyListScreenProps = {
   getFavoriteFilms: () => Film[],
@@ -18,10 +19,9 @@ function MyListScreen({getFavoriteFilms}: MyListScreenProps): JSX.Element {
         <h1 className="page-title user-page__title">My list</h1>
         <UserBlock />
       </header>
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
+      <Catalog hiddenTitle="Catalog">
         <CatalogFilmsList films={favoriteFilms} />
-      </section>
+      </Catalog>
       <PageFooter />
     </div>
   );

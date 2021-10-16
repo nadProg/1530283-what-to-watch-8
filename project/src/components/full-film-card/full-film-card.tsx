@@ -1,6 +1,6 @@
 import { useLocation, Redirect } from 'react-router-dom';
 import type { CommentGet, Film, ValuesOf } from '../../types/types';
-import { NavigationItem } from '../../const';
+import { NavigationItem } from '../../constants';
 import FilmCardBackground from '../film-card-background/film-card-background';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import Logo from '../logo/logo';

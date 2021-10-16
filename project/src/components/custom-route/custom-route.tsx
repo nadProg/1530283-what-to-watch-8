@@ -1,5 +1,5 @@
 import { Redirect, Route, RouteProps } from 'react-router-dom';
-import { AuthorizationStatus, CustomRouteType, AppRoute } from '../../const';
+import { AuthorizationStatus, CustomRouteType, AppRoute } from '../../constants';
 import type { ValuesOf } from '../../types/types';
 import { isAllCasesChecked } from '../../utils/common';
 

@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import type { Film, CommentGet } from '../../types/types';
-import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../const';
+import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
 import CustomRoute from '../custom-route/custom-route';
 import MainScreen from '../main-screen/main-screen';
 import FilmScreen from '../film-screen/film-screen';
@@ -32,7 +32,10 @@ function App({films, comments}: AppProps): JSX.Element {
 
   const getComments = () => comments.slice();
 
-  const getSimilarFilms = () => films.slice().sort(() => Math.random() - 0.5).slice(0, 4);
+  const getSimilarFilms = (id: number) => {
+    const referenceFilm = getFilmById(id);
+    return films.filter((film) => film.id !== id && film.genre === referenceFilm.genre);
+  };
 
   const getFavoriteFilms = () => films.filter((film) => film.isFavorite);
 
