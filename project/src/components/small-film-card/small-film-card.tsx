@@ -3,6 +3,7 @@ import type { Film } from '../../types/types';
 import { AppRoute } from '../../constants';
 import { useEffect, useState, useRef } from 'react';
 import SmallFilmCardVideo from '../small-film-card-video/small-film-card-video';
+import { joinStrings } from '../../utils/common';
 
 const BASE_CLASSNAME = 'small-film-card';
 
@@ -18,7 +19,7 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
   const [ isHovered, setHovered ] = useState(false);
   const [ isDelayedHovered, setDelayedHovered ] = useState(false);
 
-  const fullClassName = `${BASE_CLASSNAME} ${className}`.trim();
+  const fullClassName = className ? joinStrings(BASE_CLASSNAME, className) : BASE_CLASSNAME;
 
   const history = useHistory();
 

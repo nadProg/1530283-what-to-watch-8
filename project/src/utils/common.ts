@@ -20,3 +20,5 @@ export const splitArrayInTwo = <T>(items: T[]): [T[], T[]] => {
 export const isAllCasesChecked = (argument: never): never => {
   throw new Error('Not all cases was checked');
 };
+
+export const joinStrings = (...strings: string[]): string => strings.join(' ').trim();

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { joinStrings } from '../../utils/common';
 
 const BASE_CLASS = 'logo__link';
 
@@ -8,7 +9,7 @@ type LogoProps = {
 
 function Logo({ footer }: LogoProps): JSX.Element {
   const themedClassName = footer ? `${BASE_CLASS}--light` : '';
-  const fullClassName = `${BASE_CLASS} ${themedClassName}`;
+  const fullClassName = joinStrings(BASE_CLASS, themedClassName);
 
   return (
     <div className="logo">

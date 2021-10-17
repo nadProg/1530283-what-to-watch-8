@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { NavigationItem } from '../../constants';
+import { joinStrings } from '../../utils/common';
 
 const BASE_CLASSNAME = 'film-nav__item';
 
@@ -12,7 +13,7 @@ function FilmCardNavigation(): JSX.Element {
         {
           Object.values(NavigationItem).map((navigationItem) => {
             const activeClassname = location.hash.slice(1) === navigationItem ? `${BASE_CLASSNAME}--active` : '';
-            const fullClassname = `${BASE_CLASSNAME} ${activeClassname}`;
+            const fullClassname = joinStrings(BASE_CLASSNAME, activeClassname);
             const path = `${location.pathname}#${navigationItem}`;
             const caption = `${navigationItem[0].toUpperCase()}${navigationItem.slice(1)}`;
 

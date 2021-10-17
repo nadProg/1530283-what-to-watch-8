@@ -1,4 +1,5 @@
 import { SyntheticEvent } from 'react';
+import { joinStrings } from '../../utils/common';
 
 type CatalogGenresListProps = {
   genres: string[],
@@ -21,7 +22,7 @@ function CatalogGenresList({genres, activeGenre, setActiveGenre}: CatalogGenresL
       {
         genres.map((genre) => {
           const activeClassName = genre === activeGenre ? `${BASE_CLASSNAME}--active` : '';
-          const fullClassName = `${BASE_CLASSNAME} ${activeClassName}`;
+          const fullClassName = joinStrings(BASE_CLASSNAME, activeClassName);
 
           return (
             <li key={genre} className={fullClassName}>

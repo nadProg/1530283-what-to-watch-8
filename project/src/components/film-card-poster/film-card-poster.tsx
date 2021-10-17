@@ -1,3 +1,5 @@
+import { joinStrings } from '../../utils/common';
+
 type FilmCardBackgroundProps = {
   src: string,
   alt: string,
@@ -18,7 +20,7 @@ function FilmCardBackground({src, alt, small, big}: FilmCardBackgroundProps): JS
     sizedClassName = `${BASE_CLASSNAME}--big`;
   }
 
-  const fullClassName = `${BASE_CLASSNAME} ${sizedClassName}`;
+  const fullClassName = joinStrings(BASE_CLASSNAME, sizedClassName);
 
   return (
     <div className={fullClassName}>
