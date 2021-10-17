@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom';
+import type { Film, ParamsWithId } from '../../types/types';
 import FilmCardBackground from '../film-card-background/film-card-background';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import AddReviewForm from '../add-review-form/add-review-form';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import type { Film, ParamsWithId } from '../../types/types';
+import PageHeader from '../page-header/page-header';
 import PageTitle from '../page-title/page-title';
 
 export type AddReviewScreenProps = {
@@ -21,11 +22,11 @@ function AddReviewScreen({getFilmById}: AddReviewScreenProps): JSX.Element {
       <div className="film-card__header">
         <FilmCardBackground src={film.backgroundImage} alt={film.name} />
         <PageTitle hidden>WTW</PageTitle>
-        <header className="page-header">
+        <PageHeader>
           <Logo />
           <Breadcrumbs film={film} />
           <UserBlock />
-        </header>
+        </PageHeader>
         <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} small />
       </div>
       <AddReviewForm />

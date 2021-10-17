@@ -5,6 +5,7 @@ import UserBlock from '../user-block/user-block';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import FilmCardButtons from '../film-card-buttons/film-card-buttons';
 import PageTitle from '../page-title/page-title';
+import PageHeader from '../page-header/page-header';
 
 type PromoFilmCardProps = {
   film: Film,
@@ -15,10 +16,10 @@ function PromoFilmCard({film}: PromoFilmCardProps): JSX.Element {
     <section className="film-card">
       <FilmCardBackground src={film.backgroundImage} alt={film.name} />
       <PageTitle hidden>WTW</PageTitle>
-      <header className="page-header film-card__head">
+      <PageHeader className="film-card__head">
         <Logo />
         <UserBlock />
-      </header>
+      </PageHeader>
       <div className="film-card__wrap">
         <div className="film-card__info">
           <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} />

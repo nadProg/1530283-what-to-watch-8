@@ -6,7 +6,7 @@ type PageTitleProps = {
   className?: string,
 }
 
-function PageTitle({className, children, hidden = false}:PageTitleProps): JSX.Element {
+function PageTitle({className, children, hidden = false}: PageTitleProps): JSX.Element {
   const baseClassName = hidden ? 'visually-hidden' : 'page-title';
   const fullClassName = className ? joinStrings(baseClassName, className) : baseClassName;
 
