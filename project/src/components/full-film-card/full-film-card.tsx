@@ -64,7 +64,7 @@ function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
         <div className="film-card__info">
           <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} big />
           <div className="film-card__desc">
-            <FilmCardNavigation />
+            <FilmCardNavigation className="film-card__nav" />
             { navigationItemToContent[currentNavigationItem] }
           </div>
         </div>
