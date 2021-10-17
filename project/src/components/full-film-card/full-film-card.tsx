@@ -10,6 +10,7 @@ import FilmCardNavigation from '../film-card-navigation/film-card-navigation';
 import FilmCardOverview from '../film-card-overfiew/film-card-overview';
 import FilmCardDetails from '../film-card-details/film-card-details';
 import FilmCardReviews from '../film-card-reviews/film-card-reviews';
+import PageTitle from '../page-title/page-title';
 
 type FullFilmCardProps = {
   film: Film,
@@ -41,7 +42,7 @@ function FullFilmCard({film, comments}: FullFilmCardProps): JSX.Element {
     <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
       <div className="film-card__hero">
         <FilmCardBackground src={film.backgroundImage} alt={film.name} />
-        <h1 className="visually-hidden">WTW</h1>
+        <PageTitle hidden>WTW</PageTitle>
         <header className="page-header film-card__head">
           <Logo />
           <UserBlock />

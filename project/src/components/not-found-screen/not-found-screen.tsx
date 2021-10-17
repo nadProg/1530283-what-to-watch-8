@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import PageTitle from '../page-title/page-title';
 
 function NotFoundScreen(): JSX.Element {
   return (
     <section>
-      <h1>This page does not exist</h1>
+      <PageTitle>This page does not exist</PageTitle>
       <Link to="/">Go to main page</Link>
     </section>
   );

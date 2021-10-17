@@ -6,6 +6,7 @@ import UserBlock from '../user-block/user-block';
 import AddReviewForm from '../add-review-form/add-review-form';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import type { Film, ParamsWithId } from '../../types/types';
+import PageTitle from '../page-title/page-title';
 
 export type AddReviewScreenProps = {
   getFilmById: (id: number) => Film,
@@ -19,7 +20,7 @@ function AddReviewScreen({getFilmById}: AddReviewScreenProps): JSX.Element {
     <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
       <div className="film-card__header">
         <FilmCardBackground src={film.backgroundImage} alt={film.name} />
-        <h1 className="visually-hidden">WTW</h1>
+        <PageTitle hidden>WTW</PageTitle>
         <header className="page-header">
           <Logo />
           <Breadcrumbs film={film} />

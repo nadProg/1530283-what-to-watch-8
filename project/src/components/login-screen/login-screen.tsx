@@ -1,13 +1,13 @@
 import Logo from '../logo/logo';
 import PageFooter from '../page-footer/page-footer';
+import PageTitle from '../page-title/page-title';
 
 function LoginScreen(): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <Logo />
-
-        <h1 className="page-title user-page__title">Sign in</h1>
+        <PageTitle className="user-page__title">Sign in</PageTitle>
       </header>
 
       <div className="sign-in user-page__content">
