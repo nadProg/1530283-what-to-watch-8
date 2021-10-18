@@ -52,7 +52,7 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
     }, HOVER_DELAY);
 
     return clearTimer;
-  }, [isHovered]);
+  }, [isDelayedHovered, isHovered]);
 
   return (
     <article
