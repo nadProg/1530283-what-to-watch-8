@@ -17,7 +17,7 @@ export const CustomRouteType = {
   Private: 'PRIVATE',
 } as const;
 
-export const NavigationItem = {
+export const FilmCardTab = {
   Overview: 'overview',
   Details: 'details',
   Reviews: 'reviews',
