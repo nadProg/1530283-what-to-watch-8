@@ -1,4 +1,4 @@
-import { joinStrings } from '../../utils/common';
+import classNames from 'classnames';
 
 const BASE_CLASSNAME = 'page-header';
 
@@ -8,9 +8,7 @@ type PageHeaderProps = {
 }
 
 function PageHeader({className, children}: PageHeaderProps): JSX.Element {
-  const fullClassName = className ? joinStrings(BASE_CLASSNAME, className) : BASE_CLASSNAME;
-
-  return <header className={fullClassName}>{children}</header>;
+  return <header className={classNames(BASE_CLASSNAME, className)}>{children}</header>;
 }
 
 export default PageHeader;

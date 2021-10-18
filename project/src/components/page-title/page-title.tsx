@@ -1,4 +1,4 @@
-import { joinStrings } from '../../utils/common';
+import classNames from 'classnames';
 
 type PageTitleProps = {
   hidden?: boolean
@@ -7,10 +7,7 @@ type PageTitleProps = {
 }
 
 function PageTitle({className, children, hidden = false}: PageTitleProps): JSX.Element {
-  const baseClassName = hidden ? 'visually-hidden' : 'page-title';
-  const fullClassName = className ? joinStrings(baseClassName, className) : baseClassName;
-
-  return <h1 className={fullClassName}>{children}</h1>;
+  return <h1 className={classNames(hidden ? 'visually-hidden' : 'page-title', className)}>{children}</h1>;
 }
 
 export default PageTitle;

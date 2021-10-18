@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { joinStrings } from '../../utils/common';
+import classNames from 'classnames';
 
 const BASE_CLASSNAME = 'catalog';
 const BASE_TITLE_CLASSNAME = 'catalog__title';
@@ -12,11 +12,8 @@ type CatalogProps = {
 }
 
 function Catalog({title, hiddenTitle, likeThis, children}: CatalogProps): JSX.Element {
-  const likeThisClassName = likeThis ? `${BASE_CLASSNAME}--like-this` : '';
-  const visuallyHidden = !title ? 'visually-hidden' : '';
-
-  const fullClassName = joinStrings(BASE_CLASSNAME, likeThisClassName);
-  const fullTitleClassName = joinStrings(BASE_TITLE_CLASSNAME, visuallyHidden);
+  const fullClassName = classNames(BASE_CLASSNAME, { [`${BASE_CLASSNAME}--like-this`]: likeThis });
+  const fullTitleClassName = classNames(BASE_TITLE_CLASSNAME, { 'visually-hidden': !title });
 
   return (
     <section className={fullClassName}>
