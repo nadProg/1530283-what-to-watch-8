@@ -14,7 +14,7 @@ function Breadcrumbs({film}: BreadcrumbsProps): JSX.Element {
           <Link to={AppRoute.Film(film.id)} className="breadcrumbs__link">{film.name}</Link>
         </li>
         <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Add review</a>
+          <Link to={AppRoute.AddReview(film.id)} className="breadcrumbs__link">Add review</Link>
         </li>
       </ul>
     </nav>

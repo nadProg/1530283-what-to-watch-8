@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 type FilmCardBackgroundProps = {
   src: string,
   alt: string,
@@ -8,17 +10,11 @@ type FilmCardBackgroundProps = {
 const BASE_CLASSNAME = 'film-card__poster';
 
 function FilmCardBackground({src, alt, small, big}: FilmCardBackgroundProps): JSX.Element {
-  let sizedClassName = '';
-
-  if (small) {
-    sizedClassName = `${BASE_CLASSNAME}--small`;
-  }
-
-  if (big) {
-    sizedClassName = `${BASE_CLASSNAME}--big`;
-  }
-
-  const fullClassName = `${BASE_CLASSNAME} ${sizedClassName}`;
+  const fullClassName = classNames(
+    BASE_CLASSNAME,
+    { [`${BASE_CLASSNAME}--small`]: small },
+    { [`${BASE_CLASSNAME}--big`]: big },
+  );
 
   return (
     <div className={fullClassName}>

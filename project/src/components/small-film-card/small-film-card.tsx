@@ -1,7 +1,8 @@
-import { Link, useHistory } from 'react-router-dom';
-import type { Film } from '../../types/types';
-import { AppRoute } from '../../constants';
 import { useEffect, useState, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import classNames from 'classnames';
+import { AppRoute } from '../../constants';
+import type { Film } from '../../types/types';
 import SmallFilmCardVideo from '../small-film-card-video/small-film-card-video';
 
 const BASE_CLASSNAME = 'small-film-card';
@@ -17,8 +18,6 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
   const timer = useRef<NodeJS.Timeout | null>(null);
   const [ isHovered, setHovered ] = useState(false);
   const [ isDelayedHovered, setDelayedHovered ] = useState(false);
-
-  const fullClassName = `${BASE_CLASSNAME} ${className}`.trim();
 
   const history = useHistory();
 
@@ -53,11 +52,11 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
     }, HOVER_DELAY);
 
     return clearTimer;
-  }, [isHovered]);
+  }, [isDelayedHovered, isHovered]);
 
   return (
     <article
-      className={fullClassName}
+      className={classNames(BASE_CLASSNAME, className)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={() => history.push(AppRoute.Film(film.id))}

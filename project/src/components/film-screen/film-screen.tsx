@@ -3,6 +3,7 @@ import type { CommentGet, Film, ParamsWithId } from '../../types/types';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
 import Catalog from '../catalog/catalog';
 import FullFilmCard from '../full-film-card/full-film-card';
+import PageContent from '../page-content/page-content';
 import PageFooter from '../page-footer/page-footer';
 
 type FilmsScreenProps = {
@@ -19,12 +20,12 @@ function FilmScreen({getFilmById, getSimilarFilms, getComments}: FilmsScreenProp
   return (
     <>
       <FullFilmCard film={film} comments={getComments()} />
-      <div className="page-content">
+      <PageContent>
         <Catalog title="More like this" likeThis>
           <CatalogFilmsList films={similarFilms}/>
         </Catalog>
         <PageFooter />
-      </div>
+      </PageContent>
     </>
   );
 }
