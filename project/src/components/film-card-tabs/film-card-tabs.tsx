@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
+import upperFirst from 'lodash/upperFirst';
 import { FilmCardTab } from '../../constants';
 
 const BASE_CLASSNAME = 'film-nav';
@@ -20,11 +21,10 @@ function FilmCardTabs({className}: FilmCardTabsProps): JSX.Element {
           Object.values(FilmCardTab).map((tab) => {
             const fullItemClassname = classNames(BASE_TAB_CLASSNAME, { [`${BASE_TAB_CLASSNAME}--active`]: location.hash.slice(1) === tab });
             const path = `${location.pathname}#${tab}`;
-            const caption = `${tab[0].toUpperCase()}${tab.slice(1)}`;
 
             return (
               <li key={tab} className={fullItemClassname}>
-                <Link to={path} className="film-nav__link">{caption}</Link>
+                <Link to={path} className="film-nav__link">{upperFirst(tab)}</Link>
               </li>
             );
           })
