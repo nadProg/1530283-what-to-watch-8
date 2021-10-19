@@ -26,8 +26,6 @@ type AppProps = PropsFromRedux & {
 function App({films, comments}: AppProps): JSX.Element {
   const authorizationStatus = AuthorizationStatus.Auth;
 
-  const promoFilm = films[0];
-
   const getFilmById = (id: number) => {
     const foundFilm = films.find((film) => film.id === id);
 
@@ -51,7 +49,7 @@ function App({films, comments}: AppProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Root()} exact>
-          <MainScreen promoFilm={promoFilm} />
+          <MainScreen />
         </Route>
         <Route path={AppRoute.Film()} exact>
           <FilmScreen getFilmById={getFilmById} getComments={getComments} getSimilarFilms={getSimilarFilms} />

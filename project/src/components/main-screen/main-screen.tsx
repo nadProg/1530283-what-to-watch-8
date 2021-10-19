@@ -1,6 +1,6 @@
 import { Dispatch, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import type { Film, State, Action } from '../../types/types';
+import type { State, Action } from '../../types/types';
 import PageFooter from '../page-footer/page-footer';
 import PromoFilmCard from '../promo-film-card/promo-film-card';
 import CatalogGenresList from '../catalog-genres-list/catalog-genres-list';
@@ -11,9 +11,10 @@ import Catalog from '../catalog/catalog';
 import PageContent from '../page-content/page-content';
 import { setFilter } from '../../store/action';
 
-const mapStateToProps = ({films, filter}: State) => ({
-  films,
-  filter,
+const mapStateToProps = (state: State) => ({
+  promoFilm: state.films[0],
+  films: state.films,
+  filter: state.filter,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
@@ -24,11 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type MainScreenProps = PropsFromRedux & {
-  promoFilm: Film,
-}
+type MainScreenProps = ConnectedProps<typeof connector>;
 
 function MainScreen({promoFilm, films, filter, onFilterChange}: MainScreenProps): JSX.Element {
   const [ catalogFilms, setCatalogFilms ] = useState(films);
