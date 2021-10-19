@@ -1,6 +1,5 @@
-import { ActionType } from '../constants';
+import { ActionType, ALL_GENRES } from '../constants';
 import { Action, State } from '../types/types';
-import { ALL_GENRES } from '../utils/genres';
 import { films } from '../mocks/films';
 
 const initialState: State = {
@@ -21,4 +20,4 @@ const reducer = (state: State = initialState, action: Action): State => {
   }
 };
 
-export {reducer};
+export { reducer };
