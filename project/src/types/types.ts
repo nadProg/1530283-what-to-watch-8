@@ -1,3 +1,5 @@
+import { setFilter } from '../store/action';
+
 export type Film = {
   id: number,
   name: string,
@@ -31,6 +33,13 @@ export type CommentGet = CommentPost & {
   },
   date: Date,
 }
+
+export type State = {
+  filter: string,
+  films: Film[],
+}
+
+export type Action = ReturnType<typeof setFilter>;
 
 export type ParamsWithId = {
   [key: string]: string,

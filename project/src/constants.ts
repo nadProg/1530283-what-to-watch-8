@@ -40,3 +40,7 @@ export const ratingDescriptionToLowerLimit: {
   VeryGood: 8,
   Awesome: 10,
 };
+
+export const ActionType = {
+  SetFilter: 'filter/setFilter',
+} as const;
