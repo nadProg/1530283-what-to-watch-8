@@ -51,7 +51,7 @@ function App({films, comments}: AppProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Root()} exact>
-          <MainScreen promoFilm={promoFilm} films={films} />
+          <MainScreen promoFilm={promoFilm} />
         </Route>
         <Route path={AppRoute.Film()} exact>
           <FilmScreen getFilmById={getFilmById} getComments={getComments} getSimilarFilms={getSimilarFilms} />
