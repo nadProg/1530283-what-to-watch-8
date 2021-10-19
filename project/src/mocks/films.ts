@@ -1,7 +1,7 @@
 import type { Film } from '../types/types';
 import { getRandomInteger, shuffle, getRandomItemFromArray } from '../utils/common';
 
-const FILMS_COUNT = 8;
+const FILMS_COUNT = 30;
 
 const names = [
   'The Grand Budapest Hotel',
@@ -25,7 +25,7 @@ const images = [
   'img/what-we-do-in-the-shadows.jpg',
 ];
 
-const genres = ['Comedy', 'Western', 'Thriller', 'History', 'Comedy', 'Western', 'Thriller', 'History'];
+const genres = ['Comedy', 'Western', 'Thriller', 'History', 'Sci-Fi', 'Drama', 'Adventure', 'Biography', 'Horror', 'Action', 'Anime', 'Cartoon'];
 
 const ratings = [5.0, 7.0, 8.0, 6.6, 7.7, 8.5, 5.6, 8.8];
 
