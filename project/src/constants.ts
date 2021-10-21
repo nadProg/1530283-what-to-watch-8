@@ -1,3 +1,7 @@
+export const MAX_GENRES_COUNT = 9;
+
+export const ALL_GENRES = 'All genres';
+
 export const AppRoute = {
   Root: () => '/',
   Login: () => '/login',
@@ -40,3 +44,7 @@ export const ratingDescriptionToLowerLimit: {
   VeryGood: 8,
   Awesome: 10,
 };
+
+export const ActionType = {
+  SetFilter: 'filter/setFilter',
+} as const;

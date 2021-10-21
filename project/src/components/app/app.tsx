@@ -1,5 +1,6 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import type { Film, CommentGet } from '../../types/types';
+import { connect, ConnectedProps } from 'react-redux';
+import type { CommentGet, State } from '../../types/types';
 import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
 import CustomRoute from '../custom-route/custom-route';
 import MainScreen from '../main-screen/main-screen';
@@ -10,15 +11,20 @@ import MyListScreen from '../my-list-screen/my-list-screen';
 import AddReviewScreen from '../add-review-screen/add-review-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-type AppProps = {
-  films: Film[],
+const mapStateToProps = ({films}: State) => ({
+  films,
+});
+
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type AppProps = PropsFromRedux & {
   comments: CommentGet[],
 }
 
 function App({films, comments}: AppProps): JSX.Element {
   const authorizationStatus = AuthorizationStatus.Auth;
-
-  const promoFilm = films[0];
 
   const getFilmById = (id: number) => {
     const foundFilm = films.find((film) => film.id === id);
@@ -43,7 +49,7 @@ function App({films, comments}: AppProps): JSX.Element {
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.Root()} exact>
-          <MainScreen promoFilm={promoFilm} films={films} />
+          <MainScreen />
         </Route>
         <Route path={AppRoute.Film()} exact>
           <FilmScreen getFilmById={getFilmById} getComments={getComments} getSimilarFilms={getSimilarFilms} />
@@ -68,4 +74,5 @@ function App({films, comments}: AppProps): JSX.Element {
   );
 }
 
-export default App;
+export { App };
+export default connector(App);
