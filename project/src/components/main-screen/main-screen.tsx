@@ -31,17 +31,13 @@ type MainScreenProps = ConnectedProps<typeof connector>;
 
 function MainScreen({promoFilm, genres, filteredFilms, filter, onFilterChange}: MainScreenProps): JSX.Element {
   const [ filmsCount, setFilmsCount ] = useState(FILMS_COUNT_STEP);
-  const [ catalogFilms, setCatalogFilms ] = useState(filteredFilms);
-  const [ isMoreButtonVisible, setMoreButtonVisibility ] = useState(false);
+
+  const catalogFilms = filteredFilms.slice(0, filmsCount);
+  const isMoreButtonVisible = filteredFilms.length > filmsCount;
 
   const handleMoreButtonClick = () => {
-    setFilmsCount(filmsCount + FILMS_COUNT_STEP);
+    setFilmsCount((prevCount) => prevCount + FILMS_COUNT_STEP);
   };
-
-  useEffect(() => {
-    setCatalogFilms(filteredFilms.slice(0, filmsCount));
-    setMoreButtonVisibility(filteredFilms.length > filmsCount);
-  }, [filmsCount, filteredFilms]);
 
   useEffect(() => {
     setFilmsCount(FILMS_COUNT_STEP);
