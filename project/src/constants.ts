@@ -1,5 +1,7 @@
 export const MAX_GENRES_COUNT = 9;
 
+export const FILMS_COUNT_STEP = 8;
+
 export const ALL_GENRES = 'All genres';
 
 export const AppRoute = {
