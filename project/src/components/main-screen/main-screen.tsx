@@ -1,7 +1,7 @@
 import { Dispatch, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import type { State, Action } from '../../types/types';
-import { FILMS_COUNT_STEP } from '../../constants';
+import { CATALOG_INITIAL_PAGE, CATALOG_PAGE_SIZE } from '../../constants';
 import PageFooter from '../page-footer/page-footer';
 import PromoFilmCard from '../promo-film-card/promo-film-card';
 import CatalogGenresList from '../catalog-genres-list/catalog-genres-list';
@@ -30,17 +30,17 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type MainScreenProps = ConnectedProps<typeof connector>;
 
 function MainScreen({promoFilm, genres, filteredFilms, filter, onFilterChange}: MainScreenProps): JSX.Element {
-  const [ filmsCount, setFilmsCount ] = useState(FILMS_COUNT_STEP);
+  const [ currentPage, setCurrentPage ] = useState(CATALOG_INITIAL_PAGE);
 
-  const catalogFilms = filteredFilms.slice(0, filmsCount);
-  const isMoreButtonVisible = filteredFilms.length > filmsCount;
+  const catalogFilms = filteredFilms.slice(0, currentPage * CATALOG_PAGE_SIZE);
+  const isMoreButtonVisible = filteredFilms.length > catalogFilms.length;
 
   const handleMoreButtonClick = () => {
-    setFilmsCount((prevCount) => prevCount + FILMS_COUNT_STEP);
+    setCurrentPage((prevCount) => prevCount + 1);
   };
 
   useEffect(() => {
-    setFilmsCount(FILMS_COUNT_STEP);
+    setCurrentPage(CATALOG_INITIAL_PAGE);
   }, [filter]);
 
   return (

@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Евгений Скробов](https://up.htmlacademy.ru/react/8/user/1530283).
-* Наставник: [Jura Zubach](https://htmlacademy.ru/profile/id95078).
+* Наставник: [Семен Якушев](https://htmlacademy.ru/profile/id1118791).
 
 ---
 
