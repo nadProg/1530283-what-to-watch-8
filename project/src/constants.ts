@@ -1,5 +1,9 @@
 export const MAX_GENRES_COUNT = 9;
 
+export const CATALOG_INITIAL_PAGE = 1;
+
+export const CATALOG_PAGE_SIZE = 8;
+
 export const ALL_GENRES = 'All genres';
 
 export const AppRoute = {

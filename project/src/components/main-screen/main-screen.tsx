@@ -1,6 +1,7 @@
-import { Dispatch } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import type { State, Action } from '../../types/types';
+import { CATALOG_INITIAL_PAGE, CATALOG_PAGE_SIZE } from '../../constants';
 import PageFooter from '../page-footer/page-footer';
 import PromoFilmCard from '../promo-film-card/promo-film-card';
 import CatalogGenresList from '../catalog-genres-list/catalog-genres-list';
@@ -29,14 +30,27 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type MainScreenProps = ConnectedProps<typeof connector>;
 
 function MainScreen({promoFilm, genres, filteredFilms, filter, onFilterChange}: MainScreenProps): JSX.Element {
+  const [ currentPage, setCurrentPage ] = useState(CATALOG_INITIAL_PAGE);
+
+  const catalogFilms = filteredFilms.slice(0, currentPage * CATALOG_PAGE_SIZE);
+  const isMoreButtonVisible = filteredFilms.length > catalogFilms.length;
+
+  const handleMoreButtonClick = () => {
+    setCurrentPage((prevCount) => prevCount + 1);
+  };
+
+  useEffect(() => {
+    setCurrentPage(CATALOG_INITIAL_PAGE);
+  }, [filter]);
+
   return (
     <>
       <PromoFilmCard film={promoFilm} />
       <PageContent>
         <Catalog hiddenTitle="Catalog">
           <CatalogGenresList genres={genres} activeGenre={filter} setActiveGenre={onFilterChange} />
-          <CatalogFilmsList films={filteredFilms} />
-          <CatalogMoreButton />
+          <CatalogFilmsList films={catalogFilms} />
+          { isMoreButtonVisible && <CatalogMoreButton onClick={handleMoreButtonClick} /> }
         </Catalog>
         <PageFooter />
       </PageContent>
