@@ -1,25 +1,48 @@
+import { connect, ConnectedProps } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import type { CommentGet, Film, ParamsWithId } from '../../types/types';
+import { MAX_SIMILAR_FILMS_COUNT } from '../../constants';
+import type { CommentGet, Film, ParamsWithId, State } from '../../types/types';
+import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
+import { getFilmById, getSimilarFilms } from '../../utils/films';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
 import Catalog from '../catalog/catalog';
 import FullFilmCard from '../full-film-card/full-film-card';
+import LoadingScreen from '../loading-screen/loading-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PageContent from '../page-content/page-content';
 import PageFooter from '../page-footer/page-footer';
 
-type FilmsScreenProps = {
-  getFilmById: (id: number) => Film,
-  getSimilarFilms: (id: number) => Film[],
-  getComments: () => CommentGet[],
-}
+const mapStateToProps = ({films, currentComments}: State) => ({
+  fetchedFilms: films,
+  fetchedComments: currentComments,
+});
 
-function FilmScreen({getFilmById, getSimilarFilms, getComments}: FilmsScreenProps): JSX.Element {
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function FilmScreen({fetchedFilms, fetchedComments}: PropsFromRedux): JSX.Element {
   const { id } = useParams() as ParamsWithId;
-  const film = getFilmById(Number(id));
-  const similarFilms = getSimilarFilms(Number(id));
+
+  // Здесь будет загрузка текущего фильма и комментариев по ID
+
+  if (isFetchNotReady(fetchedFilms) || isFetchNotReady(fetchedComments)) {
+    return <LoadingScreen />;
+  }
+
+  if (isFetchError(fetchedFilms) || isFetchError(fetchedComments)) {
+    return <NotFoundScreen />;
+  }
+
+  const films = fetchedFilms.data as Film[];
+
+  const currentFilm = getFilmById(films, Number(id));
+  const currentComments = fetchedComments.data as CommentGet[];
+  const similarFilms = getSimilarFilms(films, Number(id)).slice(0, MAX_SIMILAR_FILMS_COUNT);
 
   return (
     <>
-      <FullFilmCard film={film} comments={getComments()} />
+      <FullFilmCard film={currentFilm} comments={currentComments} />
       <PageContent>
         <Catalog title="More like this" likeThis>
           <CatalogFilmsList films={similarFilms}/>
@@ -30,4 +53,5 @@ function FilmScreen({getFilmById, getSimilarFilms, getComments}: FilmsScreenProp
   );
 }
 
-export default FilmScreen;
+export { FilmScreen };
+export default connector(FilmScreen);

@@ -4,6 +4,8 @@ export const CATALOG_INITIAL_PAGE = 1;
 
 export const CATALOG_PAGE_SIZE = 8;
 
+export const MAX_SIMILAR_FILMS_COUNT = 4;
+
 export const ALL_GENRES = 'All genres';
 
 export const AppRoute = {
@@ -15,9 +17,28 @@ export const AppRoute = {
   Player: (id:string | number = ':id') => `/player/${id}`,
 } as const;
 
+export const APIRoute = {
+  Films: () => '/films',
+  PromoFilm: () => '/promo',
+  Film: (id:string | number) => `/films/${id}`,
+  SimilarFilms: (id:string | number) => `/films/${id}/similar`,
+  FavoriteFilms: () => '/favorite',
+  Comments: (id:string | number) => `/comments/${id}`,
+  Login: () => '/login',
+  Logout: () => '/logout',
+} as const;
+
+export const FetchStatus = {
+  Idle: 'IDLE',
+  Loading: 'LOADING',
+  Succeeded: 'SUCCEEDED',
+  Failed: 'FAILED',
+} as const;
+
 export const AuthorizationStatus = {
   Auth: 'AUTH',
   NotAuth: 'NOT_AUTH',
+  Unknown: 'UNKNOWN',
 } as const;
 
 export const CustomRouteType = {
@@ -50,5 +71,12 @@ export const ratingDescriptionToLowerLimit: {
 };
 
 export const ActionType = {
-  SetFilter: 'filter/setFilter',
+  SetFilter: 'filter/setValue',
+  SetAuthorizationStatus: 'authorizationStatus/setValue',
+  SetLoginStatus: 'authorizationStatus/setAuthStatus',
+  SetLogoutStatus: 'authorizationStatus/setNotAuthStatus',
+  SetFilms: 'films/setData',
+  SetFilmsFetchStatus: 'films/setFetchStatus',
+  SetPromoFilm: 'promoFilm/setData',
+  SetPromoFilmFetchStatus: 'promoFilm/setFetchStatus',
 } as const;

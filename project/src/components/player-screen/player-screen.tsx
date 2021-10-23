@@ -1,27 +1,50 @@
+import { connect, ConnectedProps } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import type { ParamsWithId, Film } from '../../types/types';
+import type { ParamsWithId, Film, State } from '../../types/types';
 import { formatElapsedTime } from '../../utils/date';
+import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
+import { getFilmById } from '../../utils/films';
+import LoadingScreen from '../loading-screen/loading-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-export type PlayerScreenProps = {
-  getFilmById: (id: number) => Film,
-}
+const mapStateToProps = ({films, currentComments}: State) => ({
+  fetchedFilms: films,
+  fetchedComments: currentComments,
+});
 
-function PlayerScreen({getFilmById}: PlayerScreenProps): JSX.Element {
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function PlayerScreen({fetchedFilms}: PropsFromRedux): JSX.Element {
   const { id } = useParams() as ParamsWithId;
-  const film = getFilmById(Number(id));
+
   const history = useHistory();
+
+  // Здесь будет загрузка текущего фильма и комментариев по ID
+
+  if (isFetchNotReady(fetchedFilms)) {
+    return <LoadingScreen />;
+  }
+
+  if (isFetchError(fetchedFilms)) {
+    return <NotFoundScreen />;
+  }
 
   const handleExitButtonClick = () => {
     history.goBack();
   };
 
+  const films = fetchedFilms.data as Film[];
+  const currentFilm = getFilmById(films, Number(id));
+
   const progress = Math.random();
   const playerProgress = Number((progress * 100).toFixed(2));
-  const timeElapsed = film.runTime * (1 - progress);
+  const timeElapsed = currentFilm.runTime * (1 - progress);
 
   return (
     <div className="player">
-      <video src={film.videoLink} className="player__video" poster={film.posterImage}></video>
+      <video src={currentFilm.videoLink} className="player__video" poster={currentFilm.previewImage}></video>
 
       <button type="button" className="player__exit" onClick={handleExitButtonClick}>Exit</button>
 
@@ -41,7 +64,7 @@ function PlayerScreen({getFilmById}: PlayerScreenProps): JSX.Element {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">{film.name}</div>
+          <div className="player__name">{currentFilm.name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -55,4 +78,5 @@ function PlayerScreen({getFilmById}: PlayerScreenProps): JSX.Element {
   );
 }
 
-export default PlayerScreen;
+export { PlayerScreen };
+export default connector(PlayerScreen);
