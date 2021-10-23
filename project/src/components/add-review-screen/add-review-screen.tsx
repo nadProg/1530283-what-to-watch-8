@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import type { Film, ParamsWithId } from '../../types/types';
+import type { Film, ParamsWithId, State } from '../../types/types';
 import FilmCardBackground from '../film-card-background/film-card-background';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import Logo from '../logo/logo';
@@ -8,30 +8,52 @@ import AddReviewForm from '../add-review-form/add-review-form';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import PageHeader from '../page-header/page-header';
 import PageTitle from '../page-title/page-title';
+import { connect, ConnectedProps } from 'react-redux';
+import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
+import LoadingScreen from '../loading-screen/loading-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { getFilmById } from '../../utils/films';
 
-export type AddReviewScreenProps = {
-  getFilmById: (id: number) => Film,
-}
+const mapStateToProps = ({films}: State) => ({
+  fetchedFilms: films,
+});
 
-function AddReviewScreen({getFilmById}: AddReviewScreenProps): JSX.Element {
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function AddReviewScreen({fetchedFilms}: PropsFromRedux): JSX.Element {
   const { id } = useParams() as ParamsWithId;
-  const film = getFilmById(Number(id));
+
+  // Здесь будет загрузка текущего фильма по ID
+
+  if (isFetchNotReady(fetchedFilms)) {
+    return <LoadingScreen />;
+  }
+
+  if (isFetchError(fetchedFilms)) {
+    return <NotFoundScreen />;
+  }
+
+  const films = fetchedFilms.data as Film[];
+  const currentFilm = getFilmById(films, Number(id));
 
   return (
-    <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
+    <section className="film-card film-card--full" style={{backgroundColor: currentFilm.backgroundColor}}>
       <div className="film-card__header">
-        <FilmCardBackground src={film.backgroundImage} alt={film.name} />
+        <FilmCardBackground src={currentFilm.backgroundImage} alt={currentFilm.name} />
         <PageTitle hidden>WTW</PageTitle>
         <PageHeader>
           <Logo />
-          <Breadcrumbs film={film} />
+          <Breadcrumbs film={currentFilm} />
           <UserBlock />
         </PageHeader>
-        <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} small />
+        <FilmCardPoster src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} small />
       </div>
       <AddReviewForm />
     </section>
   );
 }
 
-export default AddReviewScreen;
+export { AddReviewScreen };
+export default connector(AddReviewScreen);

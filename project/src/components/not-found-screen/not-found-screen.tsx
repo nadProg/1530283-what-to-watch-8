@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
+import InfoScreen from '../info-screen/info-screen';
 import PageTitle from '../page-title/page-title';
 
 function NotFoundScreen(): JSX.Element {
   return (
-    <section>
+    <InfoScreen>
       <PageTitle>This page does not exist</PageTitle>
-      <Link to="/">Go to main page</Link>
-    </section>
+      <p>
+        <Link to="/" style={{color: 'inherit', textDecoration: 'none'}}>
+          Go to main page
+        </Link>
+      </p>
+    </InfoScreen>
   );
 }
 

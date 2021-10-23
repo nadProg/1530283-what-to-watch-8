@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { AppRoute } from '../../constants';
 import type { Film } from '../../types/types';
 import SmallFilmCardVideo from '../small-film-card-video/small-film-card-video';
+import SmallFilmCardPreview from '../small-film-card-preview/small-film-card-preview';
 
 const BASE_CLASSNAME = 'small-film-card';
 
@@ -18,8 +19,6 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
   const timer = useRef<NodeJS.Timeout | null>(null);
   const [ isHovered, setHovered ] = useState(false);
   const [ isDelayedHovered, setDelayedHovered ] = useState(false);
-
-  const history = useHistory();
 
   const clearTimer = () => {
     if (timer.current) {
@@ -59,20 +58,16 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
       className={classNames(BASE_CLASSNAME, className)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => history.push(AppRoute.Film(film.id))}
     >
-      <SmallFilmCardVideo
-        src={film.previewVideoLink}
-        isPlay={isDelayedHovered}
-        poster={film.previewImage}
-      />
-      <h3 className="small-film-card__title">
-        <Link
-          to={AppRoute.Film(film.id)}
-          className="small-film-card__link"
-        >{film.name}
-        </Link>
-      </h3>
+      <Link to={AppRoute.Film(film.id)} style={{ color: 'inherit'}}>
+        { isDelayedHovered ?
+          (<SmallFilmCardVideo src={film.previewVideoLink} poster={film.previewImage} />)
+          :
+          (<SmallFilmCardPreview src={film.previewImage} alt={film.name} />)}
+        <h3 className="small-film-card__title">
+          <span className="small-film-card__link">{film.name}</span>
+        </h3>
+      </Link>
     </article>
   );
 }
