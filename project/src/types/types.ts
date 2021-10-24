@@ -8,7 +8,10 @@ import {
   setFilter,
   setPromoFilm,
   setPromoFetchStatus,
-  setAuthorizationInfo
+  setAuthorizationInfo,
+  setFavoriteFilms,
+  setFavoriteFilmsFetchStatus,
+  resetFavoriteFilms
 } from '../store/actions';
 
 export type Film = {
@@ -113,6 +116,9 @@ export type Action = ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof setAuthorizationInfo>
   | ReturnType<typeof setFilms>
   | ReturnType<typeof setFilmsFetchStatus>
+  | ReturnType<typeof setFavoriteFilms>
+  | ReturnType<typeof setFavoriteFilmsFetchStatus>
+  | ReturnType<typeof resetFavoriteFilms>
   | ReturnType<typeof setPromoFilm>
   | ReturnType<typeof setPromoFetchStatus>
   | ReturnType<typeof setFilter>;

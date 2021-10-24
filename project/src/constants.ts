@@ -86,4 +86,7 @@ export const ActionType = {
   SetFilmsFetchStatus: 'films/setFetchStatus',
   SetPromoFilm: 'promoFilm/setData',
   SetPromoFilmFetchStatus: 'promoFilm/setFetchStatus',
+  SetFavoriteFilms: 'favoriteFilms/setData',
+  SetFavoriteFilmsFetchStatus: 'favoriteFilms/setFetchStatus',
+  ResetFavoriteFilms: 'favoriteFilms/reset',
 } as const;

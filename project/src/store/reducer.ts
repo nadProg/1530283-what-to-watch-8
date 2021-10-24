@@ -1,5 +1,5 @@
 import { Action,  State } from '../types/types';
-import { ActionType } from '../constants';
+import { ActionType, FetchStatus } from '../constants';
 import { initialState } from './initial-state';
 
 const reducer = (state: State = initialState, action: Action): State => {
@@ -37,6 +37,33 @@ const reducer = (state: State = initialState, action: Action): State => {
         films: {
           ...state.films,
           status: action.payload.status,
+        },
+      };
+
+    case ActionType.SetFavoriteFilms:
+      return {
+        ...state,
+        favoriteFilms: {
+          ...state.favoriteFilms,
+          data: action.payload.favoriteFilms,
+        },
+      };
+
+    case ActionType.SetFavoriteFilmsFetchStatus:
+      return {
+        ...state,
+        favoriteFilms: {
+          ...state.favoriteFilms,
+          status: action.payload.status,
+        },
+      };
+
+    case ActionType.ResetFavoriteFilms:
+      return {
+        ...state,
+        favoriteFilms: {
+          status: FetchStatus.Idle,
+          data: null,
         },
       };
 

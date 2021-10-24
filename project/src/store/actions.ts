@@ -30,6 +30,24 @@ export const setPromoFetchStatus = (status: FetchStatusType) => ({
   },
 } as const);
 
+export const setFavoriteFilmsFetchStatus = (status: FetchStatusType) => ({
+  type: ActionType.SetFavoriteFilmsFetchStatus,
+  payload: {
+    status,
+  },
+} as const);
+
+export const setFavoriteFilms = (favoriteFilms: Film[] | null) => ({
+  type: ActionType.SetFavoriteFilms,
+  payload: {
+    favoriteFilms,
+  },
+} as const);
+
+export const resetFavoriteFilms = () => ({
+  type: ActionType.ResetFavoriteFilms,
+} as const);
+
 export const setAuthorizationStatus = (status: ValuesOf<typeof AuthorizationStatus>) => ({
   type: ActionType.SetAuthorizationStatus,
   payload: {

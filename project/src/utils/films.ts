@@ -41,6 +41,3 @@ export const getSimilarFilms = (films: Film[], id: number): Film[] | [] => {
   const referenceFilm = getFilmById(films, id);
   return films.filter((film) => film.id !== id && film.genre === referenceFilm.genre);
 };
-
-// Временная функция вместо API запроса
-export const getFavoriteFilms = (films: Film[]): Film[] | []  => films.filter((film) => film.isFavorite);
