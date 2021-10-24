@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useIdParam } from '../../hooks/useIdParams';
 import { getСurrentFilm } from '../../store/api-actions';
-import type { ParamsWithId, Film, State, ThunkAppDispatch } from '../../types/types';
+import type { Film, State, ThunkAppDispatch } from '../../types/types';
 import { formatElapsedTime } from '../../utils/date';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -23,12 +24,12 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function PlayerScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.Element {
-  const { id } = useParams() as ParamsWithId;
+  const id = useIdParam();
 
   const history = useHistory();
 
   useEffect(() => {
-    fetchCurrentFilm(Number(id));
+    fetchCurrentFilm(id);
   }, [id]);
 
   if (isFetchNotReady(fetchedFilm)) {

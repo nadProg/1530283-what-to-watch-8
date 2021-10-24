@@ -1,5 +1,4 @@
-import { useParams } from 'react-router-dom';
-import type { Film, ParamsWithId, State, ThunkAppDispatch } from '../../types/types';
+import type { Film, State, ThunkAppDispatch } from '../../types/types';
 import FilmCardBackground from '../film-card-background/film-card-background';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import Logo from '../logo/logo';
@@ -14,6 +13,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useEffect } from 'react';
 import { getСurrentFilm } from '../../store/api-actions';
+import { useIdParam } from '../../hooks/useIdParams';
 
 const mapStateToProps = ({currentFilm}: State) => ({
   fetchedFilm: currentFilm,
@@ -30,10 +30,10 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function AddReviewScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.Element {
-  const { id } = useParams() as ParamsWithId;
+  const id = useIdParam();
 
   useEffect(() => {
-    fetchCurrentFilm(Number(id));
+    fetchCurrentFilm(id);
   }, [id]);
 
 
