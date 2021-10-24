@@ -1,14 +1,19 @@
 import classNames from 'classnames';
-import { FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import toast from 'react-hot-toast';
 import { connect, ConnectedProps } from 'react-redux';
-import { AuthorizationStatus } from '../../constants';
-import { setAuthorizationStatus } from '../../store/actions';
-import { ThunkAppDispatch } from '../../types/types';
+import { postLogin } from '../../store/api-actions';
+import { ThunkAppDispatch, User } from '../../types/types';
+import { validateLoginFormData } from '../../utils/common';
+
+const INITIAL_FORM_STATE: User = {
+  email: '',
+  password: '',
+};
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  login() {
-    // Полноценная авторизация будет в следующем задании
-    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+  login(user: User) {
+    dispatch(postLogin(user));
   },
 });
 
@@ -21,9 +26,27 @@ type LoginFormProps = PropsFromRedux & {
 }
 
 function LoginForm({className, login}: LoginFormProps): JSX.Element {
+  const [ formData, setFormData ] = useState(INITIAL_FORM_STATE);
+
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
+    setFormData({
+      ...formData,
+      [name]: value.trim(),
+    });
+  };
+
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    login();
+
+    const validityMessage = validateLoginFormData(formData);
+
+    if (validityMessage) {
+      toast.error(validityMessage);
+      return;
+    }
+
+    login(formData);
   };
 
   return (
@@ -31,11 +54,11 @@ function LoginForm({className, login}: LoginFormProps): JSX.Element {
       <form action="#" className="sign-in__form" onSubmit={handleFormSubmit}>
         <div className="sign-in__fields">
           <div className="sign-in__field">
-            <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" required/>
+            <input className="sign-in__input" type="text" placeholder="Email address" name="email" id="user-email" onChange={handleInputChange}/>
             <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
           </div>
           <div className="sign-in__field">
-            <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" required minLength={2} />
+            <input className="sign-in__input" type="password" placeholder="Password" name="password" id="user-password" onChange={handleInputChange}/>
             <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
           </div>
         </div>

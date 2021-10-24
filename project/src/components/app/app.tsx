@@ -1,8 +1,8 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import type { State, ThunkAppDispatch } from '../../types/types';
-import { AppRoute, CustomRouteType } from '../../constants';
-import { getFilms } from '../../store/api-actions';
+import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
+import { getFilms, getLogin } from '../../store/api-actions';
 import CustomRoute from '../custom-route/custom-route';
 import MainScreen from '../main-screen/main-screen';
 import FilmScreen from '../film-screen/film-screen';
@@ -16,8 +16,10 @@ import { useEffect } from 'react';
 import { isFetchError, isFetchIdle, isFetchNotReady } from '../../utils/fetched-data';
 import InfoScreen from '../info-screen/info-screen';
 import PageTitle from '../page-title/page-title';
+import browserHistory from '../../browser-history';
 
-const mapStateToProps = ({films}: State) => ({
+const mapStateToProps = ({films, authorization}: State) => ({
+  authorizationStatus: authorization.status,
   fetchedFilms: films,
 });
 
@@ -25,15 +27,20 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   fetchFilms() {
     dispatch(getFilms());
   },
+  checkAuthorization() {
+    dispatch(getLogin());
+  },
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function App({ fetchedFilms, fetchFilms }: PropsFromRedux): JSX.Element {
+function App({ fetchedFilms, authorizationStatus, fetchFilms, checkAuthorization }: PropsFromRedux): JSX.Element {
   useEffect(() => {
-    // Здесь будет первичная проверка статуса авторизации
+    if (authorizationStatus === AuthorizationStatus.Unknown) {
+      checkAuthorization();
+    }
 
     if (isFetchIdle(fetchedFilms)) {
       // Когда все данные будут загружаться с сервера
@@ -43,7 +50,7 @@ function App({ fetchedFilms, fetchFilms }: PropsFromRedux): JSX.Element {
     }
   }, []);
 
-  if (isFetchNotReady(fetchedFilms)) {
+  if (isFetchNotReady(fetchedFilms) || authorizationStatus === AuthorizationStatus.Unknown) {
     return <LoadingScreen />;
   }
 
@@ -59,7 +66,7 @@ function App({ fetchedFilms, fetchFilms }: PropsFromRedux): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.Root()} exact>
           <MainScreen />

@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { MAX_SIMILAR_FILMS_COUNT } from '../../constants';
-import type { CommentGet, Film, ParamsWithId, State } from '../../types/types';
+import { useIdParam } from '../../hooks/useIdParams';
+import { getSimilarFilms, getСurrentComments, getСurrentFilm } from '../../store/api-actions';
+import type { CommentGet, Film, State, ThunkAppDispatch } from '../../types/types';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
-import { getFilmById, getSimilarFilms } from '../../utils/films';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
 import Catalog from '../catalog/catalog';
 import FullFilmCard from '../full-film-card/full-film-card';
@@ -12,33 +13,52 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PageContent from '../page-content/page-content';
 import PageFooter from '../page-footer/page-footer';
 
-const mapStateToProps = ({films, currentComments}: State) => ({
-  fetchedFilms: films,
+const mapStateToProps = ({currentFilm, currentComments, similarFilms}: State) => ({
+  fetchedFilm: currentFilm,
   fetchedComments: currentComments,
+  fetchedSimilarFilms: similarFilms,
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  fetchCurrentFilm(id: number) {
+    dispatch(getСurrentFilm(id));
+  },
+  fetchCurrentComments(id: number) {
+    dispatch(getСurrentComments(id));
+  },
+  fetchSimilarFilms(id: number) {
+    dispatch(getSimilarFilms(id));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function FilmScreen({fetchedFilms, fetchedComments}: PropsFromRedux): JSX.Element {
-  const { id } = useParams() as ParamsWithId;
+function FilmScreen({fetchedFilm, fetchedComments, fetchedSimilarFilms, fetchCurrentFilm, fetchCurrentComments, fetchSimilarFilms}: PropsFromRedux): JSX.Element {
+  const id = useIdParam();
 
-  // Здесь будет загрузка текущего фильма и комментариев по ID
+  useEffect(() => {
+    if (fetchedFilm.data?.id === id) {
+      return;
+    }
 
-  if (isFetchNotReady(fetchedFilms) || isFetchNotReady(fetchedComments)) {
+    fetchCurrentFilm(id);
+    fetchCurrentComments(id);
+    fetchSimilarFilms(id);
+  }, [id]);
+
+  if (isFetchNotReady(fetchedFilm) || isFetchNotReady(fetchedComments) || isFetchNotReady(fetchedSimilarFilms)) {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(fetchedFilms) || isFetchError(fetchedComments)) {
+  if (isFetchError(fetchedFilm) || isFetchError(fetchedComments) || isFetchNotReady(fetchedSimilarFilms)) {
     return <NotFoundScreen />;
   }
 
-  const films = fetchedFilms.data as Film[];
-
-  const currentFilm = getFilmById(films, Number(id));
+  const currentFilm = fetchedFilm.data as Film;
   const currentComments = fetchedComments.data as CommentGet[];
-  const similarFilms = getSimilarFilms(films, Number(id)).slice(0, MAX_SIMILAR_FILMS_COUNT);
+  const similarFilms = fetchedSimilarFilms.data?.slice(0, MAX_SIMILAR_FILMS_COUNT) as Film[];
 
   return (
     <>

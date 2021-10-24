@@ -1,7 +1,7 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../constants';
-import { setAuthorizationStatus } from '../../store/actions';
+import { deleteLogout } from '../../store/api-actions';
 import { State, ThunkAppDispatch } from '../../types/types';
 
 const mapStateToProps = ({authorization}: State) => ({
@@ -10,8 +10,7 @@ const mapStateToProps = ({authorization}: State) => ({
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   logout() {
-    // Полноценная авторизация будет в следующем задании
-    dispatch(setAuthorizationStatus(AuthorizationStatus.NotAuth));
+    dispatch(deleteLogout());
   },
 });
 
@@ -28,7 +27,7 @@ function UserBlock({authorization, logout}: PropsFromRedux):JSX.Element {
             <li className="user-block__item">
               <Link to={AppRoute.MyList()}>
                 <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+                  <img src={authorization.info?.avatarUrl} alt="User avatar" width="63" height="63" />
                 </div>
               </Link>
             </li>

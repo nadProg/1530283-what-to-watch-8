@@ -7,7 +7,17 @@ import {
   setFilmsFetchStatus,
   setFilter,
   setPromoFilm,
-  setPromoFetchStatus
+  setPromoFetchStatus,
+  setAuthorizationInfo,
+  setFavoriteFilms,
+  setFavoriteFilmsFetchStatus,
+  redirectToRoute,
+  setCurrentComments,
+  setCurrentCommentsFetchStatus,
+  setCurrentFilm,
+  setCurrentFilmFetchStatus,
+  setSimilarFilms,
+  setSimilarFilmsFetchStatus
 } from '../store/actions';
 
 export type Film = {
@@ -64,6 +74,13 @@ export type CommentGet = CommentPost & {
   date: Date,
 }
 
+export type User = {
+  email: string,
+  password: string,
+}
+
+export type Token = string;
+
 export type FetchStatusType = ValuesOf<typeof FetchStatus>
 
 export type FetchedData<T = any> = {
@@ -71,12 +88,20 @@ export type FetchedData<T = any> = {
   status: FetchStatusType,
 }
 
-export type AuthInfo = {
+export type AuthoarizationInfo = {
   id: 1,
   email: string,
   name: string,
   avatarUrl: string,
-  token: string,
+  token: Token,
+}
+
+export type ServerAuthInfo = {
+  id: 1,
+  email: string,
+  name: string,
+  'avatar_url': string,
+  token: Token,
 }
 
 export type State = {
@@ -89,16 +114,26 @@ export type State = {
   filter: string,
   authorization: {
     status:  ValuesOf<typeof AuthorizationStatus>,
-    info: AuthInfo | null
+    info: AuthoarizationInfo | null
   }
 };
 
 export type Action = ReturnType<typeof setAuthorizationStatus>
+  | ReturnType<typeof setAuthorizationInfo>
   | ReturnType<typeof setFilms>
   | ReturnType<typeof setFilmsFetchStatus>
+  | ReturnType<typeof setSimilarFilms>
+  | ReturnType<typeof setSimilarFilmsFetchStatus>
+  | ReturnType<typeof setFavoriteFilms>
+  | ReturnType<typeof setFavoriteFilmsFetchStatus>
+  | ReturnType<typeof setCurrentFilm>
+  | ReturnType<typeof setCurrentFilmFetchStatus>
+  | ReturnType<typeof setCurrentComments>
+  | ReturnType<typeof setCurrentCommentsFetchStatus>
   | ReturnType<typeof setPromoFilm>
   | ReturnType<typeof setPromoFetchStatus>
-  | ReturnType<typeof setFilter>;
+  | ReturnType<typeof setFilter>
+  | ReturnType<typeof redirectToRoute>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 

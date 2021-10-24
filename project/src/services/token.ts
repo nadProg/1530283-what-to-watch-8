@@ -1,6 +1,5 @@
-const AUTH_TOKEN_KEY_NAME = 'wtw-token';
-
-export type Token = string;
+import { AUTH_TOKEN_KEY_NAME } from '../constants';
+import { Token } from '../types/types';
 
 export const getToken = (): Token => {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);

@@ -1,4 +1,4 @@
-import { Action,  State } from '../types/types';
+import { Action, State } from '../types/types';
 import { ActionType } from '../constants';
 import { initialState } from './initial-state';
 
@@ -9,7 +9,16 @@ const reducer = (state: State = initialState, action: Action): State => {
         ...state,
         authorization: {
           ...state.authorization,
-          status: action.payload.authorizationStatus,
+          status: action.payload.status,
+        },
+      };
+
+    case ActionType.SetAuthorizationInfo:
+      return {
+        ...state,
+        authorization: {
+          ...state.authorization,
+          info: action.payload.info,
         },
       };
 
@@ -27,6 +36,79 @@ const reducer = (state: State = initialState, action: Action): State => {
         ...state,
         films: {
           ...state.films,
+          status: action.payload.status,
+        },
+      };
+
+    case ActionType.SetFavoriteFilms:
+      return {
+        ...state,
+        favoriteFilms: {
+          ...state.favoriteFilms,
+          data: action.payload.favoriteFilms,
+        },
+      };
+
+    case ActionType.SetFavoriteFilmsFetchStatus:
+      return {
+        ...state,
+        favoriteFilms: {
+          ...state.favoriteFilms,
+          status: action.payload.status,
+        },
+      };
+
+    case ActionType.SetSimilarFilms:
+      return {
+        ...state,
+        similarFilms: {
+          ...state.similarFilms,
+          data: action.payload.similarFilms,
+        },
+      };
+
+    case ActionType.SetSimilarFilmsFetchStatus:
+      return {
+        ...state,
+        similarFilms: {
+          ...state.similarFilms,
+          status: action.payload.status,
+        },
+      };
+
+
+    case ActionType.SetCurrentFilm:
+      return {
+        ...state,
+        currentFilm: {
+          ...state.currentFilm,
+          data: action.payload.currentFilm,
+        },
+      };
+
+    case ActionType.SetCurrentFilmFetchStatus:
+      return {
+        ...state,
+        currentFilm: {
+          ...state.currentFilm,
+          status: action.payload.status,
+        },
+      };
+
+    case ActionType.SetCurrentComments:
+      return {
+        ...state,
+        currentComments: {
+          ...state.currentComments,
+          data: action.payload.currentComments,
+        },
+      };
+
+    case ActionType.SetCurrentCommentsFetchStatus:
+      return {
+        ...state,
+        currentComments: {
+          ...state.currentComments,
           status: action.payload.status,
         },
       };

@@ -1,33 +1,46 @@
+import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
-import type { ParamsWithId, Film, State } from '../../types/types';
+import { useHistory } from 'react-router-dom';
+import { useIdParam } from '../../hooks/useIdParams';
+import { getСurrentFilm } from '../../store/api-actions';
+import type { Film, State, ThunkAppDispatch } from '../../types/types';
 import { formatElapsedTime } from '../../utils/date';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
-import { getFilmById } from '../../utils/films';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-const mapStateToProps = ({films, currentComments}: State) => ({
-  fetchedFilms: films,
-  fetchedComments: currentComments,
+const mapStateToProps = ({currentFilm}: State) => ({
+  fetchedFilm: currentFilm,
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
+  fetchCurrentFilm(id: number) {
+    dispatch(getСurrentFilm(id));
+  },
+});
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function PlayerScreen({fetchedFilms}: PropsFromRedux): JSX.Element {
-  const { id } = useParams() as ParamsWithId;
+function PlayerScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.Element {
+  const id = useIdParam();
 
   const history = useHistory();
 
-  // Здесь будет загрузка текущего фильма и комментариев по ID
+  useEffect(() => {
+    if (fetchedFilm.data?.id === id) {
+      return;
+    }
 
-  if (isFetchNotReady(fetchedFilms)) {
+    fetchCurrentFilm(id);
+  }, [id]);
+
+  if (isFetchNotReady(fetchedFilm)) {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(fetchedFilms)) {
+  if (isFetchError(fetchedFilm)) {
     return <NotFoundScreen />;
   }
 
@@ -35,8 +48,7 @@ function PlayerScreen({fetchedFilms}: PropsFromRedux): JSX.Element {
     history.goBack();
   };
 
-  const films = fetchedFilms.data as Film[];
-  const currentFilm = getFilmById(films, Number(id));
+  const currentFilm = fetchedFilm.data as Film;
 
   const progress = Math.random();
   const playerProgress = Number((progress * 100).toFixed(2));
