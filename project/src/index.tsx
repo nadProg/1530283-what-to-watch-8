@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { applyMiddleware, createStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { Toaster } from 'react-hot-toast';
 import App from './components/app/app';
 import { reducer } from './store/reducer';
 import { AuthorizationStatus } from './constants';
@@ -25,6 +26,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
+      <Toaster position="top-right" />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

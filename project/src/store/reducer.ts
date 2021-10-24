@@ -9,7 +9,16 @@ const reducer = (state: State = initialState, action: Action): State => {
         ...state,
         authorization: {
           ...state.authorization,
-          status: action.payload.authorizationStatus,
+          status: action.payload.status,
+        },
+      };
+
+    case ActionType.SetAuthorizationInfo:
+      return {
+        ...state,
+        authorization: {
+          ...state.authorization,
+          info: action.payload.info,
         },
       };
 

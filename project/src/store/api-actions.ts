@@ -1,7 +1,9 @@
-import { APIRoute, FetchStatus } from '../constants';
-import { adaptFilmToClient } from '../services/adapters';
-import { ServerFilm, ThunkActionResult } from '../types/types';
-import { setFilms, setFilmsFetchStatus, setPromoFilm, setPromoFetchStatus } from './actions';
+import { APIRoute, AuthorizationStatus, FetchStatus } from '../constants';
+import { adaptAuthorizationInfoToClient, adaptFilmToClient } from '../services/adapters';
+import { ServerAuthInfo, ServerFilm, ThunkActionResult, User } from '../types/types';
+import { setFilms, setFilmsFetchStatus, setPromoFilm, setPromoFetchStatus, setAuthorizationInfo, setAuthorizationStatus } from './actions';
+import toast from 'react-hot-toast';
+import { dropToken, saveToken } from '../services/token';
 
 export const getFilms = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -34,3 +36,53 @@ export const getPromoFilm = (): ThunkActionResult =>
       dispatch(setPromoFetchStatus(FetchStatus.Failed));
     }
   };
+
+export const getLogin = (): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      const { data: serverAuthorizationInfo } =
+        await api.get<ServerAuthInfo>(APIRoute.Login());
+
+      const authorizationInfo = adaptAuthorizationInfoToClient(serverAuthorizationInfo);
+
+      dispatch(setAuthorizationInfo(authorizationInfo));
+      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+      toast.success('Authorization is success');
+
+    } catch (error) {
+      toast.error('Authorization is required');
+      dropToken();
+      dispatch(setAuthorizationStatus(AuthorizationStatus.NotAuth));
+    }
+  };
+
+export const postLogin = (user: User): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      const { data: serverAuthorizationInfo } =
+        await api.post<ServerAuthInfo>(APIRoute.Login(), user);
+
+      const authorizationInfo = adaptAuthorizationInfoToClient(serverAuthorizationInfo);
+
+      saveToken(authorizationInfo.token);
+      dispatch(setAuthorizationInfo(authorizationInfo));
+      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
+
+    } catch (error) {
+      toast.error('Login is failed');
+    }
+  };
+
+export const deleteLogout = (): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      await api.delete(APIRoute.Logout());
+      dropToken();
+      dispatch(setAuthorizationInfo(null));
+      dispatch(setAuthorizationStatus(AuthorizationStatus.NotAuth));
+
+    } catch {
+      toast.error('Logout is falied');
+    }
+  };
+

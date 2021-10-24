@@ -1,5 +1,5 @@
 import { ActionType, AuthorizationStatus } from '../constants';
-import { FetchStatusType, Film, ValuesOf } from '../types/types';
+import { AuthoarizationInfo, FetchStatusType, Film, ValuesOf } from '../types/types';
 
 export const setFilms = (films: Film[] | null) => ({
   type: ActionType.SetFilms,
@@ -30,10 +30,17 @@ export const setPromoFetchStatus = (status: FetchStatusType) => ({
   },
 } as const);
 
-export const setAuthorizationStatus = (authorizationStatus: ValuesOf<typeof AuthorizationStatus>) => ({
+export const setAuthorizationStatus = (status: ValuesOf<typeof AuthorizationStatus>) => ({
   type: ActionType.SetAuthorizationStatus,
   payload: {
-    authorizationStatus,
+    status,
+  },
+} as const);
+
+export const setAuthorizationInfo = (info: AuthoarizationInfo | null) => ({
+  type: ActionType.SetAuthorizationInfo,
+  payload: {
+    info,
   },
 } as const);
 

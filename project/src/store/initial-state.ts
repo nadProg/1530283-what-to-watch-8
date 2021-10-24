@@ -29,7 +29,7 @@ const initialState: State = {
   },
   filter: ALL_GENRES,
   authorization: {
-    status: AuthorizationStatus.NotAuth,
+    status: AuthorizationStatus.Unknown,
     info: null,
   },
 };
