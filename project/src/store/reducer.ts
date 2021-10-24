@@ -67,6 +67,24 @@ const reducer = (state: State = initialState, action: Action): State => {
         },
       };
 
+    case ActionType.SetCurrentComments:
+      return {
+        ...state,
+        currentComments: {
+          ...state.currentComments,
+          data: action.payload.currentComments,
+        },
+      };
+
+    case ActionType.SetCurrentCommentsFetchStatus:
+      return {
+        ...state,
+        currentComments: {
+          ...state.currentComments,
+          status: action.payload.status,
+        },
+      };
+
     case ActionType.SetPromoFilm:
       return {
         ...state,

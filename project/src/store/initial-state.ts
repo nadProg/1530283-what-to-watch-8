@@ -1,5 +1,4 @@
 import { ALL_GENRES, AuthorizationStatus, FetchStatus } from '../constants';
-import { comments } from '../mocks/comments';
 import { State } from '../types/types';
 
 const initialState: State = {
@@ -16,8 +15,8 @@ const initialState: State = {
     status: FetchStatus.Idle,
   },
   currentComments: {
-    data: comments,
-    status: FetchStatus.Succeeded,
+    data: null,
+    status: FetchStatus.Idle,
   },
   similarFilms: {
     data: null,

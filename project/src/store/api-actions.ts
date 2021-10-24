@@ -1,7 +1,7 @@
 import { APIRoute, AppRoute, AuthorizationStatus, FetchStatus } from '../constants';
 import { adaptAuthorizationInfoToClient, adaptFilmToClient } from '../services/adapters';
-import { ServerAuthInfo, ServerFilm, ThunkActionResult, User } from '../types/types';
-import { setFilms, setFilmsFetchStatus, setPromoFilm, setPromoFetchStatus, setAuthorizationInfo, setAuthorizationStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, redirectToRoute } from './actions';
+import { CommentGet, ServerAuthInfo, ServerFilm, ThunkActionResult, User } from '../types/types';
+import { setFilms, setFilmsFetchStatus, setPromoFilm, setPromoFetchStatus, setAuthorizationInfo, setAuthorizationStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, redirectToRoute, setCurrentCommentsFetchStatus, setCurrentComments } from './actions';
 import toast from 'react-hot-toast';
 import { dropToken, saveToken } from '../services/token';
 
@@ -50,6 +50,21 @@ export const getFavoriteFilms = (): ThunkActionResult =>
 
     } catch (error) {
       dispatch(setFavoriteFilmsFetchStatus(FetchStatus.Failed));
+    }
+  };
+
+export const getСurrentComments = (filmId: number): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    dispatch(setCurrentCommentsFetchStatus(FetchStatus.Loading));
+
+    try {
+      const { data: comments } = await api.get<CommentGet[]>(APIRoute.Comments(filmId));
+
+      dispatch(setCurrentComments(comments));
+      dispatch(setCurrentCommentsFetchStatus(FetchStatus.Succeeded));
+
+    } catch (error) {
+      dispatch(setCurrentCommentsFetchStatus(FetchStatus.Failed));
     }
   };
 

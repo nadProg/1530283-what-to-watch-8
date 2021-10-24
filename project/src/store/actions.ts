@@ -1,5 +1,5 @@
 import { ActionType, AuthorizationStatus } from '../constants';
-import { AuthoarizationInfo, FetchStatusType, Film, ValuesOf } from '../types/types';
+import { AuthoarizationInfo, CommentGet, FetchStatusType, Film, ValuesOf } from '../types/types';
 
 export const setFilms = (films: Film[] | null) => ({
   type: ActionType.SetFilms,
@@ -41,6 +41,20 @@ export const setFavoriteFilms = (favoriteFilms: Film[] | null) => ({
   type: ActionType.SetFavoriteFilms,
   payload: {
     favoriteFilms,
+  },
+} as const);
+
+export const setCurrentComments = (currentComments: CommentGet[] | null) => ({
+  type: ActionType.SetCurrentComments,
+  payload: {
+    currentComments,
+  },
+} as const);
+
+export const setCurrentCommentsFetchStatus = (status: FetchStatusType) => ({
+  type: ActionType.SetCurrentCommentsFetchStatus,
+  payload: {
+    status,
   },
 } as const);
 
