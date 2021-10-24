@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { MAX_SIMILAR_FILMS_COUNT } from '../../constants';
-import { getСurrentComments, getСurrentFilm } from '../../store/api-actions';
+import { getSimilarFilms, getСurrentComments, getСurrentFilm } from '../../store/api-actions';
 import type { CommentGet, Film, ParamsWithId, State, ThunkAppDispatch } from '../../types/types';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
@@ -13,9 +13,10 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PageContent from '../page-content/page-content';
 import PageFooter from '../page-footer/page-footer';
 
-const mapStateToProps = ({currentFilm, currentComments}: State) => ({
+const mapStateToProps = ({currentFilm, currentComments, similarFilms}: State) => ({
   fetchedFilm: currentFilm,
   fetchedComments: currentComments,
+  fetchedSimilarFilms: similarFilms,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
@@ -25,31 +26,35 @@ const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
   fetchCurrentComments(id: number) {
     dispatch(getСurrentComments(id));
   },
+  fetchSimilarFilms(id: number) {
+    dispatch(getSimilarFilms(id));
+  },
 });
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-function FilmScreen({fetchedFilm, fetchedComments, fetchCurrentFilm, fetchCurrentComments}: PropsFromRedux): JSX.Element {
+function FilmScreen({fetchedFilm, fetchedComments, fetchedSimilarFilms, fetchCurrentFilm, fetchCurrentComments, fetchSimilarFilms}: PropsFromRedux): JSX.Element {
   const { id } = useParams() as ParamsWithId;
 
   useEffect(() => {
     fetchCurrentFilm(Number(id));
     fetchCurrentComments(Number(id));
+    fetchSimilarFilms(Number(id));
   }, [id]);
 
-  if (isFetchNotReady(fetchedFilm) || isFetchNotReady(fetchedComments)) {
+  if (isFetchNotReady(fetchedFilm) || isFetchNotReady(fetchedComments) || isFetchNotReady(fetchedSimilarFilms)) {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(fetchedFilm) || isFetchError(fetchedComments)) {
+  if (isFetchError(fetchedFilm) || isFetchError(fetchedComments) || isFetchNotReady(fetchedSimilarFilms)) {
     return <NotFoundScreen />;
   }
 
   const currentFilm = fetchedFilm.data as Film;
   const currentComments = fetchedComments.data as CommentGet[];
-  const similarFilms = [] as Film[];
+  const similarFilms = fetchedSimilarFilms.data?.slice(0, MAX_SIMILAR_FILMS_COUNT) as Film[];
 
   return (
     <>

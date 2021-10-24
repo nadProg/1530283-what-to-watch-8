@@ -30,6 +30,13 @@ export const setPromoFetchStatus = (status: FetchStatusType) => ({
   },
 } as const);
 
+export const setFavoriteFilms = (favoriteFilms: Film[] | null) => ({
+  type: ActionType.SetFavoriteFilms,
+  payload: {
+    favoriteFilms,
+  },
+} as const);
+
 export const setFavoriteFilmsFetchStatus = (status: FetchStatusType) => ({
   type: ActionType.SetFavoriteFilmsFetchStatus,
   payload: {
@@ -37,10 +44,17 @@ export const setFavoriteFilmsFetchStatus = (status: FetchStatusType) => ({
   },
 } as const);
 
-export const setFavoriteFilms = (favoriteFilms: Film[] | null) => ({
-  type: ActionType.SetFavoriteFilms,
+export const setSimilarFilms = (similarFilms: Film[] | null) => ({
+  type: ActionType.SetSimilarFilms,
   payload: {
-    favoriteFilms,
+    similarFilms,
+  },
+} as const);
+
+export const setSimilarFilmsFetchStatus = (status: FetchStatusType) => ({
+  type: ActionType.SetSimilarFilmsFetchStatus,
+  payload: {
+    status,
   },
 } as const);
 

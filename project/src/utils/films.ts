@@ -1,5 +1,5 @@
 import { RatingDescription, ratingDescriptionToLowerLimit } from '../constants';
-import type { Film, ValuesOf } from '../types/types';
+import type { ValuesOf } from '../types/types';
 
 const MAX_OVERVIEW_ACTORS_COUNT = 4;
 
@@ -23,21 +23,4 @@ export const getRatingDescription = (rating:number): ValuesOf<typeof RatingDescr
   }
 
   return RatingDescription.Bad;
-};
-
-// Временная функция вместо API запроса
-export const getFilmById = (films: Film[], id: number): Film => {
-  const foundFilm = films.find((film) => film.id === id);
-
-  if (!foundFilm) {
-    throw new Error(`Film with id=${id} does not exist`);
-  }
-
-  return foundFilm;
-};
-
-// Временная функция вместо API запроса
-export const getSimilarFilms = (films: Film[], id: number): Film[] | [] => {
-  const referenceFilm = getFilmById(films, id);
-  return films.filter((film) => film.id !== id && film.genre === referenceFilm.genre);
 };

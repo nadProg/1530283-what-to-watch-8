@@ -15,7 +15,9 @@ import {
   setCurrentComments,
   setCurrentCommentsFetchStatus,
   setCurrentFilm,
-  setCurrentFilmFetchStatus
+  setCurrentFilmFetchStatus,
+  setSimilarFilms,
+  setSimilarFilmsFetchStatus
 } from '../store/actions';
 
 export type Film = {
@@ -120,6 +122,8 @@ export type Action = ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof setAuthorizationInfo>
   | ReturnType<typeof setFilms>
   | ReturnType<typeof setFilmsFetchStatus>
+  | ReturnType<typeof setSimilarFilms>
+  | ReturnType<typeof setSimilarFilmsFetchStatus>
   | ReturnType<typeof setFavoriteFilms>
   | ReturnType<typeof setFavoriteFilmsFetchStatus>
   | ReturnType<typeof setCurrentFilm>
