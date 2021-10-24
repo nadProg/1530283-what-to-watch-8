@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { connect, ConnectedProps } from 'react-redux';
 import { postLogin } from '../../store/api-actions';
 import { ThunkAppDispatch, User } from '../../types/types';
-import { validateFormData } from '../../utils/common';
+import { validateLoginFormData } from '../../utils/common';
 
 const INITIAL_FORM_STATE: User = {
   email: '',
@@ -39,7 +39,7 @@ function LoginForm({className, login}: LoginFormProps): JSX.Element {
   const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    const validityMessage = validateFormData(formData);
+    const validityMessage = validateLoginFormData(formData);
 
     if (validityMessage) {
       toast.error(validityMessage);

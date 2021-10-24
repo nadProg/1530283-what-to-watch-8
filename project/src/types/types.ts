@@ -11,7 +11,8 @@ import {
   setAuthorizationInfo,
   setFavoriteFilms,
   setFavoriteFilmsFetchStatus,
-  resetFavoriteFilms
+  resetFavoriteFilms,
+  redirectToRoute
 } from '../store/actions';
 
 export type Film = {
@@ -121,7 +122,8 @@ export type Action = ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof resetFavoriteFilms>
   | ReturnType<typeof setPromoFilm>
   | ReturnType<typeof setPromoFetchStatus>
-  | ReturnType<typeof setFilter>;
+  | ReturnType<typeof setFilter>
+  | ReturnType<typeof redirectToRoute>;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 

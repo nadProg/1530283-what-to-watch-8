@@ -24,7 +24,7 @@ export const isAllCasesChecked = (argument: never): never => {
   throw new Error('Not all cases was checked');
 };
 
-export const validateFormData = ({email, password}: User): string => {
+export const validateLoginFormData = ({email, password}: User): string => {
   if (!email) {
     return 'E-mail is requred';
   }

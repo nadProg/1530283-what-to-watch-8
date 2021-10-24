@@ -1,7 +1,7 @@
-import { APIRoute, AuthorizationStatus, FetchStatus } from '../constants';
+import { APIRoute, AppRoute, AuthorizationStatus, FetchStatus } from '../constants';
 import { adaptAuthorizationInfoToClient, adaptFilmToClient } from '../services/adapters';
 import { ServerAuthInfo, ServerFilm, ThunkActionResult, User } from '../types/types';
-import { setFilms, setFilmsFetchStatus, setPromoFilm, setPromoFetchStatus, setAuthorizationInfo, setAuthorizationStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus } from './actions';
+import { setFilms, setFilmsFetchStatus, setPromoFilm, setPromoFetchStatus, setAuthorizationInfo, setAuthorizationStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, redirectToRoute } from './actions';
 import toast from 'react-hot-toast';
 import { dropToken, saveToken } from '../services/token';
 
@@ -63,10 +63,8 @@ export const getLogin = (): ThunkActionResult =>
 
       dispatch(setAuthorizationInfo(authorizationInfo));
       dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-      toast.success('Authorization is success');
 
-    } catch (error) {
-      toast.error('Authorization is required');
+    } catch {
       dropToken();
       dispatch(setAuthorizationStatus(AuthorizationStatus.NotAuth));
     }
@@ -81,6 +79,7 @@ export const postLogin = (user: User): ThunkActionResult =>
       const authorizationInfo = adaptAuthorizationInfoToClient(serverAuthorizationInfo);
 
       saveToken(authorizationInfo.token);
+      dispatch(redirectToRoute(AppRoute.Root()));
       dispatch(setAuthorizationInfo(authorizationInfo));
       dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
 

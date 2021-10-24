@@ -89,4 +89,5 @@ export const ActionType = {
   SetFavoriteFilms: 'favoriteFilms/setData',
   SetFavoriteFilmsFetchStatus: 'favoriteFilms/setFetchStatus',
   ResetFavoriteFilms: 'favoriteFilms/reset',
+  Redirect: 'app/redirect',
 } as const;

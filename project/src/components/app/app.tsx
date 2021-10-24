@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import type { State, ThunkAppDispatch } from '../../types/types';
 import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import { isFetchError, isFetchIdle, isFetchNotReady } from '../../utils/fetched-data';
 import InfoScreen from '../info-screen/info-screen';
 import PageTitle from '../page-title/page-title';
+import browserHistory from '../../browser-history';
 
 const mapStateToProps = ({films, authorization}: State) => ({
   authorizationStatus: authorization.status,
@@ -65,7 +66,7 @@ function App({ fetchedFilms, authorizationStatus, fetchFilms, checkAuthorization
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.Root()} exact>
           <MainScreen />

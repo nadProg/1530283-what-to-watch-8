@@ -1,4 +1,4 @@
-import { Action,  State } from '../types/types';
+import { Action, State } from '../types/types';
 import { ActionType, FetchStatus } from '../constants';
 import { initialState } from './initial-state';
 
