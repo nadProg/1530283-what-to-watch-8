@@ -44,6 +44,20 @@ export const setFavoriteFilms = (favoriteFilms: Film[] | null) => ({
   },
 } as const);
 
+export const setCurrentFilm = (currentFilm: Film | null) => ({
+  type: ActionType.SetCurrentFilm,
+  payload: {
+    currentFilm,
+  },
+} as const);
+
+export const setCurrentFilmFetchStatus = (status: FetchStatusType) => ({
+  type: ActionType.SetCurrentFilmFetchStatus,
+  payload: {
+    status,
+  },
+} as const);
+
 export const setCurrentComments = (currentComments: CommentGet[] | null) => ({
   type: ActionType.SetCurrentComments,
   payload: {
@@ -56,10 +70,6 @@ export const setCurrentCommentsFetchStatus = (status: FetchStatusType) => ({
   payload: {
     status,
   },
-} as const);
-
-export const resetFavoriteFilms = () => ({
-  type: ActionType.ResetFavoriteFilms,
 } as const);
 
 export const setAuthorizationStatus = (status: ValuesOf<typeof AuthorizationStatus>) => ({
