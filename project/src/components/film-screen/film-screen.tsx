@@ -39,6 +39,10 @@ function FilmScreen({fetchedFilm, fetchedComments, fetchedSimilarFilms, fetchCur
   const id = useIdParam();
 
   useEffect(() => {
+    if (fetchedFilm.data?.id === id) {
+      return;
+    }
+
     fetchCurrentFilm(id);
     fetchCurrentComments(id);
     fetchSimilarFilms(id);

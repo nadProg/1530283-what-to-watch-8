@@ -29,6 +29,10 @@ function PlayerScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.Elem
   const history = useHistory();
 
   useEffect(() => {
+    if (fetchedFilm.data?.id === id) {
+      return;
+    }
+
     fetchCurrentFilm(id);
   }, [id]);
 

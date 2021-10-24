@@ -33,6 +33,10 @@ function AddReviewScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.E
   const id = useIdParam();
 
   useEffect(() => {
+    if (fetchedFilm.data?.id === id) {
+      return;
+    }
+
     fetchCurrentFilm(id);
   }, [id]);
 

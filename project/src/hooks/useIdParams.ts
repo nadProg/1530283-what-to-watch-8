@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { ParamsWithId } from '../types/types';
 
-export const useIdParam = () => {
+export const useIdParam = (): number => {
   const { id } = useParams() as ParamsWithId;
 
   if (!id) {
