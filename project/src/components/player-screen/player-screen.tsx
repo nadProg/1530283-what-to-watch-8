@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../constants';
 import { useIdParam } from '../../hooks/useIdParams';
 import { getСurrentFilm } from '../../store/api-actions';
 import type { Film, State, ThunkAppDispatch } from '../../types/types';
@@ -26,8 +27,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 function PlayerScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.Element {
   const id = useIdParam();
 
-  const history = useHistory();
-
   useEffect(() => {
     if (fetchedFilm.data?.id === id) {
       return;
@@ -44,10 +43,6 @@ function PlayerScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.Elem
     return <NotFoundScreen />;
   }
 
-  const handleExitButtonClick = () => {
-    history.goBack();
-  };
-
   const currentFilm = fetchedFilm.data as Film;
 
   const progress = Math.random();
@@ -58,7 +53,7 @@ function PlayerScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.Elem
     <div className="player">
       <video src={currentFilm.videoLink} className="player__video" poster={currentFilm.previewImage}></video>
 
-      <button type="button" className="player__exit" onClick={handleExitButtonClick}>Exit</button>
+      <Link to={AppRoute.Film(id)} className="player__exit" style={{textDecoration: 'none'}}>Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">
