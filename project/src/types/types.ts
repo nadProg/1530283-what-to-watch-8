@@ -17,7 +17,8 @@ import {
   setCurrentFilm,
   setCurrentFilmFetchStatus,
   setSimilarFilms,
-  setSimilarFilmsFetchStatus
+  setSimilarFilmsFetchStatus,
+  setNewCommentFetchStatus
 } from '../store/actions';
 
 export type Film = {
@@ -109,6 +110,9 @@ export type State = {
   promoFilm: FetchedData<Film>,
   currentFilm: FetchedData<Film>,
   currentComments: FetchedData<CommentGet[]>,
+  newComment: {
+    status: FetchStatusType,
+  },
   similarFilms: FetchedData<Film[]>,
   favoriteFilms: FetchedData<Film[]>,
   filter: string,
@@ -130,6 +134,7 @@ export type Action = ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof setCurrentFilmFetchStatus>
   | ReturnType<typeof setCurrentComments>
   | ReturnType<typeof setCurrentCommentsFetchStatus>
+  | ReturnType<typeof setNewCommentFetchStatus>
   | ReturnType<typeof setPromoFilm>
   | ReturnType<typeof setPromoFetchStatus>
   | ReturnType<typeof setFilter>

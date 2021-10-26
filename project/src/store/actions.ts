@@ -86,6 +86,13 @@ export const setCurrentCommentsFetchStatus = (status: FetchStatusType) => ({
   },
 } as const);
 
+export const setNewCommentFetchStatus = (status: FetchStatusType) => ({
+  type: ActionType.SetNewCommentFetchStatus,
+  payload: {
+    status,
+  },
+} as const);
+
 export const setAuthorizationStatus = (status: ValuesOf<typeof AuthorizationStatus>) => ({
   type: ActionType.SetAuthorizationStatus,
   payload: {
