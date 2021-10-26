@@ -18,6 +18,9 @@ const initialState: State = {
     data: null,
     status: FetchStatus.Idle,
   },
+  newComment: {
+    status: FetchStatus.Idle,
+  },
   similarFilms: {
     data: null,
     status: FetchStatus.Idle,

@@ -1,4 +1,4 @@
-import { EMAIL_REGEX, EMPTY_SPACE, MIN_PASSWORD_LENGTH } from '../constants';
+import { EMAIL_REGEX, EMPTY_SPACE, MIN_PASSWORD_LENGTH, Rating, ReviewContent } from '../constants';
 import { User } from '../types/types';
 
 export const getRandomInteger = (a = 0, b = 1): number => {
@@ -46,4 +46,20 @@ export const validateLoginFormData = ({email, password}: User): string => {
   }
 
   return '';
+};
+
+export const validateReviewRating = (rating: number): boolean => {
+  if (rating >= Rating.MinValue && rating >= Rating.MaxValue) {
+    return true;
+  }
+
+  return false;
+};
+
+export const validateReviewContent = (content: string): boolean => {
+  if (content.length >= ReviewContent.MinLength && content.length <= ReviewContent.MaxLength) {
+    return true;
+  }
+
+  return false;
 };

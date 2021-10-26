@@ -63,7 +63,7 @@ function AddReviewScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.E
         </PageHeader>
         <FilmCardPoster src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} small />
       </div>
-      <AddReviewForm />
+      <AddReviewForm filmId={id} />
     </section>
   );
 }

@@ -78,6 +78,16 @@ export const ratingDescriptionToLowerLimit: {
   Awesome: 10,
 };
 
+export const Rating = {
+  MinValue: 1,
+  MaxValue: 10,
+} as const;
+
+export const ReviewContent = {
+  MinLength: 50,
+  MaxLength: 400,
+} as const;
+
 export const ActionType = {
   SetFilter: 'filter/setFilter',
   SetAuthorizationStatus: 'authorization/setStatus',
@@ -94,5 +104,6 @@ export const ActionType = {
   SetCurrentFilmFetchStatus: 'currentFilm/setFetchStatus',
   SetCurrentComments: 'currentComments/setData',
   SetCurrentCommentsFetchStatus: 'currentComments/setFetchStatus',
+  SetNewCommentFetchStatus: 'newComment/setFetchStatus',
   Redirect: 'app/redirect',
 } as const;

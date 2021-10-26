@@ -4,7 +4,7 @@ import { MAX_SIMILAR_FILMS_COUNT } from '../../constants';
 import { useIdParam } from '../../hooks/useIdParams';
 import { getSimilarFilms, getСurrentComments, getСurrentFilm } from '../../store/api-actions';
 import type { CommentGet, Film, State, ThunkAppDispatch } from '../../types/types';
-import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
+import { isFetchError, isFetchIdle, isFetchNotReady } from '../../utils/fetched-data';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
 import Catalog from '../catalog/catalog';
 import FullFilmCard from '../full-film-card/full-film-card';
@@ -39,13 +39,24 @@ function FilmScreen({fetchedFilm, fetchedComments, fetchedSimilarFilms, fetchCur
   const id = useIdParam();
 
   useEffect(() => {
-    if (fetchedFilm.data?.id === id) {
+    if (fetchedFilm.data?.id !== id) {
+      fetchCurrentFilm(id);
+      fetchCurrentComments(id);
+      fetchSimilarFilms(id);
       return;
     }
 
-    fetchCurrentFilm(id);
-    fetchCurrentComments(id);
-    fetchSimilarFilms(id);
+    if (isFetchIdle(fetchedFilm)) {
+      fetchCurrentFilm(id);
+    }
+
+    if (isFetchIdle(fetchedComments)) {
+      fetchCurrentComments(id);
+    }
+
+    if (isFetchIdle(fetchedSimilarFilms)) {
+      fetchSimilarFilms(id);
+    }
   }, [id]);
 
   if (isFetchNotReady(fetchedFilm) || isFetchNotReady(fetchedComments) || isFetchNotReady(fetchedSimilarFilms)) {

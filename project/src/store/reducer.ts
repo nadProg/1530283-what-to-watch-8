@@ -113,6 +113,14 @@ const reducer = (state: State = initialState, action: Action): State => {
         },
       };
 
+    case ActionType.SetNewCommentFetchStatus:
+      return {
+        ...state,
+        newComment: {
+          status: action.payload.status,
+        },
+      };
+
     case ActionType.SetPromoFilm:
       return {
         ...state,
