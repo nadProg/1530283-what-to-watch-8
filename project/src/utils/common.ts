@@ -26,7 +26,7 @@ export const isAllCasesChecked = (argument: never): never => {
 
 export const validateLoginFormData = ({email, password}: User): string => {
   if (!email) {
-    return 'E-mail is requred';
+    return 'E-mail is required';
   }
 
   if (!EMAIL_REGEX.test(email.toLowerCase())) {
@@ -49,7 +49,7 @@ export const validateLoginFormData = ({email, password}: User): string => {
 };
 
 export const validateReviewRating = (rating: number): boolean => {
-  if (rating >= Rating.MinValue && rating >= Rating.MaxValue) {
+  if (rating >= Rating.MinValue && rating <= Rating.MaxValue) {
     return true;
   }
 

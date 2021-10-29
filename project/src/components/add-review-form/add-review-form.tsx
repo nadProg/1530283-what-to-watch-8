@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent, Fragment, useEffect } from 'react';
+import { useState, ChangeEvent, FormEvent, Fragment, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Rating } from '../../constants';
 import { CommentPost } from '../../types/types';
@@ -21,13 +21,12 @@ function AddReviewForm(): JSX.Element {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setFormValidity(validateReviewRating(rating));
-  }, [rating]);
+  const isRatingValid = useMemo(() => validateReviewRating(rating), [rating]);
+  const isReviewContentValid = useMemo(() => validateReviewContent(comment), [comment]);
 
   useEffect(() => {
-    setFormValidity(validateReviewContent(comment));
-  }, [comment]);
+    setFormValidity(isRatingValid && isReviewContentValid);
+  }, [isRatingValid, isReviewContentValid]);
 
   const createReview = (formData: CommentPost) => {
     dispatch(postComment(filmId, formData));
