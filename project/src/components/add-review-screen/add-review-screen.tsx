@@ -56,7 +56,7 @@ function AddReviewScreen(): JSX.Element {
         </PageHeader>
         <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} small />
       </div>
-      <AddReviewForm filmId={filmId} />
+      <AddReviewForm />
     </section>
   );
 }
