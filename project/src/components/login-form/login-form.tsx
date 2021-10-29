@@ -1,32 +1,28 @@
-import classNames from 'classnames';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
 import toast from 'react-hot-toast';
-import { connect, ConnectedProps } from 'react-redux';
-import { postLogin } from '../../store/authorization/authorization-api-actions';
-import { ThunkAppDispatch, User } from '../../types/types';
+import { User } from '../../types/types';
 import { validateLoginFormData } from '../../utils/common';
+import { postLogin } from '../../store/authorization/authorization-api-actions';
 
 const INITIAL_FORM_STATE: User = {
   email: '',
   password: '',
 };
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  login(user: User) {
-    dispatch(postLogin(user));
-  },
-});
-
-const connector = connect(null, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type LoginFormProps = PropsFromRedux & {
+type LoginFormProps = {
   className?: string,
 }
 
-function LoginForm({className, login}: LoginFormProps): JSX.Element {
+function LoginForm({className}: LoginFormProps): JSX.Element {
   const [ formData, setFormData ] = useState(INITIAL_FORM_STATE);
+
+  const dispatch = useDispatch();
+
+  const login = (user: User) => {
+    dispatch(postLogin(user));
+  };
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
@@ -70,5 +66,4 @@ function LoginForm({className, login}: LoginFormProps): JSX.Element {
   );
 }
 
-export {LoginForm};
-export default connector(LoginForm);
+export default LoginForm;

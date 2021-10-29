@@ -1,38 +1,33 @@
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../constants';
 import { deleteLogout } from '../../store/authorization/authorization-api-actions';
-import { State, ThunkAppDispatch } from '../../types/types';
+import { getAuhorizationStatus, getUserAvatar } from '../../store/authorization/authorization-selectors';
 
-const mapStateToProps = ({authorization}: State) => ({
-  authorization,
-});
+function UserBlock():JSX.Element {
+  const authorizationStatus = useSelector(getAuhorizationStatus);
+  const userAvatar = useSelector(getUserAvatar);
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  logout() {
+  const dispatch = useDispatch();
+
+  const logout = () => {
     dispatch(deleteLogout());
-  },
-});
+  };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function UserBlock({authorization, logout}: PropsFromRedux):JSX.Element {
   return (
     <ul className="user-block" style={{ minHeight: 63 }}>
-      { authorization.status === AuthorizationStatus.Auth ?
+      { authorizationStatus === AuthorizationStatus.Auth ?
         (
           <>
             <li className="user-block__item">
               <Link to={AppRoute.MyList()}>
                 <div className="user-block__avatar">
-                  <img src={authorization.info?.avatarUrl} alt="User avatar" width="63" height="63" />
+                  <img src={userAvatar} alt="User avatar" width="63" height="63" />
                 </div>
               </Link>
             </li>
             <li className="user-block__item">
-              <span className="user-block__link" onClick={logout}>Sign out</span>
+              <span className="user-block__link" onClick={() => logout()}>Sign out</span>
             </li>
           </>
         )  : (
@@ -44,6 +39,4 @@ function UserBlock({authorization, logout}: PropsFromRedux):JSX.Element {
   );
 }
 
-export {UserBlock};
-export default connector(UserBlock);
-
+export default UserBlock;
