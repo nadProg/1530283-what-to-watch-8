@@ -1,72 +1,64 @@
-import type { Film, State, ThunkAppDispatch } from '../../types/types';
-import FilmCardBackground from '../film-card-background/film-card-background';
-import FilmCardPoster from '../film-card-poster/film-card-poster';
-import Logo from '../logo/logo';
-import UserBlock from '../user-block/user-block';
-import AddReviewForm from '../add-review-form/add-review-form';
-import Breadcrumbs from '../breadcrumbs/breadcrumbs';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useIdParam } from '../../hooks/useIdParams';
+import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import PageHeader from '../page-header/page-header';
 import PageTitle from '../page-title/page-title';
-import { connect, ConnectedProps } from 'react-redux';
-import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
-import LoadingScreen from '../loading-screen/loading-screen';
+import Logo from '../logo/logo';
+import Breadcrumbs from '../breadcrumbs/breadcrumbs';
+import FilmCardBackground from '../film-card-background/film-card-background';
+import FilmCardPoster from '../film-card-poster/film-card-poster';
+import UserBlock from '../user-block/user-block';
+import AddReviewForm from '../add-review-form/add-review-form';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import { useEffect } from 'react';
-import { useIdParam } from '../../hooks/useIdParams';
+import LoadingScreen from '../loading-screen/loading-screen';
 import { getСurrentFilm } from '../../store/films/films-api-actions';
+import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
 
-const mapStateToProps = ({films}: State) => ({
-  fetchedFilm: films.currentFilm,
-});
+function AddReviewScreen(): JSX.Element {
+  const filmId = useIdParam();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  fetchCurrentFilm(id: number) {
+  const film = useSelector(getCurrentFilmData);
+  const filmStatus = useSelector(getCurrentFilmStatus);
+
+  const dispatch = useDispatch();
+
+  const fetchCurrentFilm = (id: number) => {
     dispatch(getСurrentFilm(id));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function AddReviewScreen({fetchedFilm, fetchCurrentFilm}: PropsFromRedux): JSX.Element {
-  const id = useIdParam();
+  };
 
   useEffect(() => {
-    if (fetchedFilm.data?.id === id) {
+    if (film?.id === filmId) {
       return;
     }
 
-    fetchCurrentFilm(id);
-  }, [id]);
+    fetchCurrentFilm(filmId);
+  }, [filmId]);
 
 
-  if (isFetchNotReady(fetchedFilm)) {
+  if (isFetchNotReady(filmStatus)) {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(fetchedFilm)) {
+  if (isFetchError(filmStatus) || !film) {
     return <NotFoundScreen />;
   }
 
-  const currentFilm = fetchedFilm.data as Film;
-
   return (
-    <section className="film-card film-card--full" style={{backgroundColor: currentFilm.backgroundColor}}>
+    <section className="film-card film-card--full" style={{backgroundColor: film.backgroundColor}}>
       <div className="film-card__header">
-        <FilmCardBackground src={currentFilm.backgroundImage} alt={currentFilm.name} />
+        <FilmCardBackground src={film.backgroundImage} alt={film.name} />
         <PageTitle hidden>WTW</PageTitle>
         <PageHeader>
           <Logo />
-          <Breadcrumbs film={currentFilm} />
+          <Breadcrumbs film={film} />
           <UserBlock />
         </PageHeader>
-        <FilmCardPoster src={currentFilm.posterImage} alt={`${currentFilm.name} poster`} small />
+        <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} small />
       </div>
-      <AddReviewForm filmId={id} />
+      <AddReviewForm filmId={filmId} />
     </section>
   );
 }
 
-export { AddReviewScreen };
-export default connector(AddReviewScreen);
+export default AddReviewScreen;

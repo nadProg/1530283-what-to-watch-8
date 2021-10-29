@@ -1,3 +1,4 @@
+import { LINE_BREAK } from '../../constants';
 import { CommentGet } from '../../types/types';
 import { formatDatetime, formatHumanizedDate } from '../../utils/date';
 import { formatRating } from '../../utils/films';
@@ -10,7 +11,9 @@ function Review({comment}: ReviewProps): JSX.Element {
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{comment.comment}</p>
+        {comment.comment.split(LINE_BREAK).map((paragraph) => (
+          <p key={paragraph} className="review__text">{paragraph}</p>
+        ))}
 
         <footer className="review__details">
           <cite className="review__author">{comment.user.name}</cite>
