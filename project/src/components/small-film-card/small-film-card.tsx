@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, memo } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { AppRoute } from '../../constants';
@@ -72,4 +72,4 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
   );
 }
 
-export default SmallFilmCard;
+export default memo(SmallFilmCard);
