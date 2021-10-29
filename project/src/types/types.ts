@@ -107,7 +107,6 @@ export type ServerAuthInfo = {
 
 export type State = {
   films: FetchedData<Film[]>,
-  promoFilm: FetchedData<Film>,
   currentFilm: FetchedData<Film>,
   currentComments: FetchedData<CommentGet[]>,
   newComment: {

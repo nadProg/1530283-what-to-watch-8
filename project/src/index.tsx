@@ -6,7 +6,8 @@ import { applyMiddleware, createStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Toaster } from 'react-hot-toast';
 import App from './components/app/app';
-import { reducer } from './store/reducer';
+// import { reducer } from './store/reducer';
+import { rootReducer } from './store/root-reducer';
 import { AuthorizationStatus } from './constants';
 import { createAPI } from './services/api';
 import { setAuthorizationStatus } from './store/actions';
@@ -17,7 +18,7 @@ const api = createAPI(() => {
 });
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
     applyMiddleware(redirect),

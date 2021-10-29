@@ -1,90 +1,9 @@
 import { APIRoute, AppRoute, AuthorizationStatus, FetchStatus } from '../constants';
-import { adaptAuthorizationInfoToClient, adaptFilmToClient } from '../services/adapters';
-import { CommentGet, CommentPost, ServerAuthInfo, ServerFilm, ThunkActionResult, User } from '../types/types';
-import { setFilms, setFilmsFetchStatus, setPromoFilm, setPromoFetchStatus, setAuthorizationInfo, setAuthorizationStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, redirectToRoute, setCurrentCommentsFetchStatus, setCurrentComments, setCurrentFilmFetchStatus, setCurrentFilm, setSimilarFilmsFetchStatus, setSimilarFilms, setNewCommentFetchStatus } from './actions';
+import { adaptAuthorizationInfoToClient } from '../services/adapters';
+import { CommentGet, CommentPost, ServerAuthInfo, ThunkActionResult, User } from '../types/types';
+import { setAuthorizationInfo, setAuthorizationStatus,  redirectToRoute, setCurrentCommentsFetchStatus, setCurrentComments, setNewCommentFetchStatus } from './actions';
 import toast from 'react-hot-toast';
 import { dropToken, saveToken } from '../services/token';
-
-export const getFilms = (): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setFilmsFetchStatus(FetchStatus.Loading));
-
-    try {
-      const { data: serverFilms } = await api.get<ServerFilm[]>(APIRoute.Films());
-      const films = serverFilms.map((serverFilm) => adaptFilmToClient(serverFilm));
-
-      dispatch(setFilms(films));
-      dispatch(setFilmsFetchStatus(FetchStatus.Succeeded));
-
-    } catch (error) {
-      dispatch(setFilmsFetchStatus(FetchStatus.Failed));
-    }
-  };
-
-export const getPromoFilm = (): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setPromoFetchStatus(FetchStatus.Loading));
-
-    try {
-      const { data: serverPromoFilm } = await api.get<ServerFilm>(APIRoute.PromoFilm());
-      const promoFilm = adaptFilmToClient(serverPromoFilm);
-
-      dispatch(setPromoFilm(promoFilm));
-      dispatch(setPromoFetchStatus(FetchStatus.Succeeded));
-
-    } catch (error) {
-      dispatch(setPromoFetchStatus(FetchStatus.Failed));
-    }
-  };
-
-export const getFavoriteFilms = (): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setFavoriteFilmsFetchStatus(FetchStatus.Loading));
-
-    try {
-      const { data: serverFilms } = await api.get<ServerFilm[]>(APIRoute.FavoriteFilms());
-      const films = serverFilms.map((serverFilm) => adaptFilmToClient(serverFilm));
-
-      dispatch(setFavoriteFilms(films));
-      dispatch(setFavoriteFilmsFetchStatus(FetchStatus.Succeeded));
-
-    } catch (error) {
-      dispatch(setFavoriteFilmsFetchStatus(FetchStatus.Failed));
-    }
-  };
-
-
-export const getSimilarFilms = (id: number): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setSimilarFilmsFetchStatus(FetchStatus.Loading));
-
-    try {
-      const { data: serverFilms } = await api.get<ServerFilm[]>(APIRoute.SimilarFilms(id));
-      const similarFilms = serverFilms.map((serverFilm) => adaptFilmToClient(serverFilm));
-
-      dispatch(setSimilarFilms(similarFilms));
-      dispatch(setSimilarFilmsFetchStatus(FetchStatus.Succeeded));
-
-    } catch (error) {
-      dispatch(setSimilarFilmsFetchStatus(FetchStatus.Failed));
-    }
-  };
-
-export const getСurrentFilm = (filmId: number): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setCurrentFilmFetchStatus(FetchStatus.Loading));
-
-    try {
-      const { data: serverFilm } = await api.get<ServerFilm>(APIRoute.Film(filmId));
-      const currentFilm = adaptFilmToClient(serverFilm);
-
-      dispatch(setCurrentFilm(currentFilm));
-      dispatch(setCurrentFilmFetchStatus(FetchStatus.Succeeded));
-
-    } catch (error) {
-      dispatch(setCurrentFilmFetchStatus(FetchStatus.Failed));
-    }
-  };
 
 export const getСurrentComments = (filmId: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
