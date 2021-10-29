@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import type { Film, State, ThunkAppDispatch } from '../../types/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
@@ -7,40 +8,32 @@ import PageFooter from '../page-footer/page-footer';
 import Catalog from '../catalog/catalog';
 import PageTitle from '../page-title/page-title';
 import PageHeader from '../page-header/page-header';
-import { connect, ConnectedProps } from 'react-redux';
-import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getFavoriteFilms } from '../../store/films/films-api-actions';
+import { getFavoriteFilmsData, getFavoriteFilmsStatus } from '../../store/films/films-selectors';
 
-const mapStateToProps = ({films}: State) => ({
-  fetchedFavoriteFilms: films.favoriteFilms,
-});
+function MyListScreen(): JSX.Element {
+  const favoriteFilms = useSelector(getFavoriteFilmsData);
+  const favoriteFilmsStatus = useSelector(getFavoriteFilmsStatus);
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  fetchFavoriteFilms() {
+  const dispatch = useDispatch();
+
+  const fetchFavoriteFilms = () => {
     dispatch(getFavoriteFilms());
-  },
-});
+  };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function MyListScreen({fetchedFavoriteFilms, fetchFavoriteFilms}: PropsFromRedux): JSX.Element {
   useEffect(() => {
     fetchFavoriteFilms();
   }, []);
 
-  if (isFetchNotReady(fetchedFavoriteFilms)) {
+  if (isFetchNotReady(favoriteFilmsStatus)) {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(fetchedFavoriteFilms)) {
+  if (isFetchError(favoriteFilmsStatus) || !favoriteFilms) {
     return <NotFoundScreen />;
   }
-
-  const favoriteFilms = fetchedFavoriteFilms.data as Film[];
 
   return (
     <div className="user-page">
@@ -57,5 +50,4 @@ function MyListScreen({fetchedFavoriteFilms, fetchFavoriteFilms}: PropsFromRedux
   );
 }
 
-export {MyListScreen};
-export default connector(MyListScreen);
+export default MyListScreen;
