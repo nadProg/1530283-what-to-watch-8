@@ -1,6 +1,6 @@
 import { APIRoute, FetchStatus } from '../../constants';
-import { adaptFilmToClient } from '../../services/adapters';
 import { ServerFilm, ThunkActionResult } from '../../types/types';
+import { adaptFilmToClient } from '../../services/adapters';
 import { setAllFilms, setAllFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setPromoFetchStatus, setPromoFilm, setSimilarFilms, setSimilarFilmsFetchStatus } from './films-actions';
 
 export const getAllFilms = (): ThunkActionResult =>

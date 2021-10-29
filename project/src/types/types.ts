@@ -1,7 +1,7 @@
 import { ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { FetchStatus } from '../constants';
-import { redirectToRoute } from '../store/actions';
+import { redirectToRoute } from '../store/app/app-actions';
 import { setAuthorizationStatus, setAuthorizationInfo } from '../store/authorization/authorization-actions';
 import { setCurrentComments, setCurrentCommentsFetchStatus, setNewCommentFetchStatus } from '../store/comments/comments-actions';
 import { setSimilarFilms, setSimilarFilmsFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setPromoFilm, setPromoFetchStatus, setAllFilms, setAllFilmsFetchStatus } from '../store/films/films-actions';

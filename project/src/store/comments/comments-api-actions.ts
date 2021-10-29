@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast';
 import { APIRoute, AppRoute, FetchStatus } from '../../constants';
 import { CommentGet, CommentPost, ThunkActionResult } from '../../types/types';
-import { redirectToRoute } from '../actions';
+import { redirectToRoute } from '../app/app-actions';
 import { setCurrentCommentsFetchStatus, setCurrentComments, setNewCommentFetchStatus } from './comments-actions';
 
 export const getСurrentComments = (filmId: number): ThunkActionResult =>

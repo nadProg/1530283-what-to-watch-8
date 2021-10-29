@@ -1,36 +1,29 @@
+import { useEffect } from 'react';
 import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
-import { connect, ConnectedProps } from 'react-redux';
-import type { State, ThunkAppDispatch } from '../../types/types';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
-import CustomRoute from '../custom-route/custom-route';
+import browserHistory from '../../browser-history';
 import MainScreen from '../main-screen/main-screen';
 import FilmScreen from '../film-screen/film-screen';
 import PlayerScreen from '../player-screen/player-screen';
 import LoginScreen from '../login-screen/login-screen';
 import MyListScreen from '../my-list-screen/my-list-screen';
 import AddReviewScreen from '../add-review-screen/add-review-screen';
+import CustomRoute from '../custom-route/custom-route';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { useEffect } from 'react';
-import browserHistory from '../../browser-history';
 import { getLogin } from '../../store/authorization/authorization-api-actions';
+import { getAuhorizationStatus } from '../../store/authorization/authorization-selectors';
 
-const mapStateToProps = ({films, authorization}: State) => ({
-  authorizationStatus: authorization.status,
-  fetchedFilms: films,
-});
+function App(): JSX.Element {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({
-  checkAuthorization() {
+  const checkAuthorization = () => {
     dispatch(getLogin());
-  },
-});
+  };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+  const authorizationStatus = useSelector(getAuhorizationStatus);
 
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App({ authorizationStatus, checkAuthorization }: PropsFromRedux): JSX.Element {
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Unknown) {
       checkAuthorization();
@@ -70,5 +63,4 @@ function App({ authorizationStatus, checkAuthorization }: PropsFromRedux): JSX.E
   );
 }
 
-export { App };
-export default connector(App);
+export default App;
