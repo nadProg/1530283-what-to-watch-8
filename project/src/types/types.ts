@@ -2,7 +2,7 @@ import { ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { FetchStatus } from '../constants';
 import { redirectToRoute } from '../store/app/app-actions';
-import { setAuthorizationStatus, setAuthorizationInfo } from '../store/authorization/authorization-actions';
+import { setAuthorizationStatus, setAuthorizationInfo, setAuthorizationError } from '../store/authorization/authorization-actions';
 import { setCurrentComments, setCurrentCommentsFetchStatus, setNewCommentFetchStatus } from '../store/comments/comments-actions';
 import { setSimilarFilms, setSimilarFilmsFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setPromoFilm, setPromoFetchStatus, setAllFilms, setAllFilmsFetchStatus } from '../store/films/films-actions';
 import { setFilter } from '../store/filter/filter-actions';
@@ -97,6 +97,7 @@ export type State = ReturnType<typeof rootReducer>
 
 export type Action = ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof setAuthorizationInfo>
+  | ReturnType<typeof setAuthorizationError>
   | ReturnType<typeof setAllFilms>
   | ReturnType<typeof setAllFilmsFetchStatus>
   | ReturnType<typeof setSimilarFilms>

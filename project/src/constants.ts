@@ -94,6 +94,7 @@ export const ActionType = {
   SetFilter: 'filter/setFilter',
   SetAuthorizationStatus: 'authorization/setStatus',
   SetAuthorizationInfo: 'authorization/setInfo',
+  SetAuthorizationError: 'authorization/setError',
   SetAllFilms: 'allFilms/setData',
   SetAllFilmsFetchStatus: 'allFilms/setFetchStatus',
   SetPromoFilm: 'promoFilm/setData',

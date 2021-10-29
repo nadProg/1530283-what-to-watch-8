@@ -1,5 +1,4 @@
 import { EMAIL_REGEX, EMPTY_SPACE, MIN_PASSWORD_LENGTH, Rating, ReviewContent } from '../constants';
-import { User } from '../types/types';
 
 export const getRandomInteger = (a = 0, b = 1): number => {
   const lower = Math.ceil(Math.min(a, b));
@@ -24,25 +23,29 @@ export const isAllCasesChecked = (argument: never): never => {
   throw new Error('Not all cases was checked');
 };
 
-export const validateLoginFormData = ({email, password}: User): string => {
+export const getEmailValidityMessage = (email: string): string => {
   if (!email) {
-    return 'E-mail is required';
+    return 'E-mail is required.';
   }
 
   if (!EMAIL_REGEX.test(email.toLowerCase())) {
-    return 'E-mail is invalid';
+    return 'E-mail is invalid.';
   }
 
+  return '';
+};
+
+export const getPasswordValidityMessage = (password: string): string => {
   if (!password) {
-    return 'Password is required';
+    return 'Password is required.';
   }
 
   if (password.length < MIN_PASSWORD_LENGTH) {
-    return `Password must have at least ${MIN_PASSWORD_LENGTH} symbols`;
+    return `Password must have at least ${MIN_PASSWORD_LENGTH} symbols.`;
   }
 
   if (password.includes(EMPTY_SPACE)) {
-    return 'Password can not containt empty spaces';
+    return 'Password can not containt empty spaces.';
   }
 
   return '';
