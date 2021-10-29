@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
+import { authorizationReducer } from './authorization/authorization-reducer';
+import { commentsReducer } from './comments/comments-reducer';
 import { filmsReducer } from './films/films-reducer';
 
 const rootReducer = combineReducers({
   films: filmsReducer,
-  // comments: null,
+  comments: commentsReducer,
   // filter: null,
-  // authorization: null,
+  authorization: authorizationReducer,
 });
 
 export {rootReducer};
