@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 import { connect, ConnectedProps } from 'react-redux';
-import { postLogin } from '../../store/api-actions';
+import { postLogin } from '../../store/authorization/authorization-api-actions';
 import { ThunkAppDispatch, User } from '../../types/types';
 import { validateLoginFormData } from '../../utils/common';
 

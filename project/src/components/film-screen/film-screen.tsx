@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { MAX_SIMILAR_FILMS_COUNT } from '../../constants';
 import { useIdParam } from '../../hooks/useIdParams';
-import { getSimilarFilms, getСurrentComments, getСurrentFilm } from '../../store/api-actions';
+import { getСurrentComments } from '../../store/comments/comments-api-actions';
+import { getСurrentFilm, getSimilarFilms } from '../../store/films/films-api-actions';
 import type { CommentGet, Film, State, ThunkAppDispatch } from '../../types/types';
 import { isFetchError, isFetchIdle, isFetchNotReady } from '../../utils/fetched-data';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
@@ -13,10 +14,10 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PageContent from '../page-content/page-content';
 import PageFooter from '../page-footer/page-footer';
 
-const mapStateToProps = ({currentFilm, currentComments, similarFilms}: State) => ({
-  fetchedFilm: currentFilm,
-  fetchedComments: currentComments,
-  fetchedSimilarFilms: similarFilms,
+const mapStateToProps = ({films, comments}: State) => ({
+  fetchedFilm: films.currentFilm,
+  fetchedComments: comments.currentComments,
+  fetchedSimilarFilms: films.similarFilms,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

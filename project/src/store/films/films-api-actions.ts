@@ -3,7 +3,7 @@ import { adaptFilmToClient } from '../../services/adapters';
 import { ServerFilm, ThunkActionResult } from '../../types/types';
 import { setAllFilms, setAllFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setPromoFetchStatus, setPromoFilm, setSimilarFilms, setSimilarFilmsFetchStatus } from './films-actions';
 
-export const getFilms = (): ThunkActionResult =>
+export const getAllFilms = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setAllFilmsFetchStatus(FetchStatus.Loading));
 

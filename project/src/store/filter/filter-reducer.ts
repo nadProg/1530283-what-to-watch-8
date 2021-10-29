@@ -4,9 +4,7 @@ import { filterInitialState } from './filter-initial-state';
 
 const filterReducer = createReducer(filterInitialState, (build) => {
   build
-    .addCase(setFilter, (state, action) => {
-      state = action.payload.filter;
-    });
+    .addCase(setFilter, (state, action) => action.payload.filter);
 });
 
 export {filterReducer};

@@ -3,15 +3,15 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../constants';
 import { useIdParam } from '../../hooks/useIdParams';
-import { getСurrentFilm } from '../../store/api-actions';
+import { getСurrentFilm } from '../../store/films/films-api-actions';
 import type { Film, State, ThunkAppDispatch } from '../../types/types';
 import { formatElapsedTime } from '../../utils/date';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-const mapStateToProps = ({currentFilm}: State) => ({
-  fetchedFilm: currentFilm,
+const mapStateToProps = ({films}: State) => ({
+  fetchedFilm: films.currentFilm,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

@@ -6,11 +6,10 @@ import { applyMiddleware, createStore } from '@reduxjs/toolkit';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Toaster } from 'react-hot-toast';
 import App from './components/app/app';
-// import { reducer } from './store/reducer';
+import { setAuthorizationStatus } from './store/authorization/authorization-actions';
 import { rootReducer } from './store/root-reducer';
 import { AuthorizationStatus } from './constants';
 import { createAPI } from './services/api';
-import { setAuthorizationStatus } from './store/actions';
 import { redirect } from './store/middleware/redirect';
 
 const api = createAPI(() => {

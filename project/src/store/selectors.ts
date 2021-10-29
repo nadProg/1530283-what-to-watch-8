@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { MAX_GENRES_COUNT, ALL_GENRES } from '../constants';
 import { State } from '../types/types';
 
-const getFilms = ({ films }: State) => films.data;
+const getFilms = ({ films }: State) => films.allFilms.data;
 
 const getFiter = ({ filter }: State) => filter;
 

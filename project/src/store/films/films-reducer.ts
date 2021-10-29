@@ -17,22 +17,22 @@ const filmsReducer = createReducer(filmsInitialState, (builder) => {
       state.promoFilm.status = action.payload.status;
     })
     .addCase(setFavoriteFilms, (state, action) => {
-      state.allFilms.data = action.payload.favoriteFilms;
+      state.favoriteFilms.data = action.payload.favoriteFilms;
     })
     .addCase(setFavoriteFilmsFetchStatus, (state, action) => {
-      state.allFilms.status = action.payload.status;
+      state.favoriteFilms.status = action.payload.status;
     })
     .addCase(setSimilarFilms, (state, action) => {
-      state.allFilms.data = action.payload.similarFilms;
+      state.similarFilms.data = action.payload.similarFilms;
     })
     .addCase(setSimilarFilmsFetchStatus, (state, action) => {
-      state.allFilms.status = action.payload.status;
+      state.similarFilms.status = action.payload.status;
     })
     .addCase(setCurrentFilm, (state, action) => {
-      state.promoFilm.data = action.payload.currentFilm;
+      state.currentFilm.data = action.payload.currentFilm;
     })
     .addCase(setCurrentFilmFetchStatus, (state, action) => {
-      state.promoFilm.status = action.payload.status;
+      state.currentFilm.status = action.payload.status;
     });
 });
 

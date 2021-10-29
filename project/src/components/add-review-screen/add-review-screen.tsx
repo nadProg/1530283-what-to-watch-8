@@ -12,11 +12,11 @@ import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import { useEffect } from 'react';
-import { getСurrentFilm } from '../../store/api-actions';
 import { useIdParam } from '../../hooks/useIdParams';
+import { getСurrentFilm } from '../../store/films/films-api-actions';
 
-const mapStateToProps = ({currentFilm}: State) => ({
-  fetchedFilm: currentFilm,
+const mapStateToProps = ({films}: State) => ({
+  fetchedFilm: films.currentFilm,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

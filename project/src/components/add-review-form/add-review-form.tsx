@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, FormEvent, Fragment, useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { FetchStatus, Rating } from '../../constants';
-import { postComment } from '../../store/api-actions';
+import { postComment } from '../../store/comments/comments-api-actions';
 import { CommentPost, State, ThunkAppDispatch } from '../../types/types';
 import {
   validateReviewContent,
@@ -15,8 +15,8 @@ type AddReviewFormProps = {
   filmId: number;
 };
 
-const mapStateToProps = ({ newComment }: State) => ({
-  isFormLoading: newComment.status === FetchStatus.Loading,
+const mapStateToProps = ({ comments }: State) => ({
+  isFormLoading: comments.newComment.status === FetchStatus.Loading,
 });
 
 const mapDispatchToProps = (

@@ -11,10 +11,10 @@ import { connect, ConnectedProps } from 'react-redux';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { getFavoriteFilms } from '../../store/api-actions';
+import { getFavoriteFilms } from '../../store/films/films-api-actions';
 
-const mapStateToProps = ({favoriteFilms}: State) => ({
-  fetchedFavoriteFilms: favoriteFilms,
+const mapStateToProps = ({films}: State) => ({
+  fetchedFavoriteFilms: films.favoriteFilms,
 });
 
 const mapDispatchToProps = (dispatch: ThunkAppDispatch) => ({

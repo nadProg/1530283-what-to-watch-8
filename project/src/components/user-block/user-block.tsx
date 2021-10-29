@@ -1,7 +1,7 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../constants';
-import { deleteLogout } from '../../store/api-actions';
+import { deleteLogout } from '../../store/authorization/authorization-api-actions';
 import { State, ThunkAppDispatch } from '../../types/types';
 
 const mapStateToProps = ({authorization}: State) => ({
