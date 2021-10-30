@@ -14,6 +14,8 @@ export const MIN_PASSWORD_LENGTH = 2;
 
 export const EMPTY_SPACE = ' ';
 
+export const LINE_BREAK = '\n';
+
 export const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export const AppRoute = {
@@ -92,8 +94,9 @@ export const ActionType = {
   SetFilter: 'filter/setFilter',
   SetAuthorizationStatus: 'authorization/setStatus',
   SetAuthorizationInfo: 'authorization/setInfo',
-  SetFilms: 'films/setData',
-  SetFilmsFetchStatus: 'films/setFetchStatus',
+  SetAuthorizationError: 'authorization/setError',
+  SetAllFilms: 'allFilms/setData',
+  SetAllFilmsFetchStatus: 'allFilms/setFetchStatus',
   SetPromoFilm: 'promoFilm/setData',
   SetPromoFilmFetchStatus: 'promoFilm/setFetchStatus',
   SetFavoriteFilms: 'favoriteFilms/setData',

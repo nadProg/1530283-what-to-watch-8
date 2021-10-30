@@ -1,131 +1,124 @@
-import { ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { ThunkAction } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { AuthorizationStatus, FetchStatus } from '../constants';
+import { FetchStatus } from '../constants';
+import { redirectToRoute } from '../store/app/app-actions';
 import {
   setAuthorizationStatus,
-  setFilms,
-  setFilmsFetchStatus,
-  setFilter,
-  setPromoFilm,
-  setPromoFetchStatus,
   setAuthorizationInfo,
-  setFavoriteFilms,
-  setFavoriteFilmsFetchStatus,
-  redirectToRoute,
+  setAuthorizationError
+} from '../store/authorization/authorization-actions';
+import {
   setCurrentComments,
   setCurrentCommentsFetchStatus,
-  setCurrentFilm,
-  setCurrentFilmFetchStatus,
+  setNewCommentFetchStatus
+} from '../store/comments/comments-actions';
+import {
   setSimilarFilms,
   setSimilarFilmsFetchStatus,
-  setNewCommentFetchStatus
-} from '../store/actions';
+  setFavoriteFilms,
+  setFavoriteFilmsFetchStatus,
+  setCurrentFilm,
+  setCurrentFilmFetchStatus,
+  setPromoFilm,
+  setPromoFetchStatus,
+  setAllFilms,
+  setAllFilmsFetchStatus
+} from '../store/films/films-actions';
+import { setFilter } from '../store/filter/filter-actions';
+import { rootReducer } from '../store/root-reducer';
 
 export type Film = {
-  id: number,
-  name: string,
-  posterImage: string,
-  previewImage: string,
-  backgroundImage: string,
-  backgroundColor: string,
-  videoLink: string,
-  previewVideoLink: string,
-  description: string,
-  rating: number,
-  scoresCount: number,
-  director: string,
-  actors: string[],
-  runTime: number,
-  genre: string,
-  released: number,
-  isFavorite: boolean,
-}
+  id: number;
+  name: string;
+  posterImage: string;
+  previewImage: string;
+  backgroundImage: string;
+  backgroundColor: string;
+  videoLink: string;
+  previewVideoLink: string;
+  description: string;
+  rating: number;
+  scoresCount: number;
+  director: string;
+  actors: string[];
+  runTime: number;
+  genre: string;
+  released: number;
+  isFavorite: boolean;
+};
 
 export type ServerFilm = {
-  id: number,
-  name: string,
-  'poster_image': string,
-  'preview_image': string,
-  'background_image': string,
-  'background_color': string,
-  'video_link': string,
-  'preview_video_link': string,
-  description: string,
-  rating: number,
-  'scores_count': number,
-  director: string,
-  starring: string[],
-  'run_time': number,
-  genre: string,
-  released: number,
-  'is_favorite': boolean
-}
+  id: number;
+  name: string;
+  'poster_image': string;
+  'preview_image': string;
+  'background_image': string;
+  'background_color': string;
+  'video_link': string;
+  'preview_video_link': string;
+  description: string;
+  rating: number;
+  'scores_count': number;
+  director: string;
+  starring: string[];
+  'run_time': number;
+  genre: string;
+  released: number;
+  'is_favorite': boolean;
+};
 
 export type CommentPost = {
-  rating: number,
-  comment: string,
-}
+  rating: number;
+  comment: string;
+};
 
 export type CommentGet = CommentPost & {
-  id: number,
+  id: number;
   user: {
-    id: number,
-    name: string,
-  },
-  date: Date,
-}
+    id: number;
+    name: string;
+  };
+  date: Date;
+};
 
-export type User = {
-  email: string,
-  password: string,
-}
+export type Login = {
+  email: string;
+  password: string;
+};
 
 export type Token = string;
 
-export type FetchStatusType = ValuesOf<typeof FetchStatus>
+export type FetchStatusType = ValuesOf<typeof FetchStatus>;
 
 export type FetchedData<T = any> = {
-  data: T | null,
-  status: FetchStatusType,
-}
-
-export type AuthoarizationInfo = {
-  id: 1,
-  email: string,
-  name: string,
-  avatarUrl: string,
-  token: Token,
-}
-
-export type ServerAuthInfo = {
-  id: 1,
-  email: string,
-  name: string,
-  'avatar_url': string,
-  token: Token,
-}
-
-export type State = {
-  films: FetchedData<Film[]>,
-  promoFilm: FetchedData<Film>,
-  currentFilm: FetchedData<Film>,
-  currentComments: FetchedData<CommentGet[]>,
-  newComment: {
-    status: FetchStatusType,
-  },
-  similarFilms: FetchedData<Film[]>,
-  favoriteFilms: FetchedData<Film[]>,
-  filter: string,
-  authorization: {
-    status:  ValuesOf<typeof AuthorizationStatus>,
-    info: AuthoarizationInfo | null
-  }
+  data: T | null;
+  status: FetchStatusType;
 };
 
-export type Action = ReturnType<typeof setAuthorizationStatus>
+export type AuthoarizationInfo = {
+  id: 1;
+  email: string;
+  name: string;
+  avatarUrl: string;
+  token: Token;
+};
+
+export type ServerAuthInfo = {
+  id: 1;
+  email: string;
+  name: string;
+  'avatar_url': string;
+  token: Token;
+};
+
+export type State = ReturnType<typeof rootReducer>;
+
+export type Action =
+  | ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof setAuthorizationInfo>
-  | ReturnType<typeof setFilms>
-  | ReturnType<typeof setFilmsFetchStatus>
+  | ReturnType<typeof setAuthorizationError>
+  | ReturnType<typeof setAllFilms>
+  | ReturnType<typeof setAllFilmsFetchStatus>
   | ReturnType<typeof setSimilarFilms>
   | ReturnType<typeof setSimilarFilmsFetchStatus>
   | ReturnType<typeof setFavoriteFilms>
@@ -140,13 +133,16 @@ export type Action = ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof setFilter>
   | ReturnType<typeof redirectToRoute>;
 
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
-
-export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Action>;
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<
+  R,
+  State,
+  AxiosInstance,
+  Action
+>;
 
 export type ParamsWithId = {
-  [key: string]: string,
-  id: string
-}
+  [key: string]: string;
+  id: string;
+};
 
-export type ValuesOf<T> = T[keyof T]
+export type ValuesOf<T> = T[keyof T];

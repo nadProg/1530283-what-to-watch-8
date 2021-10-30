@@ -1,52 +1,36 @@
-import { useState, ChangeEvent, FormEvent, Fragment, useEffect } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { FetchStatus, Rating } from '../../constants';
-import { postComment } from '../../store/api-actions';
-import { CommentPost, State, ThunkAppDispatch } from '../../types/types';
-import {
-  validateReviewContent,
-  validateReviewRating
-} from '../../utils/common';
+import { useState, ChangeEvent, FormEvent, Fragment, useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Rating } from '../../constants';
+import { CommentPost } from '../../types/types';
+import { useIdParam } from '../../hooks/useIdParams';
+import { postComment } from '../../store/comments/comments-api-actions';
+import { isNewCommentsLoading } from '../../store/comments/comments-selectors';
+import { validateReviewContent, validateReviewRating } from '../../utils/common';
 
 const INITIAL_RATING = 0;
 const INITIAL_COMMENT = '';
 
-type AddReviewFormProps = {
-  filmId: number;
-};
+function AddReviewForm(): JSX.Element {
+  const filmId = useIdParam();
 
-const mapStateToProps = ({ newComment }: State) => ({
-  isFormLoading: newComment.status === FetchStatus.Loading,
-});
-
-const mapDispatchToProps = (
-  dispatch: ThunkAppDispatch,
-  { filmId }: AddReviewFormProps,
-) => ({
-  createReview(formData: CommentPost) {
-    dispatch(postComment(filmId, formData));
-  },
-});
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function AddReviewForm({
-  isFormLoading,
-  createReview,
-}: PropsFromRedux): JSX.Element {
   const [rating, setRating] = useState(INITIAL_RATING);
   const [comment, setComment] = useState(INITIAL_COMMENT);
   const [isFormValid, setFormValidity] = useState(false);
 
-  useEffect(() => {
-    setFormValidity(validateReviewRating(rating));
-  }, [rating]);
+  const isFormLoading = useSelector(isNewCommentsLoading);
+
+  const dispatch = useDispatch();
+
+  const isRatingValid = useMemo(() => validateReviewRating(rating), [rating]);
+  const isReviewContentValid = useMemo(() => validateReviewContent(comment), [comment]);
 
   useEffect(() => {
-    setFormValidity(validateReviewContent(comment));
-  }, [comment]);
+    setFormValidity(isRatingValid && isReviewContentValid);
+  }, [isRatingValid, isReviewContentValid]);
+
+  const createReview = (formData: CommentPost) => {
+    dispatch(postComment(filmId, formData));
+  };
 
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(evt.currentTarget.value));
@@ -126,5 +110,4 @@ function AddReviewForm({
   );
 }
 
-export { AddReviewForm };
-export default connector(AddReviewForm);
+export default AddReviewForm;

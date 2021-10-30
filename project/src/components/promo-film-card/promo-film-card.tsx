@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import type { Film } from '../../types/types';
 import FilmCardBackground from '../film-card-background/film-card-background';
 import Logo from '../logo/logo';
@@ -37,4 +38,4 @@ function PromoFilmCard({film}: PromoFilmCardProps): JSX.Element {
   );
 }
 
-export default PromoFilmCard;
+export default memo(PromoFilmCard);
