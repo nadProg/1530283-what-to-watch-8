@@ -1,7 +1,8 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../constants';
+import { AppRoute, AuthorizationStatus, FavoriteStatus } from '../../constants';
 import { getAuhorizationStatus } from '../../store/authorization/authorization-selectors';
+import { postFavoriteFilm } from '../../store/films/films-api-actions';
 
 type FilmCardButtonsProps = {
   filmId: number,
@@ -12,8 +13,11 @@ type FilmCardButtonsProps = {
 function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButtonsProps): JSX.Element {
   const authorizationStatus = useSelector(getAuhorizationStatus);
 
+  const dispatch = useDispatch();
+
   const handleFavoriteButtonClick = () => {
-    // Обработка добавления в избранное
+    const newFavoriteStatus = isFilmFavorite ? FavoriteStatus.NotFavorite : FavoriteStatus.Favorite;
+    dispatch(postFavoriteFilm(filmId, newFavoriteStatus));
   };
 
   return (
@@ -24,16 +28,14 @@ function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButton
         </svg>
         <span>Play</span>
       </Link>
-      {
-        authorizationStatus === AuthorizationStatus.Auth && (
-          <button className="btn btn--list film-card__button" type="button" onClick={handleFavoriteButtonClick}>
-            <svg viewBox="0 0 19 20" width="19" height="20">
-              <use xlinkHref={isFilmFavorite ? '#in-list' : '#add'}></use>
-            </svg>
-            <span>My list</span>
-          </button>
-        )
-      }
+
+      <button className="btn btn--list film-card__button" type="button" onClick={handleFavoriteButtonClick}>
+        <svg viewBox="0 0 19 20" width="19" height="20">
+          <use xlinkHref={isFilmFavorite ? '#in-list' : '#add'}></use>
+        </svg>
+        <span>My list</span>
+      </button>
+
       {
         withAddReview && authorizationStatus === AuthorizationStatus.Auth &&
         <Link to={AppRoute.AddReview(filmId)} className="btn film-card__button" type="button">

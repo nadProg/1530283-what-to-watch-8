@@ -73,7 +73,7 @@ function FilmScreen(): JSX.Element {
     if (isFetchIdle(similarFilmsStatus)) {
       fetchSimilarFilms(filmId);
     }
-  }, [filmId]);
+  }, [filmId, filmStatus, commentsStatus, similarFilmsStatus]);
 
   if (
     isFetchNotReady(filmStatus) ||

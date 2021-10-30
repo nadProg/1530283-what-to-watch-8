@@ -1,7 +1,8 @@
 import { APIRoute, FetchStatus } from '../../constants';
-import { ServerFilm, ThunkActionResult } from '../../types/types';
+import { FavoriteStatusType, ServerFilm, ThunkActionResult } from '../../types/types';
 import { adaptFilmToClient } from '../../services/adapters';
-import { setAllFilms, setAllFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setPromoFetchStatus, setPromoFilm, setSimilarFilms, setSimilarFilmsFetchStatus } from './films-actions';
+import { setAllFilms, setAllFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setPromoFilmFetchStatus, setPromoFilm, setSimilarFilms, setSimilarFilmsFetchStatus } from './films-actions';
+import toast from 'react-hot-toast';
 
 export const getAllFilms = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -21,17 +22,17 @@ export const getAllFilms = (): ThunkActionResult =>
 
 export const getPromoFilm = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setPromoFetchStatus(FetchStatus.Loading));
+    dispatch(setPromoFilmFetchStatus(FetchStatus.Loading));
 
     try {
       const { data: serverPromoFilm } = await api.get<ServerFilm>(APIRoute.PromoFilm());
       const promoFilm = adaptFilmToClient(serverPromoFilm);
 
       dispatch(setPromoFilm(promoFilm));
-      dispatch(setPromoFetchStatus(FetchStatus.Succeeded));
+      dispatch(setPromoFilmFetchStatus(FetchStatus.Succeeded));
 
     } catch (error) {
-      dispatch(setPromoFetchStatus(FetchStatus.Failed));
+      dispatch(setPromoFilmFetchStatus(FetchStatus.Failed));
     }
   };
 
@@ -48,6 +49,24 @@ export const getFavoriteFilms = (): ThunkActionResult =>
 
     } catch (error) {
       dispatch(setFavoriteFilmsFetchStatus(FetchStatus.Failed));
+    }
+  };
+
+export const postFavoriteFilm = (id:string | number, newStatus: FavoriteStatusType): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      const { data: serverFilm } = await api.post<ServerFilm>(APIRoute.FavoriteFilm(id, newStatus));
+      const film = adaptFilmToClient(serverFilm);
+
+      if (_getState().films.promoFilm.data?.id === film.id) {
+        dispatch(setPromoFilm(film));
+      }
+
+      if (_getState().films.currentFilm.data?.id === film.id) {
+        dispatch(setCurrentFilm(film));
+      }
+    } catch (error) {
+      toast.error('Favorite status was not changed');
     }
   };
 

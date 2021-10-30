@@ -1,6 +1,6 @@
 import { ThunkAction } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { FetchStatus } from '../constants';
+import { FavoriteStatus, FetchStatus } from '../constants';
 import { redirectToRoute } from '../store/app/app-actions';
 import {
   setAuthorizationStatus,
@@ -20,7 +20,7 @@ import {
   setCurrentFilm,
   setCurrentFilmFetchStatus,
   setPromoFilm,
-  setPromoFetchStatus,
+  setPromoFilmFetchStatus,
   setAllFilms,
   setAllFilmsFetchStatus
 } from '../store/films/films-actions';
@@ -86,6 +86,8 @@ export type Login = {
   password: string;
 };
 
+export type FavoriteStatusType = ValuesOf<typeof FavoriteStatus>;
+
 export type Token = string;
 
 export type FetchStatusType = ValuesOf<typeof FetchStatus>;
@@ -129,7 +131,7 @@ export type Action =
   | ReturnType<typeof setCurrentCommentsFetchStatus>
   | ReturnType<typeof setNewCommentFetchStatus>
   | ReturnType<typeof setPromoFilm>
-  | ReturnType<typeof setPromoFetchStatus>
+  | ReturnType<typeof setPromoFilmFetchStatus>
   | ReturnType<typeof setFilter>
   | ReturnType<typeof redirectToRoute>;
 

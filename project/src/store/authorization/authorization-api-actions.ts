@@ -1,10 +1,11 @@
 import toast from 'react-hot-toast';
-import { APIRoute, AppRoute, AuthorizationStatus } from '../../constants';
+import { APIRoute, AppRoute, AuthorizationStatus, FetchStatus } from '../../constants';
 import { ServerAuthInfo, ThunkActionResult, Login } from '../../types/types';
 import { adaptAuthorizationInfoToClient } from '../../services/adapters';
 import { dropToken, saveToken } from '../../services/token';
 import { redirectToRoute } from '../app/app-actions';
 import { clearAuthorizationError, setAuthorizationError, setAuthorizationInfo, setAuthorizationStatus } from './authorization-actions';
+import { setCurrentFilmFetchStatus, setPromoFilmFetchStatus } from '../films/films-actions';
 
 export const getLogin = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -54,7 +55,8 @@ export const deleteLogout = (): ThunkActionResult =>
       dropToken();
       dispatch(setAuthorizationInfo(null));
       dispatch(setAuthorizationStatus(AuthorizationStatus.NotAuth));
-
+      dispatch(setPromoFilmFetchStatus(FetchStatus.Idle));
+      dispatch(setCurrentFilmFetchStatus(FetchStatus.Idle));
     } catch {
       toast.error('Logout is falied');
     }
