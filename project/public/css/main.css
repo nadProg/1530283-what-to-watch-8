@@ -958,6 +958,9 @@ main {
      font-family: "object-fit:cover";
      object-fit: cover; }
 
+.player__video::-webkit-media-controls {
+  display:none !important; }
+
 .player__exit {
   display: block;
   position: absolute;
