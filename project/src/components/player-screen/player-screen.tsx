@@ -11,7 +11,7 @@ import { getСurrentFilm } from '../../store/films/films-api-actions';
 import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import Loader from '../loader/loader';
+import Spinner from '../spinner/spinner';
 
 const TOGGLER_POSITION_DECIMAL_PRECISION = 2;
 
@@ -70,7 +70,7 @@ function PlayerScreen(): JSX.Element {
 
   return (
     <div className="player">
-      {!isVideoReady && <Loader />}
+      {!isVideoReady && <Spinner />}
 
       <video
         ref={videoRef}
