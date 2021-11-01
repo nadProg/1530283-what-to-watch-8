@@ -20,6 +20,14 @@ const useVideo = () => {
     }
   };
 
+  const onPlay = () => {
+    setPlay(true);
+  };
+
+  const onPause = () => {
+    setPlay(false);
+  };
+
   useEffect(() => {
     if (!isReady || !ref.current) {
       return;
@@ -85,6 +93,8 @@ const useVideo = () => {
     percentage,
     elapsedTime,
     togglePlay,
+    onPlay,
+    onPause,
     onLoadedData,
     onTimeUpdate,
     requestFullScreen,

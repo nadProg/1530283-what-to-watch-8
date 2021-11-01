@@ -43,6 +43,8 @@ function PlayerScreen(): JSX.Element {
     percentage: videoPercentage,
     elapsedTime: videoElapsedTime,
     togglePlay: toggleVideoPlay,
+    onPlay: onVideoPlay,
+    onPause: onVideoPause,
     onLoadedData: onVideoLoadedData,
     onTimeUpdate: onVideoTimeUpdate,
     requestFullScreen: requestVideoFullScreen,
@@ -77,6 +79,8 @@ function PlayerScreen(): JSX.Element {
         src={film.videoLink}
         className="player__video"
         poster={film.previewImage}
+        onPlay={onVideoPlay}
+        onPause={onVideoPause}
         onTimeUpdate={onVideoTimeUpdate}
         onLoadedData={onVideoLoadedData}
       />
