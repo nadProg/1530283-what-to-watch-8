@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 
-const HOUR = 60;
+const HOUR = 3600;
 
 dayjs.extend(duration);
 
@@ -13,5 +13,5 @@ export const formatHumanizedDate = (date: Date): string => dayjs(date).format('M
 
 export const formatElapsedTime = (elapsedTime: number):string => {
   const format = elapsedTime >= HOUR ? '-HH:mm:ss' : '-mm:ss';
-  return dayjs.duration(elapsedTime, 'minutes').format(format);
+  return dayjs.duration(elapsedTime, 'seconds').format(format);
 };

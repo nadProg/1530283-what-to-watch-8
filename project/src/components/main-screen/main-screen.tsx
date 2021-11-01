@@ -53,7 +53,7 @@ function MainScreen(): JSX.Element {
     if (isFetchIdle(promoFilmsStatus)) {
       fetchPromoFilm();
     }
-  }, []);
+  }, [allFilmsStatus, promoFilmsStatus]);
 
   useEffect(() => {
     setCurrentPage(CATALOG_INITIAL_PAGE);

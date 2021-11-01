@@ -20,7 +20,7 @@ export const setPromoFilm = createAction(ActionType.SetPromoFilm, (promoFilm: Fi
   },
 }));
 
-export const setPromoFetchStatus = createAction(ActionType.SetPromoFilmFetchStatus, (status: FetchStatusType) => ({
+export const setPromoFilmFetchStatus = createAction(ActionType.SetPromoFilmFetchStatus, (status: FetchStatusType) => ({
   payload: {
     status,
   },

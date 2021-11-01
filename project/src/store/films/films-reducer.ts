@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setAllFilms, setAllFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setPromoFetchStatus, setPromoFilm, setSimilarFilms, setSimilarFilmsFetchStatus } from './films-actions';
+import { setAllFilms, setAllFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setPromoFilmFetchStatus, setPromoFilm, setSimilarFilms, setSimilarFilmsFetchStatus } from './films-actions';
 import { filmsInitialState } from './films-initial-state';
 
 const filmsReducer = createReducer(filmsInitialState, (builder) => {
@@ -13,7 +13,7 @@ const filmsReducer = createReducer(filmsInitialState, (builder) => {
     .addCase(setPromoFilm, (state, action) => {
       state.promoFilm.data = action.payload.promoFilm;
     })
-    .addCase(setPromoFetchStatus, (state, action) => {
+    .addCase(setPromoFilmFetchStatus, (state, action) => {
       state.promoFilm.status = action.payload.status;
     })
     .addCase(setFavoriteFilms, (state, action) => {

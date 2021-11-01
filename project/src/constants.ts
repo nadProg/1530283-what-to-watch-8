@@ -1,3 +1,5 @@
+import { FavoriteStatusType } from './types/types';
+
 export const MAX_GENRES_COUNT = 9;
 
 export const CATALOG_INITIAL_PAGE = 1;
@@ -27,12 +29,18 @@ export const AppRoute = {
   Player: (id:string | number = ':id') => `/player/${id}`,
 } as const;
 
+export const FavoriteStatus = {
+  Favorite: 1,
+  NotFavorite: 0,
+} as const;
+
 export const APIRoute = {
   Films: () => '/films',
   PromoFilm: () => '/promo',
   Film: (id:string | number) => `/films/${id}`,
   SimilarFilms: (id:string | number) => `/films/${id}/similar`,
   FavoriteFilms: () => '/favorite',
+  FavoriteFilm: (id:string | number, newStatus: FavoriteStatusType) => `/favorite/${id}/${newStatus}`,
   Comments: (id:string | number) => `/comments/${id}`,
   Login: () => '/login',
   Logout: () => '/logout',
