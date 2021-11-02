@@ -9,7 +9,7 @@ type FilmCardBackgroundProps = {
 
 const BASE_CLASSNAME = 'film-card__poster';
 
-function FilmCardBackground({src, alt, small, big}: FilmCardBackgroundProps): JSX.Element {
+function FilmCardPoster({src, alt, small, big}: FilmCardBackgroundProps): JSX.Element {
   const fullClassName = classNames(
     BASE_CLASSNAME,
     { [`${BASE_CLASSNAME}--small`]: small },
@@ -23,4 +23,4 @@ function FilmCardBackground({src, alt, small, big}: FilmCardBackgroundProps): JS
   );
 }
 
-export default FilmCardBackground;
+export default FilmCardPoster;

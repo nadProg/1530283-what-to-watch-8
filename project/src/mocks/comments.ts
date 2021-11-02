@@ -29,7 +29,10 @@ export const createMockServerComment = (): ServerCommentGet  => ({
 });
 
 export const createMockComments = (): CommentGet[] => {
-  const amount = datatype.number(10);
+  const amount = datatype.number({
+    min: 1,
+    max: 10,
+  });
 
   const mockComments = new Array(amount).fill(null).map(() => createMockComment());
 
@@ -37,7 +40,10 @@ export const createMockComments = (): CommentGet[] => {
 };
 
 export const createServerMockComments = (): ServerCommentGet[] => {
-  const amount = datatype.number(10);
+  const amount = datatype.number({
+    min: 1,
+    max: 10,
+  });
 
   const mockComments = new Array(amount).fill(null).map(() => createMockServerComment());
 

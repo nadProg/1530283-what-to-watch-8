@@ -4,7 +4,10 @@ import type { Film, ServerFilm } from '../types/types';
 const createFullName = () => `${name.firstName()} ${name.lastName()}`;
 
 export const createMockFilm = (): Film => {
-  const actorsAmount = datatype.number(8);
+  const actorsAmount = datatype.number({
+    min: 1,
+    max: 8,
+  });
   const actors = new Array(actorsAmount).fill(null).map(() => createFullName());
 
   return {
@@ -16,7 +19,7 @@ export const createMockFilm = (): Film => {
     backgroundColor: internet.color(),
     videoLink: internet.url(),
     previewVideoLink: internet.url(),
-    description: lorem.paragraphs(),
+    description: lorem.paragraph(),
     rating: datatype.number(),
     scoresCount: datatype.number(),
     director: createFullName(),
@@ -29,13 +32,19 @@ export const createMockFilm = (): Film => {
 };
 
 export const createMockFilms = (): Film[] => {
-  const amount = datatype.number(30);
+  const amount = datatype.number({
+    min: 10,
+    max: 30,
+  });
   const mockFilms = new Array(amount).fill(null).map(() => createMockFilm());
   return mockFilms;
 };
 
 export const createMockServerFilm = (): ServerFilm => {
-  const actorsAmount = datatype.number(8);
+  const actorsAmount = datatype.number({
+    min: 1,
+    max: 8,
+  });
   const actors = new Array(actorsAmount).fill(null).map(() => createFullName());
 
   return {
@@ -47,7 +56,7 @@ export const createMockServerFilm = (): ServerFilm => {
     'background_color': internet.color(),
     'video_link': internet.url(),
     'preview_video_link': internet.url(),
-    description: lorem.paragraphs(),
+    description: lorem.paragraph(),
     rating: datatype.number(),
     'scores_count': datatype.number(),
     director: createFullName(),
@@ -60,7 +69,10 @@ export const createMockServerFilm = (): ServerFilm => {
 };
 
 export const createMockServerFilms = (): ServerFilm[] => {
-  const amount = datatype.number(30);
+  const amount = datatype.number({
+    min: 10,
+    max: 30,
+  });
   const mockFilms = new Array(amount).fill(null).map(() => createMockServerFilm());
   return mockFilms;
 };
