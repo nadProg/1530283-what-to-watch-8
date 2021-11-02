@@ -1,58 +1,35 @@
+import { datatype, date, internet, lorem, name } from 'faker';
 import type { Film } from '../types/types';
-import { getRandomInteger, shuffle, getRandomItemFromArray } from '../utils/common';
 
-const FILMS_COUNT = 30;
+const createFullName = () => `${name.firstName()} ${name.lastName()}`;
 
-const names = [
-  'The Grand Budapest Hotel',
-  'Bohemian Rhapsody',
-  'Johnny English',
-  'Shutter Island',
-  'Pulp Fiction',
-  'War of the worlds',
-  'Snatch',
-  'What we do in the shadows',
-];
+export const createMockFilm = (): Film => {
+  const actorsAmount = datatype.number(8);
+  const actors = new Array(actorsAmount).fill(null).map(() => createFullName());
 
-const images = [
-  'img/the-grand-budapest-hotel-poster.jpg',
-  'img/bohemian-rhapsody.jpg',
-  'img/johnny-english.jpg',
-  'img/shutter-island.jpg',
-  'img/pulp-fiction.jpg',
-  'img/war-of-the-worlds.jpg',
-  'img/snatch.jpg',
-  'img/what-we-do-in-the-shadows.jpg',
-];
+  return {
+    id: datatype.number(),
+    name: lorem.words(),
+    posterImage: internet.url(),
+    previewImage: internet.url(),
+    backgroundImage: internet.url(),
+    backgroundColor: internet.color(),
+    videoLink: internet.url(),
+    previewVideoLink: internet.url(),
+    description: lorem.paragraphs(),
+    rating: datatype.number(),
+    scoresCount: datatype.number(),
+    director: createFullName(),
+    genre: lorem.word(),
+    runTime: datatype.number(),
+    actors,
+    released: date.past().getFullYear(),
+    isFavorite: datatype.boolean(),
+  };
+};
 
-const genres = ['Comedy', 'Western', 'Thriller', 'History', 'Sci-Fi', 'Drama', 'Adventure', 'Biography', 'Horror', 'Action', 'Anime', 'Cartoon'];
-
-const ratings = [5.0, 7.0, 8.0, 6.6, 7.7, 8.5, 5.6, 8.8];
-
-const actors = ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'];
-
-const directors = ['Wes Anderson', 'James Cameron', 'Willem Dafoe', 'Saoirse Ronan', 'Edward Norton', 'Martin Scorsese', 'James Cameron', 'Edward Norton'];
-
-const colors = ['#aa3311', '#aa3322', '#aa5533', '#aa7733', '#aa9933', '#aa5555', '#aa7777', '#aa6622'];
-
-const films: Film[] = new Array(FILMS_COUNT).fill(null).map((item, index) => ({
-  id: index + 1,
-  name: getRandomItemFromArray(names),
-  posterImage: getRandomItemFromArray(images),
-  previewImage: getRandomItemFromArray(images),
-  backgroundImage: getRandomItemFromArray(images),
-  backgroundColor: getRandomItemFromArray(colors),
-  videoLink: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-  previewVideoLink: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-  description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave\'s friend and protege.',
-  rating: getRandomItemFromArray(ratings),
-  scoresCount: getRandomInteger(10, 300),
-  director: getRandomItemFromArray(directors),
-  actors: shuffle(actors).slice(0, getRandomInteger(2, 8)),
-  runTime: getRandomInteger(30, 180),
-  genre: getRandomItemFromArray(genres),
-  released: getRandomInteger(1995, 2021),
-  isFavorite: !!(Math.random() > 0.5),
-}));
-
-export { films };
+export const createMockFilms = (): Film[] => {
+  const amount = datatype.number(30);
+  const mockFilms = new Array(amount).fill(null).map(() => createMockFilm());
+  return mockFilms;
+};

@@ -5,6 +5,7 @@ import { setCurrentComments, setCurrentCommentsFetchStatus, setNewCommentFetchSt
 import { createMockComments } from '../../mocks/comments';
 
 const mockComments = createMockComments();
+const mockFetchStatus = FetchStatus.Loading;
 
 describe('Reducer: Comments', () => {
   it('without additional parameters should return initial state', () => {
@@ -13,12 +14,12 @@ describe('Reducer: Comments', () => {
   });
 
   it('should set current comments fetch status', () => {
-    expect(commentsReducer(commentsInitialState, setCurrentCommentsFetchStatus(FetchStatus.Loading)))
+    expect(commentsReducer(commentsInitialState, setCurrentCommentsFetchStatus(mockFetchStatus)))
       .toEqual({
         ...commentsInitialState,
         currentComments: {
           ...commentsInitialState.currentComments,
-          status: FetchStatus.Loading,
+          status: mockFetchStatus,
         },
       });
   });
@@ -35,12 +36,12 @@ describe('Reducer: Comments', () => {
   });
 
   it('should set new comment fetch status', () => {
-    expect(commentsReducer(commentsInitialState, setNewCommentFetchStatus(FetchStatus.Loading)))
+    expect(commentsReducer(commentsInitialState, setNewCommentFetchStatus(mockFetchStatus)))
       .toEqual({
         ...commentsInitialState,
         newComment: {
           ...commentsInitialState.newComment,
-          status: FetchStatus.Loading,
+          status: mockFetchStatus,
         },
       });
   });
