@@ -40,11 +40,7 @@ export const postLogin = (user: Login): ThunkActionResult =>
       dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
 
     } catch (error) {
-      if (error instanceof Error ) {
-        dispatch(setAuthorizationErrorMessage(error.message));
-      } else {
-        toast.error('Unknown error');
-      }
+      dispatch(setAuthorizationErrorMessage(error instanceof Error ? error.message : 'Unknown error'));
     }
   };
 
