@@ -14,13 +14,13 @@ export const setAuthorizationInfo = createAction(ActionType.SetAuthorizationInfo
   },
 }));
 
-export const setAuthorizationError = createAction(ActionType.SetAuthorizationError, (errorMessage: string) => ({
+export const setAuthorizationErrorMessage = createAction(ActionType.SetAuthorizationError, (errorMessage: string) => ({
   payload: {
     errorMessage,
   },
 }));
 
-export const clearAuthorizationError = createAction(ActionType.SetAuthorizationError, () => ({
+export const clearAuthorizationErrorMessage = createAction(ActionType.SetAuthorizationError, () => ({
   payload: {
     errorMessage: '',
   },

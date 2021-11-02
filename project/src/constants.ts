@@ -118,3 +118,7 @@ export const ActionType = {
   SetNewCommentFetchStatus: 'newComment/setFetchStatus',
   Redirect: 'app/redirect',
 } as const;
+
+export const UNKNOWN_ACTION = {
+  type: 'UNKNOWN_ACTION',
+} as const;
