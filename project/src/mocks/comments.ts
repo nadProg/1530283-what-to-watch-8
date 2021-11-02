@@ -1,4 +1,5 @@
 import { datatype, date, internet, lorem } from 'faker';
+import { LINE_BREAK } from '../constants';
 import type { CommentGet, CommentPost, ServerCommentGet } from '../types/types';
 
 export const createMockNewComment = (): CommentPost => ({
@@ -14,7 +15,7 @@ export const createMockComment = (): CommentGet  => ({
   },
   date: date.recent(),
   rating: datatype.number(),
-  comment: lorem.paragraphs(),
+  comment: lorem.paragraphs(3, LINE_BREAK),
 });
 
 export const createMockServerComment = (): ServerCommentGet  => ({
@@ -25,7 +26,7 @@ export const createMockServerComment = (): ServerCommentGet  => ({
   },
   date: date.recent().toISOString(),
   rating: datatype.number(),
-  comment: lorem.paragraphs(),
+  comment: lorem.paragraphs(3, LINE_BREAK),
 });
 
 export const createMockComments = (): CommentGet[] => {
