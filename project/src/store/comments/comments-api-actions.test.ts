@@ -42,8 +42,6 @@ describe('Api-actions: Comments', () => {
       setCurrentComments(adaptedMockComments),
       setCurrentCommentsFetchStatus(FetchStatus.Succeeded),
     ]);
-
-    expect(fakeUnauthorizedCallback).toHaveBeenCalledTimes(0);
   });
 
   it('should handle failed get comments request', async () => {
@@ -58,8 +56,6 @@ describe('Api-actions: Comments', () => {
       setCurrentCommentsFetchStatus(FetchStatus.Loading),
       setCurrentCommentsFetchStatus(FetchStatus.Failed),
     ]);
-
-    expect(fakeUnauthorizedCallback).toHaveBeenCalledTimes(0);
   });
 
   it('should handle succeed post comment request', async () => {
@@ -77,8 +73,6 @@ describe('Api-actions: Comments', () => {
       setCurrentCommentsFetchStatus(FetchStatus.Succeeded),
       redirectToRoute(AppRoute.Film(mockFilmId)),
     ]);
-
-    expect(fakeUnauthorizedCallback).toHaveBeenCalledTimes(0);
   });
 
   it('should handle failed post comment request', async () => {
@@ -93,7 +87,5 @@ describe('Api-actions: Comments', () => {
       setNewCommentFetchStatus(FetchStatus.Loading),
       setNewCommentFetchStatus(FetchStatus.Failed),
     ]);
-
-    expect(fakeUnauthorizedCallback).toHaveBeenCalledTimes(0);
   });
 });

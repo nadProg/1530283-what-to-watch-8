@@ -70,7 +70,6 @@ export const postFavoriteFilm = (id:string | number, newStatus: FavoriteStatusTy
     }
   };
 
-
 export const getSimilarFilms = (id: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setSimilarFilmsFetchStatus(FetchStatus.Loading));
