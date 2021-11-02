@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 import { APIRoute, AppRoute, FetchStatus } from '../../constants';
-import { CommentGet, CommentPost, ThunkActionResult } from '../../types/types';
+import { adaptCommentToClient } from '../../services/adapters';
+import { CommentPost, ServerCommentGet, ThunkActionResult } from '../../types/types';
 import { redirectToRoute } from '../app/app-actions';
 import { setCurrentCommentsFetchStatus, setCurrentComments, setNewCommentFetchStatus } from './comments-actions';
 
@@ -9,12 +10,14 @@ export const getСurrentComments = (filmId: number): ThunkActionResult =>
     dispatch(setCurrentCommentsFetchStatus(FetchStatus.Loading));
 
     try {
-      const { data: comments } = await api.get<CommentGet[]>(APIRoute.Comments(filmId));
+      const { data: serverComments } = await api.get<ServerCommentGet[]>(APIRoute.Comments(filmId));
+
+      const comments = serverComments.map((serverComment) => adaptCommentToClient(serverComment));
 
       dispatch(setCurrentComments(comments));
       dispatch(setCurrentCommentsFetchStatus(FetchStatus.Succeeded));
 
-    } catch (error) {
+    } catch {
       dispatch(setCurrentCommentsFetchStatus(FetchStatus.Failed));
     }
   };
@@ -24,14 +27,16 @@ export const postComment = (filmId: number, formData: CommentPost): ThunkActionR
     dispatch(setNewCommentFetchStatus(FetchStatus.Loading));
 
     try {
-      const { data: comments } = await api.post<CommentGet[]>(APIRoute.Comments(filmId), formData);
+      const { data: serverComments } = await api.post<ServerCommentGet[]>(APIRoute.Comments(filmId), formData);
+
+      const comments = serverComments.map((serverComment) => adaptCommentToClient(serverComment));
 
       dispatch(setCurrentComments(comments));
       dispatch(setNewCommentFetchStatus(FetchStatus.Succeeded));
       dispatch(setCurrentCommentsFetchStatus(FetchStatus.Succeeded));
       dispatch(redirectToRoute(AppRoute.Film(filmId)));
 
-    } catch (error) {
+    } catch {
       toast.error('Failed to add review');
       dispatch(setNewCommentFetchStatus(FetchStatus.Failed));
     }

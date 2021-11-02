@@ -72,6 +72,15 @@ export type CommentPost = {
   comment: string;
 };
 
+export type ServerCommentGet = CommentPost & {
+  id: number;
+  user: {
+    id: number;
+    name: string;
+  };
+  date: string;
+};
+
 export type CommentGet = CommentPost & {
   id: number;
   user: {
