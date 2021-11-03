@@ -7,7 +7,7 @@ const BACKEND_URL = 'https://8.react.pages.academy/wtw';
 
 type UnauthorizedCallback = () => void;
 
-export const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance => {
+export const createAPI = (unauthorizedCallback?: UnauthorizedCallback): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -20,7 +20,9 @@ export const createAPI = (onUnauthorized: UnauthorizedCallback): AxiosInstance =
       const {response} = error;
 
       if (response?.status === UNAUTHORIZED_HTTP_STATUS) {
-        onUnauthorized();
+        if (typeof unauthorizedCallback === 'function') {
+          unauthorizedCallback();
+        }
       }
 
       return Promise.reject(error);

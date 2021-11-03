@@ -5,7 +5,7 @@ import { redirectToRoute } from '../store/app/app-actions';
 import {
   setAuthorizationStatus,
   setAuthorizationInfo,
-  setAuthorizationError
+  setAuthorizationErrorMessage
 } from '../store/authorization/authorization-actions';
 import {
   setCurrentComments,
@@ -72,6 +72,15 @@ export type CommentPost = {
   comment: string;
 };
 
+export type ServerCommentGet = CommentPost & {
+  id: number;
+  user: {
+    id: number;
+    name: string;
+  };
+  date: string;
+};
+
 export type CommentGet = CommentPost & {
   id: number;
   user: {
@@ -98,7 +107,7 @@ export type FetchedData<T = any> = {
 };
 
 export type AuthoarizationInfo = {
-  id: 1;
+  id: number;
   email: string;
   name: string;
   avatarUrl: string;
@@ -106,7 +115,7 @@ export type AuthoarizationInfo = {
 };
 
 export type ServerAuthInfo = {
-  id: 1;
+  id: number;
   email: string;
   name: string;
   'avatar_url': string;
@@ -118,7 +127,7 @@ export type State = ReturnType<typeof rootReducer>;
 export type Action =
   | ReturnType<typeof setAuthorizationStatus>
   | ReturnType<typeof setAuthorizationInfo>
-  | ReturnType<typeof setAuthorizationError>
+  | ReturnType<typeof setAuthorizationErrorMessage>
   | ReturnType<typeof setAllFilms>
   | ReturnType<typeof setAllFilmsFetchStatus>
   | ReturnType<typeof setSimilarFilms>

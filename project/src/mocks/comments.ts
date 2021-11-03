@@ -1,24 +1,52 @@
-import type { CommentGet } from '../types/types';
-import { getRandomInteger, getRandomItemFromArray } from '../utils/common';
+import { datatype, date, internet, lorem } from 'faker';
+import { LINE_BREAK } from '../constants';
+import type { CommentGet, CommentPost, ServerCommentGet } from '../types/types';
 
-const now = Date.now();
-const yearAgo = now - 1000 * 60 * 60 * 24 * 365;
+export const createMockNewComment = (): CommentPost => ({
+  rating: datatype.number(),
+  comment: lorem.paragraphs(),
+});
 
-const COMMENT_COUNT = 8;
-
-const ratings = [5.0, 7.0, 8.0, 6.6, 7.7, 8.5, 5.6, 8.8];
-
-const names = ['Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan', 'Bill Murray', 'Edward Norton', 'Jude Law', 'Willem Dafoe', 'Saoirse Ronan'];
-
-const comments: CommentGet[] = new Array(getRandomInteger(COMMENT_COUNT / 2, COMMENT_COUNT)).fill(null).map((item, index) => ({
-  id: index,
+export const createMockComment = (): CommentGet  => ({
+  id: datatype.number(),
   user: {
-    id: index + 10,
-    name: getRandomItemFromArray(names),
+    id: datatype.number(),
+    name: internet.userName(),
   },
-  rating: getRandomItemFromArray(ratings),
-  comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
-  date: new Date(getRandomInteger(yearAgo, now)),
-}));
+  date: date.recent(),
+  rating: datatype.number(),
+  comment: lorem.paragraphs(3, LINE_BREAK),
+});
 
-export { comments };
+export const createMockServerComment = (): ServerCommentGet  => ({
+  id: datatype.number(),
+  user: {
+    id: datatype.number(),
+    name: internet.userName(),
+  },
+  date: date.recent().toISOString(),
+  rating: datatype.number(),
+  comment: lorem.paragraphs(3, LINE_BREAK),
+});
+
+export const createMockComments = (): CommentGet[] => {
+  const amount = datatype.number({
+    min: 1,
+    max: 10,
+  });
+
+  const mockComments = new Array(amount).fill(null).map(() => createMockComment());
+
+  return mockComments;
+};
+
+export const createServerMockComments = (): ServerCommentGet[] => {
+  const amount = datatype.number({
+    min: 1,
+    max: 10,
+  });
+
+  const mockComments = new Array(amount).fill(null).map(() => createMockServerComment());
+
+  return mockComments;
+};

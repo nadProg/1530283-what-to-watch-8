@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router as BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { Toaster } from 'react-hot-toast';
 import { AuthorizationStatus } from './constants';
+import browserHistory from './browser-history';
 import App from './components/app/app';
 import { setAuthorizationStatus } from './store/authorization/authorization-actions';
 import { rootReducer } from './store/root-reducer';
@@ -19,6 +21,7 @@ const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
+      serializableCheck: false,
       thunk: {
         extraArgument: api,
       },
@@ -30,7 +33,9 @@ store.dispatch(getLogin());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
       <Toaster position="top-right" />
     </Provider>
   </React.StrictMode>,

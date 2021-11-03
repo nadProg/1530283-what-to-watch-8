@@ -4,7 +4,7 @@ import { ServerAuthInfo, ThunkActionResult, Login } from '../../types/types';
 import { adaptAuthorizationInfoToClient } from '../../services/adapters';
 import { dropToken, saveToken } from '../../services/token';
 import { redirectToRoute } from '../app/app-actions';
-import { clearAuthorizationError, setAuthorizationError, setAuthorizationInfo, setAuthorizationStatus } from './authorization-actions';
+import { clearAuthorizationErrorMessage, setAuthorizationErrorMessage, setAuthorizationInfo, setAuthorizationStatus } from './authorization-actions';
 import { setCurrentFilmFetchStatus, setPromoFilmFetchStatus } from '../films/films-actions';
 
 export const getLogin = (): ThunkActionResult =>
@@ -26,7 +26,7 @@ export const getLogin = (): ThunkActionResult =>
 
 export const postLogin = (user: Login): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    dispatch(clearAuthorizationError());
+    dispatch(clearAuthorizationErrorMessage());
 
     try {
       const { data: serverAuthorizationInfo } =
@@ -40,11 +40,7 @@ export const postLogin = (user: Login): ThunkActionResult =>
       dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
 
     } catch (error) {
-      if (error instanceof Error ) {
-        dispatch(setAuthorizationError(error.message));
-      } else {
-        toast.error('Unknown error');
-      }
+      dispatch(setAuthorizationErrorMessage(error instanceof Error ? error.message : 'Unknown error'));
     }
   };
 

@@ -8,7 +8,7 @@ import {
 } from '../../utils/common';
 import { postLogin } from '../../store/authorization/authorization-api-actions';
 import { getAuhorizationErrorMessage } from '../../store/authorization/authorization-selectors';
-import { clearAuthorizationError } from '../../store/authorization/authorization-actions';
+import { clearAuthorizationErrorMessage } from '../../store/authorization/authorization-actions';
 
 const INITIAL_FORM_DATA: Login = {
   email: '',
@@ -84,7 +84,7 @@ function LoginForm({ className }: LoginFormProps): JSX.Element {
 
   useEffect(() => {
     if (validityMessage) {
-      dispatch(clearAuthorizationError());
+      dispatch(clearAuthorizationErrorMessage());
     }
   }, [validityMessage]);
 

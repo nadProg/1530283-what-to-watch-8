@@ -1,7 +1,6 @@
-import { Router as BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
-import browserHistory from '../../browser-history';
 import MainScreen from '../main-screen/main-screen';
 import FilmScreen from '../film-screen/film-screen';
 import PlayerScreen from '../player-screen/player-screen';
@@ -21,31 +20,29 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route path={AppRoute.Root()} exact>
-          <MainScreen />
-        </Route>
-        <Route path={AppRoute.Film()} exact>
-          <FilmScreen />
-        </Route>
-        <Route path={AppRoute.Player()} exact>
-          <PlayerScreen />
-        </Route>
-        <CustomRoute path={AppRoute.Login()} exact type={CustomRouteType.Guest}>
-          <LoginScreen />
-        </CustomRoute>
-        <CustomRoute path={AppRoute.MyList()} exact type={CustomRouteType.Private}>
-          <MyListScreen />
-        </CustomRoute>
-        <CustomRoute path={AppRoute.AddReview()} exact type={CustomRouteType.Private}>
-          <AddReviewScreen />
-        </CustomRoute>
-        <Route>
-          <NotFoundScreen />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route path={AppRoute.Root()} exact>
+        <MainScreen />
+      </Route>
+      <Route path={AppRoute.Film()} exact>
+        <FilmScreen />
+      </Route>
+      <Route path={AppRoute.Player()} exact>
+        <PlayerScreen />
+      </Route>
+      <CustomRoute path={AppRoute.Login()} exact type={CustomRouteType.Guest}>
+        <LoginScreen />
+      </CustomRoute>
+      <CustomRoute path={AppRoute.MyList()} exact type={CustomRouteType.Private}>
+        <MyListScreen />
+      </CustomRoute>
+      <CustomRoute path={AppRoute.AddReview()} exact type={CustomRouteType.Private}>
+        <AddReviewScreen />
+      </CustomRoute>
+      <Route>
+        <NotFoundScreen />
+      </Route>
+    </Switch>
   );
 }
 
