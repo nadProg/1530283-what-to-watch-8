@@ -1,20 +1,14 @@
-import { internet, lorem, datatype } from 'faker';
+import { lorem } from 'faker';
 
 import { AuthorizationStatus, UNKNOWN_ACTION } from '../../constants';
-import { AuthoarizationInfo } from '../../types/types';
+import { createMockAuthorizationInfo } from '../../mocks/authorization';
 import { clearAuthorizationErrorMessage, setAuthorizationErrorMessage, setAuthorizationInfo, setAuthorizationStatus } from './authorization-actions';
 import { authorizationInitialState } from './authorization-initial-state';
 import { authorizationReducer } from './authorization-reducer';
 
-const TEST_ERROR_MESSAGE = lorem.sentence();
+const mockErrorMessage = lorem.sentence();
 
-const TEST_AUTHORIZATION_INFO: AuthoarizationInfo = {
-  id: datatype.number(),
-  email: internet.email(),
-  name: internet.userName(),
-  avatarUrl: internet.url(),
-  token: datatype.string(),
-};
+const mockAuthorizationInfo = createMockAuthorizationInfo;
 
 describe('Reducer: Authorization', () => {
   it('without additional parameters should return initial state', () => {
@@ -31,17 +25,17 @@ describe('Reducer: Authorization', () => {
   });
 
   it('should set authorization error message', () => {
-    expect(authorizationReducer(authorizationInitialState, setAuthorizationErrorMessage(TEST_ERROR_MESSAGE)))
+    expect(authorizationReducer(authorizationInitialState, setAuthorizationErrorMessage(mockErrorMessage)))
       .toEqual({
         ...authorizationInitialState,
-        errorMessage: TEST_ERROR_MESSAGE,
+        errorMessage: mockErrorMessage,
       });
   });
 
   it('should clear authorization error message', () => {
     expect(authorizationReducer({
       ...authorizationInitialState,
-      errorMessage: TEST_ERROR_MESSAGE,
+      errorMessage: mockErrorMessage,
     }, clearAuthorizationErrorMessage()))
       .toEqual({
         ...authorizationInitialState,
@@ -50,10 +44,10 @@ describe('Reducer: Authorization', () => {
   });
 
   it('should set authorization info', () => {
-    expect(authorizationReducer(authorizationInitialState, setAuthorizationInfo(TEST_AUTHORIZATION_INFO)))
+    expect(authorizationReducer(authorizationInitialState, setAuthorizationInfo(mockAuthorizationInfo)))
       .toEqual({
         ...authorizationInitialState,
-        info: TEST_AUTHORIZATION_INFO,
+        info: mockAuthorizationInfo,
       });
   });
 });

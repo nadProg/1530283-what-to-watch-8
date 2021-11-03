@@ -1,30 +1,19 @@
 import thunk from 'redux-thunk';
-import { datatype, internet } from 'faker';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import MockAdapter from 'axios-mock-adapter';
 import { APIRoute, AppRoute, AuthorizationStatus, AUTH_TOKEN_KEY_NAME, FetchStatus } from '../../constants';
 import { createAPI } from '../../services/api';
-import { Action, Login, ServerAuthInfo, State } from '../../types/types';
+import { Action, State } from '../../types/types';
 import { adaptAuthorizationInfoToClient } from '../../services/adapters';
 import { setAuthorizationInfo, setAuthorizationStatus, clearAuthorizationErrorMessage, setAuthorizationErrorMessage } from './authorization-actions';
 import { deleteLogout, getLogin, postLogin } from './authorization-api-actions';
 import { redirectToRoute } from '../app/app-actions';
 import { setCurrentFilmFetchStatus, setPromoFilmFetchStatus } from '../films/films-actions';
+import { createMockLoginData, createMockServerAuthorizationInfo } from '../../mocks/authorization';
 
-const mockLoginData: Login = {
-  email: internet.email(),
-  password: internet.password(),
-};
-
-const mockServerAuthorizationInfo: ServerAuthInfo = {
-  id: datatype.number(),
-  email: internet.email(),
-  name: internet.userName(),
-  'avatar_url': internet.url(),
-  token: datatype.uuid(),
-};
-
+const mockLoginData = createMockLoginData();
+const mockServerAuthorizationInfo = createMockServerAuthorizationInfo();
 const adaptedAuhtorizationInfo = adaptAuthorizationInfoToClient(mockServerAuthorizationInfo);
 
 describe('Api-actions: Authorization', () => {
