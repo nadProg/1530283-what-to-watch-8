@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import type { ValuesOf } from '../../types/types';
 import { AuthorizationStatus, CustomRouteType, AppRoute } from '../../constants';
-import { isAllCasesChecked } from '../../utils/common';
 import { getAuhorizationStatus } from '../../store/authorization/authorization-selectors';
 
 type CustomRouteProps = RouteProps & {
@@ -26,8 +25,6 @@ function CustomRoute({type, ...props}: CustomRouteProps): JSX.Element {
         </Route>
       );
   }
-
-  isAllCasesChecked(type);
 }
 
 export default CustomRoute;

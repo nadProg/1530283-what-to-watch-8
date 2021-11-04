@@ -1,5 +1,4 @@
 import * as Redux from 'react-redux';
-import thunk, { ThunkDispatch } from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -8,21 +7,12 @@ import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../constants';
 import { createMockAuthorizationInfo } from '../../mocks/authorization';
-import { Action, State } from '../../types/types';
+import { State } from '../../types/types';
 import UserBlock from './user-block';
-import { createAPI } from '../../services/api';
 
 const history = createMemoryHistory();
 
-const fakeUnauthorizedCallback = jest.fn();
-const api = createAPI(fakeUnauthorizedCallback());
-const middlewares = [thunk.withExtraArgument(api)];
-
-const mockStore = configureMockStore<
-  State,
-  Action,
-  ThunkDispatch<State, typeof api, Action>
->(middlewares);
+const mockStore = configureMockStore<State>();
 
 const userStore = mockStore({
   authorization: {
