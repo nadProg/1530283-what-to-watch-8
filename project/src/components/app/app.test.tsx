@@ -1,14 +1,11 @@
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import ReactRouter from 'react-router';
-import { ThunkDispatch } from '@reduxjs/toolkit';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { datatype } from 'faker';
-import { Action, State } from '../../types/types';
-import { createAPI } from '../../services/api';
+import { State } from '../../types/types';
 import { AppRoute, AuthorizationStatus, FetchStatus } from '../../constants';
 import App from './app';
 
@@ -18,15 +15,7 @@ const history = createMemoryHistory();
 
 const mockId = datatype.number();
 
-const fakeUnauthorizedCallback = jest.fn();
-const api = createAPI(fakeUnauthorizedCallback());
-const middlewares = [thunk.withExtraArgument(api)];
-
-const mockStore = configureMockStore<
-  State,
-  Action,
-  ThunkDispatch<State, typeof api, Action>
->(middlewares);
+const mockStore = configureMockStore<State>();
 
 const initialStore = mockStore({
   films: {
@@ -89,6 +78,9 @@ const userStore = mockStore({
     status: AuthorizationStatus.Auth,
   },
 });
+
+initialStore.dispatch = jest.fn();
+userStore.dispatch = jest.fn();
 
 describe('Component: App', () => {
   it('should render correctly', () => {
