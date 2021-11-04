@@ -1,4 +1,5 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { lorem } from 'faker';
 import CatalogGenresList from './catalog-genres-list';
 
@@ -14,5 +15,14 @@ describe('Component: CatalogGenresList', () => {
 
     expect(container.querySelectorAll('.catalog__genres-link').length).toBe(mockGenres.length);
     expect(container.querySelector('.catalog__genres-item--active')?.querySelector('.catalog__genres-link')?.textContent).toBe(activeGenre);
+  });
+
+  it('should handle genres click', () => {
+    render(
+      <CatalogGenresList genres={mockGenres} activeGenre={activeGenre} setActiveGenre={setActiveGenre} />,
+    );
+
+    userEvent.click(screen.getByText(new RegExp(activeGenre, 'i')));
+    expect(setActiveGenre).toHaveBeenCalledTimes(1);
   });
 });
