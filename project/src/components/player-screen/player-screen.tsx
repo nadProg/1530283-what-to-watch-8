@@ -5,8 +5,8 @@ import round from 'lodash/round';
 import { AppRoute } from '../../constants';
 import { formatElapsedTime } from '../../utils/date';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
-import { useVideo } from '../../hooks/useVideo';
-import { useIdParam } from '../../hooks/useIdParams';
+import { useVideo } from '../../hooks/use-video';
+import { useIdParam } from '../../hooks/use-id-param';
 import { getСurrentFilm } from '../../store/films/films-api-actions';
 import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -16,7 +16,7 @@ import Spinner from '../spinner/spinner';
 const TOGGLER_POSITION_DECIMAL_PRECISION = 2;
 
 function PlayerScreen(): JSX.Element {
-  const filmId = useIdParam();
+  const { id: filmId, error } = useIdParam();
 
   const film = useSelector(getCurrentFilmData);
   const filmStatus = useSelector(getCurrentFilmStatus);
@@ -28,7 +28,7 @@ function PlayerScreen(): JSX.Element {
   };
 
   useEffect(() => {
-    if (film?.id === filmId) {
+    if (!filmId || film?.id === filmId) {
       return;
     }
 
@@ -54,7 +54,7 @@ function PlayerScreen(): JSX.Element {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(filmStatus) || !film) {
+  if (isFetchError(filmStatus) || !film || error) {
     return <NotFoundScreen />;
   }
 

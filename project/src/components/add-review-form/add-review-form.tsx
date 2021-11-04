@@ -2,7 +2,7 @@ import { useState, ChangeEvent, FormEvent, Fragment, useEffect, useMemo } from '
 import { useDispatch, useSelector } from 'react-redux';
 import { Rating } from '../../constants';
 import { CommentPost } from '../../types/types';
-import { useIdParam } from '../../hooks/useIdParams';
+import { useIdParam } from '../../hooks/use-id-param';
 import { postComment } from '../../store/comments/comments-api-actions';
 import { isNewCommentsLoading } from '../../store/comments/comments-selectors';
 import { validateReviewContent, validateReviewRating } from '../../utils/common';
@@ -11,7 +11,7 @@ const INITIAL_RATING = 0;
 const INITIAL_COMMENT = '';
 
 function AddReviewForm(): JSX.Element {
-  const filmId = useIdParam();
+  const { id: filmId } = useIdParam() as { id: number };
 
   const [rating, setRating] = useState(INITIAL_RATING);
   const [comment, setComment] = useState(INITIAL_COMMENT);

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useIdParam } from '../../hooks/useIdParams';
+import { useIdParam } from '../../hooks/use-id-param';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import PageHeader from '../page-header/page-header';
 import PageTitle from '../page-title/page-title';
@@ -16,7 +16,7 @@ import { getСurrentFilm } from '../../store/films/films-api-actions';
 import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
 
 function AddReviewScreen(): JSX.Element {
-  const filmId = useIdParam();
+  const { id: filmId, error } = useIdParam();
 
   const film = useSelector(getCurrentFilmData);
   const filmStatus = useSelector(getCurrentFilmStatus);
@@ -28,7 +28,7 @@ function AddReviewScreen(): JSX.Element {
   };
 
   useEffect(() => {
-    if (film?.id === filmId) {
+    if (!filmId || film?.id === filmId) {
       return;
     }
 
@@ -40,7 +40,7 @@ function AddReviewScreen(): JSX.Element {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(filmStatus) || !film) {
+  if (isFetchError(filmStatus) || !film || error) {
     return <NotFoundScreen />;
   }
 
