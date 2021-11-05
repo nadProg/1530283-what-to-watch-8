@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Spinner from './spinner';
 
 describe('Component: Spinner', () => {
   it('should render correctly', () => {
-    const { container } = render(<Spinner />);
+    render(<Spinner />);
 
-    expect(container.querySelector('svg')).toBeTruthy();
+    expect(screen.queryByTestId('spinner')).toBeInTheDocument();
   });
 });

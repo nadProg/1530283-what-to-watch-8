@@ -54,7 +54,7 @@ describe('Component: PlayerScreen', () => {
       },
     });
 
-    const { container } = render(
+    render(
       <Provider store={successStore}>
         <Router history={history}>
           <PlayerScreen />
@@ -68,7 +68,7 @@ describe('Component: PlayerScreen', () => {
     expect(screen.queryByText(/Exit/i)).toBeInTheDocument();
     expect(screen.queryByText(/Play/i)).toBeInTheDocument();
     expect(screen.queryByText(/Full screen/i)).toBeInTheDocument();
-    expect(container.querySelector('video')).toBeInTheDocument();
+    expect(screen.queryByTestId('video-player')).toBeInTheDocument();
     expect(successStore.dispatch).toHaveBeenCalledTimes(0);
     expect(window.HTMLVideoElement.prototype.pause).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.play).toHaveBeenCalledTimes(0);
@@ -111,7 +111,7 @@ describe('Component: PlayerScreen', () => {
       },
     });
 
-    const { container } = render(
+    render(
       <Provider store={successStore}>
         <Router history={history}>
           <PlayerScreen />
@@ -122,7 +122,7 @@ describe('Component: PlayerScreen', () => {
     expect(window.HTMLVideoElement.prototype.pause).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.play).toHaveBeenCalledTimes(0);
 
-    fireEvent.loadedData(container.querySelector('video') as HTMLVideoElement);
+    fireEvent.loadedData(screen.getByTestId('video-player') as HTMLVideoElement);
     expect(window.HTMLVideoElement.prototype.pause).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.play).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.requestFullscreen).toHaveBeenCalledTimes(0);
@@ -164,7 +164,7 @@ describe('Component: PlayerScreen', () => {
       },
     });
 
-    const { container } = render(
+    render(
       <Provider store={successStore}>
         <Router history={history}>
           <PlayerScreen />
@@ -175,7 +175,7 @@ describe('Component: PlayerScreen', () => {
     expect(window.HTMLVideoElement.prototype.pause).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.play).toHaveBeenCalledTimes(0);
 
-    fireEvent.loadedData(container.querySelector('video') as HTMLVideoElement);
+    fireEvent.loadedData(screen.getByTestId('video-player') as HTMLVideoElement);
     expect(window.HTMLVideoElement.prototype.pause).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.play).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.requestFullscreen).toHaveBeenCalledTimes(0);
@@ -223,7 +223,7 @@ describe('Component: PlayerScreen', () => {
       },
     });
 
-    const { container } = render(
+    render(
       <Provider store={successStore}>
         <Router history={history}>
           <PlayerScreen />
@@ -234,7 +234,7 @@ describe('Component: PlayerScreen', () => {
     expect(window.HTMLVideoElement.prototype.pause).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.play).toHaveBeenCalledTimes(0);
 
-    fireEvent.loadedData(container.querySelector('video') as HTMLVideoElement);
+    fireEvent.loadedData(screen.getByTestId('video-player') as HTMLVideoElement);
     expect(window.HTMLVideoElement.prototype.pause).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.play).toHaveBeenCalledTimes(1);
     expect(window.HTMLVideoElement.prototype.requestFullscreen).toHaveBeenCalledTimes(0);

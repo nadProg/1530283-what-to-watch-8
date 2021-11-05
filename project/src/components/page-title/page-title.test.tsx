@@ -6,56 +6,56 @@ const mockClassName = lorem.word();
 
 describe('Component: PageHeader', () => {
   it('should render correctly with no props', () => {
-    const { container } = render(
+    render(
       <PageTitle>
-        <div>Children</div>
+        <div data-testid="children" />
       </PageTitle>,
     );
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
-    expect(container.querySelector('.page-title')).toBeTruthy();
-    expect(container.querySelector('.visually-hidden')).toBeFalsy();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
+    expect(screen.queryByTestId('page-title')).toHaveClass('page-title');
+    expect(screen.queryByTestId('page-title')).not.toHaveClass('visually-hidden');
   });
 
   it('should render correctly with className props', () => {
-    const { container } = render(
+    render(
       <PageTitle className={mockClassName} >
-        <div>Children</div>
+        <div data-testid="children" />
       </PageTitle>,
     );
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
-    expect(container.querySelector('.page-title')).toBeTruthy();
-    expect(container.querySelector('.visually-hidden')).toBeFalsy();
-    expect(container.querySelector(`.${mockClassName}`)).toBeTruthy();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
+    expect(screen.queryByTestId('page-title')).toHaveClass('page-title');
+    expect(screen.queryByTestId('page-title')).not.toHaveClass('visually-hidden');
+    expect(screen.queryByTestId('page-title')).toHaveClass(mockClassName);
   });
 
   it('should render correctly with hidden props', () => {
-    const { container } = render(
+    render(
       <PageTitle hidden>
-        <div>Children</div>
+        <div data-testid="children" />
       </PageTitle>,
     );
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
-    expect(container.querySelector('.page-title')).toBeFalsy();
-    expect(container.querySelector('.visually-hidden')).toBeTruthy();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
+    expect(screen.queryByTestId('page-title')).not.toHaveClass('page-title');
+    expect(screen.queryByTestId('page-title')).toHaveClass('visually-hidden');
   });
 
   it('should render correctly with hidden and className props', () => {
-    const { container } = render(
+    render(
       <PageTitle className={mockClassName} hidden>
-        <div>Children</div>
+        <div data-testid="children" />
       </PageTitle>,
     );
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
-    expect(container.querySelector('.page-title')).toBeFalsy();
-    expect(container.querySelector('.visually-hidden')).toBeTruthy();
-    expect(container.querySelector(`.${mockClassName}`)).toBeTruthy();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
+    expect(screen.queryByTestId('page-title')).not.toHaveClass('page-title');
+    expect(screen.queryByTestId('page-title')).toHaveClass('visually-hidden');
+    expect(screen.queryByTestId('page-title')).toHaveClass(mockClassName);
   });
 });

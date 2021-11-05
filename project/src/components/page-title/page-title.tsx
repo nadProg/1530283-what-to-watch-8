@@ -7,7 +7,7 @@ type PageTitleProps = {
 }
 
 function PageTitle({className, children, hidden = false}: PageTitleProps): JSX.Element {
-  return <h1 className={classNames(hidden ? 'visually-hidden' : 'page-title', className)}>{children}</h1>;
+  return <h1 className={classNames(hidden ? 'visually-hidden' : 'page-title', className)} data-testid="page-title">{children}</h1>;
 }
 
 export default PageTitle;

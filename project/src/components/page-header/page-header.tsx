@@ -8,7 +8,7 @@ type PageHeaderProps = {
 }
 
 function PageHeader({className, children}: PageHeaderProps): JSX.Element {
-  return <header className={classNames(BASE_CLASSNAME, className)}>{children}</header>;
+  return <header className={classNames(BASE_CLASSNAME, className)} data-testid="page-header">{children}</header>;
 }
 
 export default PageHeader;
