@@ -40,7 +40,7 @@ export const postLogin = (user: Login): ThunkActionResult =>
       dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
 
     } catch (error) {
-      dispatch(setAuthorizationErrorMessage(error instanceof Error ? error.message : 'Unknown error'));
+      dispatch(setAuthorizationErrorMessage((error as Error).message));
     }
   };
 
