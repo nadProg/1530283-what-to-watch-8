@@ -73,6 +73,14 @@ export const createMockServerFilms = (): ServerFilm[] => {
     min: 10,
     max: 30,
   });
-  const mockFilms = new Array(amount).fill(null).map(() => createMockServerFilm());
+
+  const mockFilms = new Array(amount)
+    .fill(null)
+    .map(() => createMockServerFilm())
+    .map((film, index) => ({
+      ...film,
+      id: index + 1,
+    }));
+
   return mockFilms;
 };

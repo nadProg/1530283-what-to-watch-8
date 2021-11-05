@@ -261,8 +261,10 @@ describe('Component: Main', () => {
 
     expect(screen.queryByText(/Show More/i)).toBeInTheDocument();
 
-    for (let i = 0; i < Math.floor(mockFilms.length / CATALOG_PAGE_SIZE); i++) {
-      userEvent.click(screen.getByText(/Show More/i));
+    for (let i = 0; i < Math.ceil(mockFilms.length / CATALOG_PAGE_SIZE); i++) {
+      if (screen.queryByText(/Show More/i)) {
+        userEvent.click(screen.getByText(/Show More/i));
+      }
     }
 
     expect(screen.queryByText(/Show More/i)).not.toBeInTheDocument();

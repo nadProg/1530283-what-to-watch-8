@@ -46,7 +46,13 @@ export const createServerMockComments = (): ServerCommentGet[] => {
     max: 10,
   });
 
-  const mockComments = new Array(amount).fill(null).map(() => createMockServerComment());
+  const mockComments = new Array(amount)
+    .fill(null)
+    .map(() => createMockServerComment())
+    .map((comment, index) => ({
+      ...comment,
+      id: index + 1,
+    }));
 
   return mockComments;
 };

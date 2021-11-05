@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { lorem } from 'faker';
+import { ALL_GENRES } from '../../constants';
 import CatalogGenresList from './catalog-genres-list';
 
-const mockGenres = lorem.words().split(' ');
+const mockGenres = [ALL_GENRES, ...lorem.words().split(' ')];
 const activeGenre = mockGenres[0];
 const setActiveGenre = jest.fn();
 
@@ -22,7 +23,8 @@ describe('Component: CatalogGenresList', () => {
       <CatalogGenresList genres={mockGenres} activeGenre={activeGenre} setActiveGenre={setActiveGenre} />,
     );
 
-    userEvent.click(screen.getByText(new RegExp(activeGenre, 'i')));
+    userEvent.click(screen.getByText(ALL_GENRES));
     expect(setActiveGenre).toHaveBeenCalledTimes(1);
+    expect(setActiveGenre).toHaveBeenCalledWith(ALL_GENRES);
   });
 });
