@@ -14,6 +14,13 @@ const mockFilm = createMockFilm();
 const mockClassName = lorem.word();
 
 describe('Component: SmallFilmCard', () => {
+  beforeEach(() => {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'muted', {
+      get: () => false,
+      set: jest.fn(),
+    });
+  });
+
   it('should render correctly', () => {
     render(
       <Router history={history}>

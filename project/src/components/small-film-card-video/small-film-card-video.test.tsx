@@ -6,6 +6,13 @@ const mockSource = internet.url();
 const mockPoster = internet.url();
 
 describe('Component: SmallFilmCardVideo', () => {
+  beforeEach(() => {
+    Object.defineProperty(HTMLMediaElement.prototype, 'muted', {
+      get: () => false,
+      set: jest.fn(),
+    });
+  });
+
   it('should render correctly', () => {
     const { container } = render(
       <SmallFilmCardVideo src={mockSource} poster={mockPoster} />,

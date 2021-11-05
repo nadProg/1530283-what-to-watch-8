@@ -43,12 +43,12 @@ describe('Component: PlayerScreen', () => {
     window.HTMLVideoElement.prototype.pause = jest.fn();
     window.HTMLVideoElement.prototype.play = jest.fn();
     window.HTMLVideoElement.prototype.requestFullscreen = jest.fn();
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'duration', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'duration', {
       get() {
         return mockDuration;
       },
     });
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'currentTime', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'currentTime', {
       get() {
         return mockDuration;
       },
@@ -100,12 +100,12 @@ describe('Component: PlayerScreen', () => {
     window.HTMLVideoElement.prototype.pause = jest.fn();
     window.HTMLVideoElement.prototype.play = jest.fn();
     window.HTMLVideoElement.prototype.requestFullscreen = jest.fn();
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'duration', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'duration', {
       get() {
         return mockDuration;
       },
     });
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'currentTime', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'currentTime', {
       get() {
         return mockDuration;
       },
@@ -153,12 +153,12 @@ describe('Component: PlayerScreen', () => {
     window.HTMLVideoElement.prototype.pause = jest.fn();
     window.HTMLVideoElement.prototype.play = jest.fn();
     window.HTMLVideoElement.prototype.requestFullscreen = jest.fn();
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'duration', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'duration', {
       get() {
         return mockDuration;
       },
     });
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'currentTime', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'currentTime', {
       get() {
         return mockDuration;
       },
@@ -212,12 +212,12 @@ describe('Component: PlayerScreen', () => {
     window.HTMLVideoElement.prototype.pause = jest.fn();
     window.HTMLVideoElement.prototype.play = jest.fn();
     window.HTMLVideoElement.prototype.requestFullscreen = jest.fn();
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'duration', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'duration', {
       get() {
         return mockDuration;
       },
     });
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'currentTime', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'currentTime', {
       get() {
         return mockDuration;
       },
@@ -268,12 +268,12 @@ describe('Component: PlayerScreen', () => {
     jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id)});
 
     window.HTMLVideoElement.prototype.pause = jest.fn();
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'duration', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'duration', {
       get() {
         return mockDuration;
       },
     });
-    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'currentTime', {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'currentTime', {
       get() {
         return mockDuration;
       },
