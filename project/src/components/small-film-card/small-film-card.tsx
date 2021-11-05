@@ -39,14 +39,6 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
     }
 
     timer.current = setTimeout(() => {
-      if (!isHovered) {
-        if (isDelayedHovered) {
-          setDelayedHovered(false);
-        }
-
-        return;
-      }
-
       setDelayedHovered(true);
     }, HOVER_DELAY);
 
@@ -58,6 +50,7 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
       className={classNames(BASE_CLASSNAME, className)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      data-testid="card"
     >
       <Link to={AppRoute.Film(film.id)} style={{ color: 'inherit'}}>
         { isDelayedHovered ?

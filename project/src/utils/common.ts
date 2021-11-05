@@ -48,3 +48,5 @@ export const validateReviewContent = (content: string): boolean => {
 
   return false;
 };
+
+export const asyncDelay = (delay: number): Promise<void> => new Promise<void>((resolve) => setTimeout(() => resolve(), delay));
