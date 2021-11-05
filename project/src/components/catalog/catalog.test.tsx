@@ -4,58 +4,56 @@ import Catalog from './catalog';
 
 describe('Component: Catalog', () => {
   it('should render correctly with no props', () => {
-    const { container } = render(
+    render(
       <Catalog>
-        <div>Children</div>
+        <div data-testid="children" />
       </Catalog>,
     );
 
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
-    expect(container.querySelector('.catalog--like-this')).toBeFalsy();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
+    expect(screen.queryByTestId('catalog-container')).not.toHaveClass('catalog--like-this');
   });
 
   it('should render correctly with title prop', () => {
     const mockTitle = lorem.words();
 
-    const { container } = render(
+    render(
       <Catalog title={mockTitle}>
-        <div>Children</div>
+        <div data-testid="children" />
       </Catalog>,
     );
 
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
     expect(screen.queryByText(new RegExp(mockTitle, 'i'))).toBeInTheDocument();
-    expect(container.classList.contains('catalog--like-this')).toBeFalsy();
-    expect(container.querySelector('.catalog__title')).toBeTruthy();
+    expect(screen.queryByTestId('catalog-container')).not.toHaveClass('catalog--like-this');
+    expect(screen.queryByTestId('catalog-title')).toHaveClass('catalog__title');
   });
 
   it('should render correctly with hiddenTitle prop', () => {
-    const mockTitle = lorem.words();
     const mockHiddenTitle = lorem.words();
 
-    const { container } =  render(
+    render(
       <Catalog hiddenTitle={mockHiddenTitle}>
-        <div>Children</div>
+        <div data-testid="children" />
       </Catalog>,
     );
 
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockTitle, 'i'))).not.toBeInTheDocument();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
     expect(screen.queryByText(new RegExp(mockHiddenTitle, 'i'))).toBeInTheDocument();
-    expect(container.querySelector('.catalog__title')).toBeTruthy();
-    expect(container.querySelector('.visually-hidden')).toBeTruthy();
-    expect(container.classList.contains('catalog--like-this')).toBeFalsy();
+    expect(screen.queryByTestId('catalog-title')).toHaveClass('catalog__title');
+    expect(screen.queryByTestId('catalog-title')).toHaveClass('visually-hidden');
+    expect(screen.queryByTestId('catalog-container')).not.toHaveClass('catalog--like-this');
   });
 
 
   it('should render correctly with likeThis prop', () => {
-    const { container } = render(
+    render(
       <Catalog likeThis>
-        <div>Children</div>
+        <div data-testid="children" />
       </Catalog>,
     );
 
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
-    expect(container.querySelector('.catalog--like-this')).toBeTruthy();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
+    expect(screen.queryByTestId('catalog-container')).toHaveClass('catalog--like-this');
   });
 });

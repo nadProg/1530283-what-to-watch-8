@@ -5,8 +5,8 @@ type SmallFilmCardPreviewProps = {
 
 function SmallFilmCardPreview({src, alt = ''}: SmallFilmCardPreviewProps): JSX.Element {
   return (
-    <div className="small-film-card__image" data-testid="card-image-preview">
-      <img src={src} alt={alt} width="280" height="175" />
+    <div className="small-film-card__image">
+      <img src={src} alt={alt} width="280" height="175" data-testid="small-film-card-image-preview" />
     </div>
   );
 }

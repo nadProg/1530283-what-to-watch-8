@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { internet } from 'faker';
 import SmallFilmCardVideo from './small-film-card-video';
 
@@ -14,18 +14,20 @@ describe('Component: SmallFilmCardVideo', () => {
   });
 
   it('should render correctly', () => {
-    const { container } = render(
+    render(
       <SmallFilmCardVideo src={mockSource} poster={mockPoster} />,
     );
 
-    expect(container.querySelector('video')).toBeTruthy();
+    expect(screen.queryByTestId('small-film-card-video-preview')).toHaveAttribute('src', mockSource);
+    expect(screen.queryByTestId('small-film-card-video-preview')).toHaveAttribute('poster', mockPoster);
   });
 
   it('should render correctly without poster', () => {
-    const { container } = render(
+    render(
       <SmallFilmCardVideo src={mockSource} />,
     );
 
-    expect(container.querySelector('video')).toBeTruthy();
+    expect(screen.queryByTestId('small-film-card-video-preview')).toHaveAttribute('src', mockSource);
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toHaveAttribute('poster');
   });
 });

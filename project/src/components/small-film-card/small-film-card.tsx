@@ -50,7 +50,7 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
       className={classNames(BASE_CLASSNAME, className)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      data-testid="card"
+      data-testid="small-film-card"
     >
       <Link to={AppRoute.Film(film.id)} style={{ color: 'inherit'}}>
         { isDelayedHovered ?

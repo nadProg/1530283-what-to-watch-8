@@ -13,7 +13,7 @@ const history = createMemoryHistory();
 const mockFilm = createMockFilm();
 const mockClassName = lorem.word();
 
-describe('Component: SmallFilmCard', () => {
+describe('Component: SmallFilmsmall-film-card', () => {
   beforeEach(() => {
     Object.defineProperty(window.HTMLMediaElement.prototype, 'muted', {
       get: () => false,
@@ -28,9 +28,9 @@ describe('Component: SmallFilmCard', () => {
       </Router>,
     );
 
-    expect(screen.queryByTestId('card')).toBeInTheDocument();
-    expect(screen.queryByTestId('card-image-preview')).toBeInTheDocument();
-    expect(screen.queryByTestId('card-video-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
     expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
     expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
   });
@@ -43,10 +43,10 @@ describe('Component: SmallFilmCard', () => {
     );
 
 
-    expect(screen.queryByTestId('card')).toBeInTheDocument();
-    expect(screen.queryByTestId('card')).toHaveClass(mockClassName);
-    expect(screen.queryByTestId('card-image-preview')).toBeInTheDocument();
-    expect(screen.queryByTestId('card-video-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card')).toHaveClass(mockClassName);
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
     expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
     expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
   });
@@ -62,35 +62,35 @@ describe('Component: SmallFilmCard', () => {
     );
 
     await act(async () => {
-      userEvent.hover(screen.getByTestId('card'));
+      userEvent.hover(screen.getByTestId('small-film-card'));
       await asyncDelay(TIME_TO_SHOW_VIDEO);
     });
 
-    expect(screen.queryByTestId('card-video-preview')).toBeInTheDocument();
-    expect(screen.queryByTestId('card-image-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).not.toBeInTheDocument();
 
     act(() => {
-      userEvent.unhover(screen.getByTestId('card'));
+      userEvent.unhover(screen.getByTestId('small-film-card'));
     });
 
-    expect(screen.queryByTestId('card-video-preview')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
 
     await act(async () => {
       await asyncDelay(TIME_NOT_TO_SHOW_VIDEO);
-      userEvent.unhover(screen.getByTestId('card'));
-      userEvent.hover(screen.getByTestId('card'));
+      userEvent.unhover(screen.getByTestId('small-film-card'));
+      userEvent.hover(screen.getByTestId('small-film-card'));
       await asyncDelay(TIME_NOT_TO_SHOW_VIDEO);
     });
 
-    expect(screen.queryByTestId('card-video-preview')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
 
     act(() => {
-      userEvent.unhover(screen.getByTestId('card'));
+      userEvent.unhover(screen.getByTestId('small-film-card'));
     });
 
-    expect(screen.queryByTestId('card-video-preview')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
   });
 });
