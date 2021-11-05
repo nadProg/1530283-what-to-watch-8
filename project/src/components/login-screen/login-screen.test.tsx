@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { State } from '../../types/types';
@@ -18,7 +18,7 @@ const store = mockStore({
 
 describe('Component: LoginScreen', () => {
   it('should render correctly', () => {
-    const { container } = render(
+    render(
       <Provider store={store}>
         <Router history={history}>
           <LoginScreen />
@@ -26,6 +26,6 @@ describe('Component: LoginScreen', () => {
       </Provider>,
     );
 
-    expect(container.querySelector('form')).not.toBeNull();
+    expect(screen.queryByTestId('login-form')).toBeInTheDocument();
   });
 });

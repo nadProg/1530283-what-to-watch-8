@@ -15,7 +15,7 @@ function FilmCardTabs({className}: FilmCardTabsProps): JSX.Element {
   const fullClassname = classNames(BASE_CLASSNAME, className);
 
   return (
-    <nav className={fullClassname}>
+    <nav className={fullClassname} data-testid="film-card-navigation">
       <ul className="film-nav__list">
         {
           Object.values(FilmCardTab).map((tab) => {

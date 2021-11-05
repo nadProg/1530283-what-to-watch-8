@@ -9,7 +9,7 @@ type ReviewProps = {
 
 function Review({comment}: ReviewProps): JSX.Element {
   return (
-    <div className="review">
+    <div className="review" data-testid="review">
       <blockquote className="review__quote">
         {comment.comment.split(LINE_BREAK).map((paragraph) => (
           <p key={paragraph} className="review__text">{paragraph}</p>

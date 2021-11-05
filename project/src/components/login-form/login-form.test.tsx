@@ -31,11 +31,11 @@ describe('Component: FilmCardButtons', () => {
       </Provider>,
     );
 
-    expect(screen.queryByTestId(/form/i)).toBeInTheDocument();
-    expect(screen.queryByTestId(/email-input/i)).toBeInTheDocument();
-    expect(screen.queryByTestId(/password-input/i)).toBeInTheDocument();
-    expect(screen.queryByTestId(/validity-message/i)).not.toBeInTheDocument();
-    expect(screen.queryByTestId(/server-message/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('login-form')).toBeInTheDocument();
+    expect(screen.queryByTestId('email-input')).toBeInTheDocument();
+    expect(screen.queryByTestId('password-input')).toBeInTheDocument();
+    expect(screen.queryByTestId('validity-message')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('server-message')).not.toBeInTheDocument();
   });
 
   it('should render correctly with className props', () => {
@@ -53,7 +53,7 @@ describe('Component: FilmCardButtons', () => {
       </Provider>,
     );
 
-    expect(screen.queryByTestId(/container/i)).toHaveClass(mockClassName);
+    expect(screen.queryByTestId('login-form-container')).toHaveClass(mockClassName);
   });
 
   it('should render correctly with errorMessage in store', () => {
@@ -71,8 +71,8 @@ describe('Component: FilmCardButtons', () => {
       </Provider>,
     );
 
-    expect(screen.queryByTestId(/validity-message/i)).not.toBeInTheDocument();
-    expect(screen.queryByTestId(/server-message/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('validity-message')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('server-message')).toBeInTheDocument();
   });
 
   it('should handle submit action when valid data is provided', () => {
@@ -95,11 +95,11 @@ describe('Component: FilmCardButtons', () => {
       </Provider>,
     );
 
-    userEvent.type(screen.getByTestId(/email-input/i), validMockEmail);
-    userEvent.type(screen.getByTestId(/password-input/i), validMockPassword);
+    userEvent.type(screen.getByTestId('email-input'), validMockEmail);
+    userEvent.type(screen.getByTestId('password-input'), validMockPassword);
     expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(validMockPassword)).toBeInTheDocument();
-    userEvent.click(screen.getByTestId(/submit-button/i));
+    userEvent.click(screen.getByTestId('submit-button'));
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).not.toHaveBeenCalledWith(clearAuthorizationErrorMessage());
@@ -125,13 +125,13 @@ describe('Component: FilmCardButtons', () => {
       </Provider>,
     );
 
-    userEvent.type(screen.getByTestId(/email-input/i), invalidMockEmail);
-    userEvent.type(screen.getByTestId(/password-input/i), validMockPassword);
+    userEvent.type(screen.getByTestId('email-input'), invalidMockEmail);
+    userEvent.type(screen.getByTestId('password-input'), validMockPassword);
     expect(screen.getByDisplayValue(invalidMockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(validMockPassword)).toBeInTheDocument();
-    userEvent.click(screen.getByTestId(/submit-button/i));
+    userEvent.click(screen.getByTestId('submit-button'));
 
-    expect(screen.queryByTestId(/validity-message/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).toHaveBeenCalledWith(clearAuthorizationErrorMessage());
@@ -157,13 +157,13 @@ describe('Component: FilmCardButtons', () => {
       </Provider>,
     );
 
-    userEvent.type(screen.getByTestId(/email-input/i), validMockEmail);
-    userEvent.type(screen.getByTestId(/password-input/i), invalidMockPassword);
+    userEvent.type(screen.getByTestId('email-input'), validMockEmail);
+    userEvent.type(screen.getByTestId('password-input'), invalidMockPassword);
     expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(invalidMockPassword)).toBeInTheDocument();
-    userEvent.click(screen.getByTestId(/submit-button/i));
+    userEvent.click(screen.getByTestId('submit-button'));
 
-    expect(screen.queryByTestId(/validity-message/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).toHaveBeenCalledWith(clearAuthorizationErrorMessage());

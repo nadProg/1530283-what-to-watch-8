@@ -89,8 +89,8 @@ function LoginForm({ className }: LoginFormProps): JSX.Element {
   }, [validityMessage]);
 
   return (
-    <div className={classNames('sign-in', className)} data-testid="container">
-      <form action="#" className="sign-in__form" onSubmit={handleFormSubmit} data-testid="form">
+    <div className={classNames('sign-in', className)} data-testid="login-form-container">
+      <form action="#" className="sign-in__form" onSubmit={handleFormSubmit} data-testid="login-form">
         <div className="sign-in__fields">
           {validityMessage && (
             <div className="sign-in__message" data-testid="validity-message">
