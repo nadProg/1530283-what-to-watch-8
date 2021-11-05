@@ -53,7 +53,7 @@ function AddReviewForm(): JSX.Element {
 
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
+      <form action="#" className="add-review__form" onSubmit={handleFormSubmit} data-testid="form">
         <div className="rating">
           <div className="rating__stars">
             {new Array(Rating.MaxValue)
@@ -76,7 +76,7 @@ function AddReviewForm(): JSX.Element {
                       disabled={isFormLoading}
                       onChange={handleRatingChange}
                     />
-                    <label className="rating__label" htmlFor={inputId}>
+                    <label className="rating__label" htmlFor={inputId} data-testid={inputId}>
                       Rating {value}
                     </label>
                   </Fragment>
@@ -94,12 +94,14 @@ function AddReviewForm(): JSX.Element {
             value={comment}
             disabled={isFormLoading}
             onChange={handleCommentChange}
+            data-testid="review-text"
           />
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
               disabled={!isFormValid || isFormLoading}
+              data-testid="submit-button"
             >
               Post
             </button>
