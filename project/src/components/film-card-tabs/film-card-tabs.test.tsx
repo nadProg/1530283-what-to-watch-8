@@ -23,7 +23,7 @@ describe('Component: FilmCardTabs', () => {
   });
 
   it('should render correctly with className props', () => {
-    const { container } = render(
+    render(
       <Router history={history}>
         <FilmCardTabs className={mockClassName} />
       </Router>,
@@ -33,6 +33,6 @@ describe('Component: FilmCardTabs', () => {
       expect(screen.queryByText(new RegExp(tab, 'i'))).toBeInTheDocument();
     });
 
-    expect(container.querySelector(`.${mockClassName}`)).toBeTruthy();
+    expect(screen.queryByTestId('film-card-navigation')).toHaveClass(mockClassName);
   });
 });

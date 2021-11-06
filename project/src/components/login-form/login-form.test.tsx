@@ -1,9 +1,11 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render } from '@testing-library/react';
-import { lorem } from 'faker';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { internet, lorem } from 'faker';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import { clearAuthorizationErrorMessage } from '../../store/authorization/authorization-actions';
 import { State } from '../../types/types';
 import LoginForm from './login-form';
 
@@ -21,16 +23,19 @@ describe('Component: FilmCardButtons', () => {
       },
     });
 
-    const { container} = render(
+    render(
       <Provider store={store}>
         <Router history={history}>
           <LoginForm />
-        </Router>,
+        </Router>
       </Provider>,
     );
 
-    expect(container.querySelector('form')).toBeTruthy();
-    expect(container.querySelector('.sign-in__message')).not.toBeTruthy();
+    expect(screen.queryByTestId('login-form')).toBeInTheDocument();
+    expect(screen.queryByTestId('email-input')).toBeInTheDocument();
+    expect(screen.queryByTestId('password-input')).toBeInTheDocument();
+    expect(screen.queryByTestId('validity-message')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('server-message')).not.toBeInTheDocument();
   });
 
   it('should render correctly with className props', () => {
@@ -40,17 +45,15 @@ describe('Component: FilmCardButtons', () => {
       },
     });
 
-    const { container} = render(
+    render(
       <Provider store={store}>
         <Router history={history}>
           <LoginForm className={mockClassName} />
-        </Router>,
+        </Router>
       </Provider>,
     );
 
-    expect(container.querySelector('form')).toBeTruthy();
-    expect(container.querySelector(`.${mockClassName}`)).toBeTruthy();
-    expect(container.querySelector('.sign-in__message')).not.toBeTruthy();
+    expect(screen.queryByTestId('login-form-container')).toHaveClass(mockClassName);
   });
 
   it('should render correctly with errorMessage in store', () => {
@@ -60,15 +63,109 @@ describe('Component: FilmCardButtons', () => {
       },
     });
 
-    const { container} = render(
+    render(
       <Provider store={store}>
         <Router history={history}>
           <LoginForm />
-        </Router>,
+        </Router>
       </Provider>,
     );
 
-    expect(container.querySelector('form')).toBeTruthy();
-    expect(container.querySelector('.sign-in__message')).toBeTruthy();
+    expect(screen.queryByTestId('validity-message')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('server-message')).toBeInTheDocument();
+  });
+
+  it('should handle submit action when valid data is provided', () => {
+    const validMockPassword = 'abc';
+    const validMockEmail = internet.email();
+
+    const store = mockStore({
+      authorization: {
+        errorMessage: '',
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <LoginForm />
+        </Router>
+      </Provider>,
+    );
+
+    userEvent.type(screen.getByTestId('email-input'), validMockEmail);
+    userEvent.type(screen.getByTestId('password-input'), validMockPassword);
+    expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(validMockPassword)).toBeInTheDocument();
+    userEvent.click(screen.getByTestId('submit-button'));
+
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).not.toHaveBeenCalledWith(clearAuthorizationErrorMessage());
+  });
+
+  it('should prevent submit action when invalid email is provided', () => {
+    const validMockPassword = 'abc';
+    const invalidMockEmail = 'invalid@com';
+
+    const store = mockStore({
+      authorization: {
+        errorMessage: '',
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <LoginForm />
+        </Router>
+      </Provider>,
+    );
+
+    userEvent.type(screen.getByTestId('email-input'), invalidMockEmail);
+    userEvent.type(screen.getByTestId('password-input'), validMockPassword);
+    expect(screen.getByDisplayValue(invalidMockEmail)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(validMockPassword)).toBeInTheDocument();
+    userEvent.click(screen.getByTestId('submit-button'));
+
+    expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
+
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledWith(clearAuthorizationErrorMessage());
+  });
+
+  it('should prevent submit action when invalid password is provided', () => {
+    const invalidMockPassword = 'a';
+    const validMockEmail = internet.email();
+
+    const store = mockStore({
+      authorization: {
+        errorMessage: '',
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <LoginForm />
+        </Router>
+      </Provider>,
+    );
+
+    userEvent.type(screen.getByTestId('email-input'), validMockEmail);
+    userEvent.type(screen.getByTestId('password-input'), invalidMockPassword);
+    expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(invalidMockPassword)).toBeInTheDocument();
+    userEvent.click(screen.getByTestId('submit-button'));
+
+    expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
+
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledWith(clearAuthorizationErrorMessage());
   });
 });

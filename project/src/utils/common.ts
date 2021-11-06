@@ -5,10 +5,6 @@ export const splitArrayInTwo = <T>(items: T[]): [T[], T[]] => {
   return [ items.slice(0, middleIndex), items.slice(middleIndex)];
 };
 
-export const isAllCasesChecked = (argument: never): never => {
-  throw new Error('Not all cases was checked');
-};
-
 export const getEmailValidityMessage = (email: string): string => {
   if (!email) {
     return 'E-mail is required.';
@@ -52,3 +48,5 @@ export const validateReviewContent = (content: string): boolean => {
 
   return false;
 };
+
+export const asyncDelay = (delay: number): Promise<void> => new Promise<void>((resolve) => setTimeout(() => resolve(), delay));

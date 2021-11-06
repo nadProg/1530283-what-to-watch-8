@@ -16,8 +16,8 @@ function Catalog({title, hiddenTitle, likeThis, children}: CatalogProps): JSX.El
   const fullTitleClassName = classNames(BASE_TITLE_CLASSNAME, { 'visually-hidden': !title });
 
   return (
-    <section className={fullClassName}>
-      <h2 className={fullTitleClassName}>{hiddenTitle || title}</h2>
+    <section className={fullClassName} data-testid="catalog-container">
+      <h2 className={fullTitleClassName} data-testid="catalog-title">{hiddenTitle || title}</h2>
       {children}
     </section>
   );

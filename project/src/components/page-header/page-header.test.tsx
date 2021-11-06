@@ -8,21 +8,21 @@ describe('Component: PageHeader', () => {
   it('should render correctly with no props', () => {
     render(
       <PageHeader>
-        <div>Children</div>
+        <div data-testid="children" />
       </PageHeader>,
     );
 
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
   });
 
   it('should render correctly with className props', () => {
-    const { container } = render(
+    render(
       <PageHeader className={mockClassName} >
-        <div>Children</div>
+        <div data-testid="children" />
       </PageHeader>,
     );
 
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
-    expect(container.querySelector(`.${mockClassName}`)).toBeTruthy();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
+    expect(screen.queryByTestId('page-header')).toHaveClass(mockClassName);
   });
 });

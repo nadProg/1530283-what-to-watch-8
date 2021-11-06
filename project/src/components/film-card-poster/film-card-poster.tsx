@@ -17,8 +17,8 @@ function FilmCardPoster({src, alt, small, big}: FilmCardBackgroundProps): JSX.El
   );
 
   return (
-    <div className={fullClassName}>
-      <img src={src} alt={alt} width="218" height="327" />
+    <div className={fullClassName} data-testid="film-card-poster-container">
+      <img src={src} alt={alt} width="218" height="327" data-testid="film-card-poster" />
     </div>
   );
 }

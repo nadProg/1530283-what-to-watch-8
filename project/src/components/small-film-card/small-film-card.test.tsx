@@ -1,8 +1,11 @@
+import { act } from '@testing-library/react-hooks';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { lorem } from 'faker';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { createMockFilm } from '../../mocks/films';
+import { asyncDelay } from '../../utils/common';
 import SmallFilmCard from './small-film-card';
 
 const history = createMemoryHistory();
@@ -10,30 +13,84 @@ const history = createMemoryHistory();
 const mockFilm = createMockFilm();
 const mockClassName = lorem.word();
 
-describe('Component: SmallFilmCard', () => {
+describe('Component: SmallFilmsmall-film-card', () => {
+  beforeEach(() => {
+    Object.defineProperty(window.HTMLMediaElement.prototype, 'muted', {
+      get: () => false,
+      set: jest.fn(),
+    });
+  });
+
   it('should render correctly', () => {
-    const { container } = render(
+    render(
       <Router history={history}>
         <SmallFilmCard film={mockFilm} />
       </Router>,
     );
 
-    expect(container.querySelector('article')).toBeTruthy();
+    expect(screen.queryByTestId('small-film-card')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
     expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
     expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
   });
 
   it('should render correctly with className props', () => {
-    const { container } = render(
+    render(
       <Router history={history}>
         <SmallFilmCard film={mockFilm} className={mockClassName} />
       </Router>,
     );
 
-    expect(container.querySelector(`article.${mockClassName}`)).toBeTruthy();
 
-    expect(container.querySelector('article')).toBeTruthy();
+    expect(screen.queryByTestId('small-film-card')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card')).toHaveClass(mockClassName);
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
     expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
     expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
+  });
+
+  it('should render video on mouseover', async () => {
+    const TIME_TO_SHOW_VIDEO = 2000;
+    const TIME_NOT_TO_SHOW_VIDEO = 500;
+
+    render(
+      <Router history={history}>
+        <SmallFilmCard film={mockFilm} className={mockClassName} />
+      </Router>,
+    );
+
+    await act(async () => {
+      userEvent.hover(screen.getByTestId('small-film-card'));
+      await asyncDelay(TIME_TO_SHOW_VIDEO);
+    });
+
+    expect(screen.queryByTestId('small-film-card-video-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).not.toBeInTheDocument();
+
+    act(() => {
+      userEvent.unhover(screen.getByTestId('small-film-card'));
+    });
+
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+
+    await act(async () => {
+      await asyncDelay(TIME_NOT_TO_SHOW_VIDEO);
+      userEvent.unhover(screen.getByTestId('small-film-card'));
+      userEvent.hover(screen.getByTestId('small-film-card'));
+      await asyncDelay(TIME_NOT_TO_SHOW_VIDEO);
+    });
+
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+
+    act(() => {
+      userEvent.unhover(screen.getByTestId('small-film-card'));
+    });
+
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
   });
 });

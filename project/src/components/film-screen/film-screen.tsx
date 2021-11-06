@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MAX_SIMILAR_FILMS_COUNT } from '../../constants';
-import { useIdParam } from '../../hooks/useIdParams';
+import { useIdParam } from '../../hooks/use-id-param';
 import { getСurrentComments } from '../../store/comments/comments-api-actions';
 import {
   getCurrentCommentsData,
@@ -31,7 +31,7 @@ import PageContent from '../page-content/page-content';
 import PageFooter from '../page-footer/page-footer';
 
 function FilmScreen(): JSX.Element {
-  const filmId = useIdParam();
+  const { id: filmId, error } = useIdParam();
 
   const film = useSelector(getCurrentFilmData);
   const comments = useSelector(getCurrentCommentsData);
@@ -55,6 +55,10 @@ function FilmScreen(): JSX.Element {
   };
 
   useEffect(() => {
+    if (!filmId) {
+      return;
+    }
+
     if (film?.id !== filmId) {
       fetchCurrentFilm(filmId);
       fetchCurrentComments(filmId);
@@ -87,7 +91,7 @@ function FilmScreen(): JSX.Element {
     isFetchError(filmStatus) ||
     isFetchError(commentsStatus) ||
     isFetchNotReady(similarFilmsStatus) ||
-    !film || !comments || !similarFilms
+    !film || !comments || !similarFilms || error
   ) {
     return <NotFoundScreen />;
   }

@@ -2,7 +2,7 @@ import { useState, ChangeEvent, FormEvent, Fragment, useEffect, useMemo } from '
 import { useDispatch, useSelector } from 'react-redux';
 import { Rating } from '../../constants';
 import { CommentPost } from '../../types/types';
-import { useIdParam } from '../../hooks/useIdParams';
+import { useIdParam } from '../../hooks/use-id-param';
 import { postComment } from '../../store/comments/comments-api-actions';
 import { isNewCommentsLoading } from '../../store/comments/comments-selectors';
 import { validateReviewContent, validateReviewRating } from '../../utils/common';
@@ -11,7 +11,7 @@ const INITIAL_RATING = 0;
 const INITIAL_COMMENT = '';
 
 function AddReviewForm(): JSX.Element {
-  const filmId = useIdParam();
+  const { id: filmId } = useIdParam() as { id: number };
 
   const [rating, setRating] = useState(INITIAL_RATING);
   const [comment, setComment] = useState(INITIAL_COMMENT);
@@ -53,7 +53,7 @@ function AddReviewForm(): JSX.Element {
 
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
+      <form action="#" className="add-review__form" onSubmit={handleFormSubmit} data-testid="form">
         <div className="rating">
           <div className="rating__stars">
             {new Array(Rating.MaxValue)
@@ -76,7 +76,7 @@ function AddReviewForm(): JSX.Element {
                       disabled={isFormLoading}
                       onChange={handleRatingChange}
                     />
-                    <label className="rating__label" htmlFor={inputId}>
+                    <label className="rating__label" htmlFor={inputId} data-testid={inputId}>
                       Rating {value}
                     </label>
                   </Fragment>
@@ -94,12 +94,14 @@ function AddReviewForm(): JSX.Element {
             value={comment}
             disabled={isFormLoading}
             onChange={handleCommentChange}
+            data-testid="review-text"
           />
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
               disabled={!isFormValid || isFormLoading}
+              data-testid="submit-button"
             >
               Post
             </button>

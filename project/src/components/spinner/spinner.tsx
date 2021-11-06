@@ -18,6 +18,7 @@ function Spinner(): JSX.Element {
         height="200px"
         viewBox="0 0 100 100"
         preserveAspectRatio="xMidYMid"
+        data-testid="spinner"
       >
         <g transform="rotate(0 50 50)">
           <rect x="47" y="2" rx="3" ry="6" width="6" height="12" fill="#df5127">
