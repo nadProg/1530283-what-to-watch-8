@@ -1,12 +1,15 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { render, screen } from '@testing-library/react';
 import { AuthorizationStatus } from '../../constants';
 import { createMockFilm } from '../../mocks/films';
 import { State } from '../../types/types';
 import FilmCardHero from './film-card-hero';
+
+const history = createMemoryHistory();
+const mockFilm = createMockFilm();
 
 const mockStore = configureMockStore<State>();
 
@@ -15,10 +18,6 @@ const store = mockStore({
     status: AuthorizationStatus.Auth,
   },
 });
-
-const history = createMemoryHistory();
-
-const mockFilm = createMockFilm();
 
 describe('Component: FilmCardHero', () => {
   it('should render correctly', () => {

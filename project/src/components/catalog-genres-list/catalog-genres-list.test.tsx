@@ -24,6 +24,7 @@ describe('Component: CatalogGenresList', () => {
     );
 
     userEvent.click(screen.getByText(ALL_GENRES));
+
     expect(setActiveGenre).toHaveBeenCalledTimes(1);
     expect(setActiveGenre).toHaveBeenCalledWith(ALL_GENRES);
   });

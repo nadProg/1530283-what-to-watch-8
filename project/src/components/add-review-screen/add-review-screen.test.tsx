@@ -10,9 +10,7 @@ import { createMockFilm } from '../../mocks/films';
 import AddReviewScreen from './add-review-screen';
 
 const history = createMemoryHistory();
-
 const mockFilm = createMockFilm();
-
 const mockStore = configureMockStore<State>();
 
 describe('Component: AddReviewScreen', () => {
@@ -90,6 +88,7 @@ describe('Component: AddReviewScreen', () => {
 
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
+
     expect(successStore.dispatch).toHaveBeenCalledTimes(0);
   });
 
@@ -122,6 +121,7 @@ describe('Component: AddReviewScreen', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
@@ -158,6 +158,7 @@ describe('Component: AddReviewScreen', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();

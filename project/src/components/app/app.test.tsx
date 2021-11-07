@@ -83,6 +83,10 @@ initialStore.dispatch = jest.fn();
 userStore.dispatch = jest.fn();
 
 describe('Component: App', () => {
+  beforeEach(() => {
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockId)});
+  });
+
   it('should render correctly', () => {
     render(
       <Provider store={initialStore}>
@@ -150,8 +154,6 @@ describe('Component: App', () => {
   });
 
   it('film screen should render correctty', () => {
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockId)});
-
     history.push(AppRoute.Film());
 
     render(
@@ -168,8 +170,6 @@ describe('Component: App', () => {
   });
 
   it('add review screen should render correctty', () => {
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockId)});
-
     history.push(AppRoute.AddReview());
 
     render(
@@ -187,8 +187,6 @@ describe('Component: App', () => {
   });
 
   it('player screen should render correctly', () => {
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockId)});
-
     history.push(AppRoute.Player());
 
     render(

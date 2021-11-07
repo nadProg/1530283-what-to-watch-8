@@ -9,7 +9,6 @@ type CatalogGenresListProps = {
 
 const BASE_CLASSNAME = 'catalog__genres-item';
 
-
 function CatalogGenresList({genres, activeGenre, setActiveGenre}: CatalogGenresListProps): JSX.Element {
   const onCatalogItemClick = (evt: SyntheticEvent<HTMLElement>) => {
     evt.preventDefault();

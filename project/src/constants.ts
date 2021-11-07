@@ -6,6 +6,8 @@ export const CATALOG_INITIAL_PAGE = 1;
 
 export const CATALOG_PAGE_SIZE = 8;
 
+export const MAX_OVERVIEW_ACTORS_COUNT = 4;
+
 export const MAX_SIMILAR_FILMS_COUNT = 4;
 
 export const ALL_GENRES = 'All genres';

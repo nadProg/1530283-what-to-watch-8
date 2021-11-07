@@ -12,5 +12,6 @@ describe('Component: FilmCardBackground', () => {
     );
 
     expect(screen.getByAltText(new RegExp(mockAltText, 'i'))).toBeInTheDocument();
+    expect(screen.getByAltText(new RegExp(mockAltText, 'i'))).toHaveAttribute('src', mockSource);
   });
 });

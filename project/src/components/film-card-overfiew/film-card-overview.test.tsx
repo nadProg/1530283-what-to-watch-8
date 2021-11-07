@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import { MAX_OVERVIEW_ACTORS_COUNT } from '../../constants';
 import { createMockFilm } from '../../mocks/films';
 import { formatRating } from '../../utils/films';
 import FilmCardOverview from './film-card-overview';
-
-const MAX_OVERVIEW_ACTORS_COUNT = 4;
 
 const mockFilm = createMockFilm();
 

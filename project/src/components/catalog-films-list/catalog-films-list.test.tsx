@@ -5,7 +5,6 @@ import CatalogFilmsList from './catalog-films-list';
 import { createMockFilms } from '../../mocks/films';
 
 const history = createMemoryHistory();
-
 const mockFilms = createMockFilms();
 
 describe('Component: Catalog', () => {

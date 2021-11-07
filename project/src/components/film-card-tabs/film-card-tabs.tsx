@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
+import classNames from 'classnames';
 import upperFirst from 'lodash/upperFirst';
 import { FilmCardTab } from '../../constants';
 

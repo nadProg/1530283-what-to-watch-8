@@ -5,7 +5,6 @@ import { createMockFilm } from '../../mocks/films';
 import Breadcrumbs from './breadcrumbs';
 
 const history = createMemoryHistory();
-
 const mockFilm = createMockFilm();
 
 describe('Component: Breadcrumbs', () => {

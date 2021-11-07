@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import type { Film } from '../../types/types';
 import { formatRuntime } from '../../utils/date';
 
-const formatOverviewActors = (actors: string[]) => actors.map((actor, index, array) => {
+const formatOverviewActors = (actors: string[]): JSX.Element[] => actors.map((actor, index, array) => {
   const key = `${actor}-${index}`;
   const isNotLast = index < array.length - 1;
   return (

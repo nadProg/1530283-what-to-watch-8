@@ -2,11 +2,11 @@ import { Provider } from 'react-redux';
 import ReactRouter from 'react-router';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
+import { datatype } from 'faker';
+import userEvent from '@testing-library/user-event';
 import { State } from '../../types/types';
 import { FetchStatus } from '../../constants';
 import AddReviewForm from './add-review-form';
-import { datatype } from 'faker';
-import userEvent from '@testing-library/user-event';
 
 const mockStore = configureMockStore<State>();
 
@@ -39,6 +39,7 @@ describe('Component: AddReviewForm', () => {
     expect(screen.queryByTestId(/form/i)).toBeInTheDocument();
     expect(screen.queryByTestId(/review-text/i)).toBeInTheDocument();
     expect(screen.queryByTestId(/submit-button/i)).toBeInTheDocument();
+
     expect(store.dispatch).toHaveBeenCalledTimes(0);
   });
 
