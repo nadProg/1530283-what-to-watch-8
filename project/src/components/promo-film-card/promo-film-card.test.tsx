@@ -1,11 +1,11 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { render, screen } from '@testing-library/react';
 import { AuthorizationStatus } from '../../constants';
-import { createMockFilm } from '../../mocks/films';
 import { State } from '../../types/types';
+import { createMockFilm } from '../../mocks/films';
 import PromoFilmCard from './promo-film-card';
 
 const history = createMemoryHistory();

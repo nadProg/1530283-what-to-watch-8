@@ -1,13 +1,13 @@
 import * as Redux from 'react-redux';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
+import { createMemoryHistory } from 'history';
 import { Route, Router } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 import { AppRoute, AuthorizationStatus } from '../../constants';
-import { createMockAuthorizationInfo } from '../../mocks/authorization';
 import { State } from '../../types/types';
+import { createMockAuthorizationInfo } from '../../mocks/authorization';
 import UserBlock from './user-block';
 
 const history = createMemoryHistory();
@@ -37,9 +37,10 @@ describe('Component: UserBlock', () => {
       </Provider>,
     );
 
-    expect(screen.queryByText(/Sign In/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Sign Out/i)).toBeInTheDocument();
     expect(screen.getByAltText(/User avatar/i)).toBeInTheDocument();
+
+    expect(screen.queryByText(/Sign In/i)).not.toBeInTheDocument();
   });
 
   it('should handle logout action signed in user', () => {
@@ -56,7 +57,9 @@ describe('Component: UserBlock', () => {
     );
 
     expect(useDispatch).toBeCalledTimes(1);
+
     userEvent.click(screen.getByText(/Sign Out/i));
+
     expect(dispatch).toBeCalledTimes(1);
   });
 
@@ -77,6 +80,7 @@ describe('Component: UserBlock', () => {
     );
 
     userEvent.click(screen.getByAltText(/User avatar/i));
+
     expect(screen.queryByText(new RegExp(myListContent, 'i'))).toBeInTheDocument();
   });
 
@@ -90,6 +94,7 @@ describe('Component: UserBlock', () => {
     );
 
     expect(screen.queryByText(/Sign In/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/Sign Out/i)).not.toBeInTheDocument();
   });
 
@@ -110,6 +115,7 @@ describe('Component: UserBlock', () => {
     );
 
     userEvent.click(screen.getByText(/Sign In/i));
+
     expect(screen.queryByText(new RegExp(loginContent, 'i'))).toBeInTheDocument();
   });
 });

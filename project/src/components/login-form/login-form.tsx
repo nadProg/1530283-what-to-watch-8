@@ -2,10 +2,7 @@ import { ChangeEvent, FocusEvent, FormEvent, useEffect, useMemo, useState } from
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { Login } from '../../types/types';
-import {
-  getEmailValidityMessage,
-  getPasswordValidityMessage
-} from '../../utils/common';
+import { getEmailValidityMessage, getPasswordValidityMessage } from '../../utils/common';
 import { postLogin } from '../../store/authorization/authorization-api-actions';
 import { getAuhorizationErrorMessage } from '../../store/authorization/authorization-selectors';
 import { clearAuthorizationErrorMessage } from '../../store/authorization/authorization-actions';

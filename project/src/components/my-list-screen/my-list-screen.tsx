@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import Logo from '../logo/logo';
 import UserBlock from '../user-block/user-block';
 import CatalogFilmsList from '../catalog-films-list/catalog-films-list';
@@ -12,6 +11,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getFavoriteFilms } from '../../store/films/films-api-actions';
 import { getFavoriteFilmsData, getFavoriteFilmsStatus } from '../../store/films/films-selectors';
+import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 
 function MyListScreen(): JSX.Element {
   const favoriteFilms = useSelector(getFavoriteFilmsData);

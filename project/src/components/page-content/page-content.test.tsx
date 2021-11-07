@@ -5,10 +5,10 @@ describe('Component: PageContent', () => {
   it('should render correctly', () => {
     render(
       <PageContent>
-        <div>Children</div>
+        <div data-testid="children" />
       </PageContent>,
     );
 
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
   });
 });

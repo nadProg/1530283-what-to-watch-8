@@ -1,14 +1,14 @@
 import { Provider } from 'react-redux';
 import ReactRouter from 'react-router';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { render, screen } from '@testing-library/react';
 import { State } from '../../types/types';
 import { AuthorizationStatus, FetchStatus } from '../../constants';
 import { createMockFilm, createMockFilms } from '../../mocks/films';
-import FilmScreen from './film-screen';
 import { createMockComments } from '../../mocks/comments';
+import FilmScreen from './film-screen';
 
 const history = createMemoryHistory();
 
@@ -19,6 +19,10 @@ const mockComments = createMockComments();
 const mockStore = configureMockStore<State>();
 
 describe('Component: FilmScreen', () => {
+  beforeEach(() => {
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id)});
+  });
+
   it('should render correctly when current is fetched successfully', () => {
     const successStore = mockStore({
       films: {
@@ -44,8 +48,6 @@ describe('Component: FilmScreen', () => {
 
     successStore.dispatch = jest.fn();
 
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id)});
-
     render(
       <Provider store={successStore}>
         <Router history={history}>
@@ -57,7 +59,9 @@ describe('Component: FilmScreen', () => {
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
+
     expect(screen.queryByText(/WTW/i)).toBeInTheDocument();
+
     expect(successStore.dispatch).toHaveBeenCalledTimes(0);
   });
 
@@ -129,8 +133,6 @@ describe('Component: FilmScreen', () => {
 
     initialStore.dispatch = jest.fn();
 
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id) });
-
     render(
       <Provider store={initialStore}>
         <Router history={history}>
@@ -140,6 +142,7 @@ describe('Component: FilmScreen', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
@@ -172,8 +175,6 @@ describe('Component: FilmScreen', () => {
 
     initialStore.dispatch = jest.fn();
 
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id) });
-
     render(
       <Provider store={initialStore}>
         <Router history={history}>
@@ -183,6 +184,7 @@ describe('Component: FilmScreen', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
@@ -215,8 +217,6 @@ describe('Component: FilmScreen', () => {
 
     store.dispatch = jest.fn();
 
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id) });
-
     render(
       <Provider store={store}>
         <Router history={history}>
@@ -226,9 +226,11 @@ describe('Component: FilmScreen', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
+
     expect(store.dispatch).toHaveBeenCalledTimes(3);
   });
 });

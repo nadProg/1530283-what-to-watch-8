@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import type { Film } from '../../types/types';
-import FilmCardBackground from '../film-card-background/film-card-background';
 import Logo from '../logo/logo';
+import FilmCardBackground from '../film-card-background/film-card-background';
 import UserBlock from '../user-block/user-block';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import FilmCardButtons from '../film-card-buttons/film-card-buttons';

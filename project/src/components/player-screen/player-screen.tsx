@@ -2,16 +2,16 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import round from 'lodash/round';
-import { AppRoute } from '../../constants';
-import { formatElapsedTime } from '../../utils/date';
-import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import { useVideo } from '../../hooks/use-video';
 import { useIdParam } from '../../hooks/use-id-param';
-import { getСurrentFilm } from '../../store/films/films-api-actions';
-import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
+import { AppRoute } from '../../constants';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
+import { getСurrentFilm } from '../../store/films/films-api-actions';
+import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
+import { formatElapsedTime } from '../../utils/date';
+import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 
 const TOGGLER_POSITION_DECIMAL_PRECISION = 2;
 

@@ -1,8 +1,8 @@
 import { Provider } from 'react-redux';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { render, screen } from '@testing-library/react';
 import { State } from '../../types/types';
 import LoginScreen from './login-screen';
 

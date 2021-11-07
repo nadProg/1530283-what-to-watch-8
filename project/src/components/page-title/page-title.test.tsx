@@ -4,7 +4,7 @@ import PageTitle from './page-title';
 
 const mockClassName = lorem.word();
 
-describe('Component: PageHeader', () => {
+describe('Component: PageTitle', () => {
   it('should render correctly with no props', () => {
     render(
       <PageTitle>
@@ -14,7 +14,9 @@ describe('Component: PageHeader', () => {
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
     expect(screen.queryByTestId('children')).toBeInTheDocument();
+
     expect(screen.queryByTestId('page-title')).toHaveClass('page-title');
+
     expect(screen.queryByTestId('page-title')).not.toHaveClass('visually-hidden');
   });
 
@@ -27,9 +29,11 @@ describe('Component: PageHeader', () => {
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
     expect(screen.queryByTestId('children')).toBeInTheDocument();
+
     expect(screen.queryByTestId('page-title')).toHaveClass('page-title');
-    expect(screen.queryByTestId('page-title')).not.toHaveClass('visually-hidden');
     expect(screen.queryByTestId('page-title')).toHaveClass(mockClassName);
+
+    expect(screen.queryByTestId('page-title')).not.toHaveClass('visually-hidden');
   });
 
   it('should render correctly with hidden props', () => {
@@ -41,7 +45,9 @@ describe('Component: PageHeader', () => {
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
     expect(screen.queryByTestId('children')).toBeInTheDocument();
+
     expect(screen.queryByTestId('page-title')).not.toHaveClass('page-title');
+
     expect(screen.queryByTestId('page-title')).toHaveClass('visually-hidden');
   });
 
@@ -54,7 +60,9 @@ describe('Component: PageHeader', () => {
 
     expect(screen.getByRole('heading')).toBeInTheDocument();
     expect(screen.queryByTestId('children')).toBeInTheDocument();
+
     expect(screen.queryByTestId('page-title')).not.toHaveClass('page-title');
+
     expect(screen.queryByTestId('page-title')).toHaveClass('visually-hidden');
     expect(screen.queryByTestId('page-title')).toHaveClass(mockClassName);
   });

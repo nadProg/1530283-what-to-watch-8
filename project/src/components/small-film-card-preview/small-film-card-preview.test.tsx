@@ -12,6 +12,7 @@ describe('Component: SmallFilmCardPreview', () => {
     );
 
     expect(screen.getByAltText(new RegExp(mockAlt, 'i'))).toBeInTheDocument();
+    expect(screen.getByAltText(new RegExp(mockAlt, 'i'))).toHaveAttribute('src', mockSource);
   });
 
   it('should render correctly without alt', () => {
@@ -20,5 +21,6 @@ describe('Component: SmallFilmCardPreview', () => {
     );
 
     expect(screen.getByAltText('')).toBeInTheDocument();
+    expect(screen.getByAltText('')).toHaveAttribute('src', mockSource);
   });
 });

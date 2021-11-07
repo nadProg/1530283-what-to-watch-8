@@ -14,8 +14,8 @@ import { getGenres } from '../../store/genres/genres-selectors';
 import { setFilter } from '../../store/filter/filter-actions';
 import { getFilter } from '../../store/filter/filter-selectors';
 import { getAllFilms, getPromoFilm } from '../../store/films/films-api-actions';
-import { isFetchError, isFetchIdle, isFetchNotReady } from '../../utils/fetched-data';
 import { getAllFilmsStatus, getFilteredFilms, getPromoFilmData, getPromoFilmStatus } from '../../store/films/films-selectors';
+import { isFetchError, isFetchIdle, isFetchNotReady } from '../../utils/fetched-data';
 
 function MainScreen(): JSX.Element {
   const allFilmsStatus = useSelector(getAllFilmsStatus);

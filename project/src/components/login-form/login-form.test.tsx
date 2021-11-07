@@ -1,18 +1,16 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { internet, lorem } from 'faker';
-import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { internet, lorem } from 'faker';
 import { clearAuthorizationErrorMessage } from '../../store/authorization/authorization-actions';
 import { State } from '../../types/types';
 import LoginForm from './login-form';
 
 const history = createMemoryHistory();
-
 const mockClassName = lorem.word();
-
 const mockStore = configureMockStore<State>();
 
 describe('Component: LoginForm', () => {
@@ -34,6 +32,7 @@ describe('Component: LoginForm', () => {
     expect(screen.queryByTestId('login-form')).toBeInTheDocument();
     expect(screen.queryByTestId('email-input')).toBeInTheDocument();
     expect(screen.queryByTestId('password-input')).toBeInTheDocument();
+
     expect(screen.queryByTestId('validity-message')).not.toBeInTheDocument();
     expect(screen.queryByTestId('server-message')).not.toBeInTheDocument();
   });
@@ -72,6 +71,7 @@ describe('Component: LoginForm', () => {
     );
 
     expect(screen.queryByTestId('validity-message')).not.toBeInTheDocument();
+
     expect(screen.queryByTestId('server-message')).toBeInTheDocument();
   });
 
@@ -97,8 +97,10 @@ describe('Component: LoginForm', () => {
 
     userEvent.type(screen.getByTestId('email-input'), validMockEmail);
     userEvent.type(screen.getByTestId('password-input'), validMockPassword);
+
     expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(validMockPassword)).toBeInTheDocument();
+
     userEvent.click(screen.getByTestId('submit-button'));
 
     expect(store.dispatch).toHaveBeenCalledTimes(1);
@@ -127,8 +129,10 @@ describe('Component: LoginForm', () => {
 
     userEvent.type(screen.getByTestId('email-input'), invalidMockEmail);
     userEvent.type(screen.getByTestId('password-input'), validMockPassword);
+
     expect(screen.getByDisplayValue(invalidMockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(validMockPassword)).toBeInTheDocument();
+
     userEvent.click(screen.getByTestId('submit-button'));
 
     expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
@@ -159,8 +163,10 @@ describe('Component: LoginForm', () => {
 
     userEvent.type(screen.getByTestId('email-input'), validMockEmail);
     userEvent.type(screen.getByTestId('password-input'), invalidMockPassword);
+
     expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(invalidMockPassword)).toBeInTheDocument();
+
     userEvent.click(screen.getByTestId('submit-button'));
 
     expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
@@ -190,6 +196,7 @@ describe('Component: LoginForm', () => {
 
     userEvent.type(screen.getByTestId('email-input'), validMockEmail);
     expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
+
     userEvent.click(screen.getByTestId('submit-button'));
 
     expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
@@ -218,7 +225,9 @@ describe('Component: LoginForm', () => {
     );
 
     userEvent.type(screen.getByTestId('password-input'), validMockPassword);
+
     expect(screen.getByDisplayValue(validMockPassword)).toBeInTheDocument();
+
     userEvent.click(screen.getByTestId('submit-button'));
 
     expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
