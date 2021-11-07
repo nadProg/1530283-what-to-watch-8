@@ -16,6 +16,10 @@ const mockFilm = createMockFilm();
 const mockStore = configureMockStore<State>();
 
 describe('Component: AddReviewScreen', () => {
+  beforeEach(() => {
+    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id)});
+  });
+
   it('should render correctly when current is fetched successfully', () => {
     const successStore = mockStore({
       films: {
@@ -35,8 +39,6 @@ describe('Component: AddReviewScreen', () => {
     });
 
     successStore.dispatch = jest.fn();
-
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id)});
 
     render(
       <Provider store={successStore}>
@@ -111,8 +113,6 @@ describe('Component: AddReviewScreen', () => {
 
     initialStore.dispatch = jest.fn();
 
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id) });
-
     render(
       <Provider store={initialStore}>
         <Router history={history}>
@@ -148,8 +148,6 @@ describe('Component: AddReviewScreen', () => {
     });
 
     initialStore.dispatch = jest.fn();
-
-    jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id) });
 
     render(
       <Provider store={initialStore}>

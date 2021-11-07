@@ -15,7 +15,7 @@ const mockClassName = lorem.word();
 
 const mockStore = configureMockStore<State>();
 
-describe('Component: FilmCardButtons', () => {
+describe('Component: LoginForm', () => {
   it('should render correctly', () => {
     const store = mockStore({
       authorization: {
@@ -76,7 +76,7 @@ describe('Component: FilmCardButtons', () => {
   });
 
   it('should handle submit action when valid data is provided', () => {
-    const validMockPassword = 'abc';
+    const validMockPassword = 'abc1';
     const validMockEmail = internet.email();
 
     const store = mockStore({
@@ -106,7 +106,7 @@ describe('Component: FilmCardButtons', () => {
   });
 
   it('should prevent submit action when invalid email is provided', () => {
-    const validMockPassword = 'abc';
+    const validMockPassword = 'abc1';
     const invalidMockEmail = 'invalid@com';
 
     const store = mockStore({
@@ -161,6 +161,89 @@ describe('Component: FilmCardButtons', () => {
     userEvent.type(screen.getByTestId('password-input'), invalidMockPassword);
     expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(invalidMockPassword)).toBeInTheDocument();
+    userEvent.click(screen.getByTestId('submit-button'));
+
+    expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
+
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledWith(clearAuthorizationErrorMessage());
+  });
+
+  it('should prevent submit action when invalid no password is provided', () => {
+    const validMockEmail = internet.email();
+
+    const store = mockStore({
+      authorization: {
+        errorMessage: '',
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <LoginForm />
+        </Router>
+      </Provider>,
+    );
+
+    userEvent.type(screen.getByTestId('email-input'), validMockEmail);
+    expect(screen.getByDisplayValue(validMockEmail)).toBeInTheDocument();
+    userEvent.click(screen.getByTestId('submit-button'));
+
+    expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
+
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledWith(clearAuthorizationErrorMessage());
+  });
+
+  it('should prevent submit action when no email is provided', () => {
+    const validMockPassword = 'abc';
+
+    const store = mockStore({
+      authorization: {
+        errorMessage: '',
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <LoginForm />
+        </Router>
+      </Provider>,
+    );
+
+    userEvent.type(screen.getByTestId('password-input'), validMockPassword);
+    expect(screen.getByDisplayValue(validMockPassword)).toBeInTheDocument();
+    userEvent.click(screen.getByTestId('submit-button'));
+
+    expect(screen.queryByTestId('validity-message')).toBeInTheDocument();
+
+    expect(store.dispatch).toHaveBeenCalledTimes(2);
+    expect(store.dispatch).toHaveBeenCalledWith(clearAuthorizationErrorMessage());
+  });
+
+  it('should prevent submit action when no data is provided', () => {
+    const store = mockStore({
+      authorization: {
+        errorMessage: '',
+      },
+    });
+
+    store.dispatch = jest.fn();
+
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <LoginForm />
+        </Router>
+      </Provider>,
+    );
+
     userEvent.click(screen.getByTestId('submit-button'));
 
     expect(screen.queryByTestId('validity-message')).toBeInTheDocument();

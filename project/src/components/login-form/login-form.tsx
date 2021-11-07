@@ -13,12 +13,14 @@ import { clearAuthorizationErrorMessage } from '../../store/authorization/author
 const INITIAL_FORM_DATA: Login = {
   email: '',
   password: '',
-};
+} as const;
 
-const INITIAL_FORM_DIRTINESS = {
+const INITIAL_FORM_DIRTINESS: {
+  [key in keyof typeof INITIAL_FORM_DATA]: boolean
+} = {
   email: false,
   password: false,
-};
+} as const;
 
 type LoginFormProps = {
   className?: string;
@@ -50,7 +52,7 @@ function LoginForm({ className }: LoginFormProps): JSX.Element {
     dispatch(postLogin(user));
   };
 
-  const handleInputBlur = (evt: FocusEvent<HTMLInputElement>) => {
+  const onInputBlur = (evt: FocusEvent<HTMLInputElement>) => {
     const { name } = evt.target;
     setFormDirtiness({
       ...formDirtiness,
@@ -58,7 +60,7 @@ function LoginForm({ className }: LoginFormProps): JSX.Element {
     });
   };
 
-  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
     setFormData({
       ...formData,
@@ -66,8 +68,17 @@ function LoginForm({ className }: LoginFormProps): JSX.Element {
     });
   };
 
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
+    if (!formDirtiness.email || !formDirtiness.password) {
+      setFormDirtiness({
+        email: true,
+        password: true,
+      });
+
+      return;
+    }
 
     if (validityMessage) {
       return;
@@ -90,7 +101,7 @@ function LoginForm({ className }: LoginFormProps): JSX.Element {
 
   return (
     <div className={classNames('sign-in', className)} data-testid="login-form-container">
-      <form action="#" className="sign-in__form" onSubmit={handleFormSubmit} data-testid="login-form">
+      <form action="#" className="sign-in__form" onSubmit={onFormSubmit} data-testid="login-form">
         <div className="sign-in__fields">
           {validityMessage && (
             <div className="sign-in__message" data-testid="validity-message">
@@ -116,8 +127,8 @@ function LoginForm({ className }: LoginFormProps): JSX.Element {
               name="email"
               id="user-email"
               value={formData.email}
-              onChange={handleInputChange}
-              onBlur={handleInputBlur}
+              onChange={onInputChange}
+              onBlur={onInputBlur}
               data-testid="email-input"
             />
             <label
@@ -139,8 +150,8 @@ function LoginForm({ className }: LoginFormProps): JSX.Element {
               name="password"
               id="user-password"
               value={formData.password}
-              onChange={handleInputChange}
-              onBlur={handleInputBlur}
+              onChange={onInputChange}
+              onBlur={onInputBlur}
               data-testid="password-input"
             />
             <label

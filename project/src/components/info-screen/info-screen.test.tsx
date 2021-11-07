@@ -5,10 +5,10 @@ describe('Component: InfoScreen', () => {
   it('should render correctly', () => {
     render(
       <InfoScreen>
-        <div>Children</div>
+        <div data-testid="children" />
       </InfoScreen>,
     );
 
-    expect(screen.queryByText(/Children/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('children')).toBeInTheDocument();
   });
 });

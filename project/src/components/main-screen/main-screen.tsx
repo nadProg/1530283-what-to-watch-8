@@ -39,7 +39,7 @@ function MainScreen(): JSX.Element {
     dispatch(setFilter(newFilter));
   }, [dispatch]);
 
-  const handleMoreButtonClick = useCallback(() => {
+  const onMoreButtonClick = useCallback(() => {
     setCurrentPage((prevCount) => prevCount + 1);
   }, []);
 
@@ -77,7 +77,7 @@ function MainScreen(): JSX.Element {
         <Catalog hiddenTitle="Catalog">
           <CatalogGenresList genres={genres} activeGenre={filter} setActiveGenre={onFilterChange} />
           <CatalogFilmsList films={catalogFilms} />
-          { isMoreButtonVisible && <CatalogMoreButton onClick={handleMoreButtonClick} /> }
+          { isMoreButtonVisible && <CatalogMoreButton onClick={onMoreButtonClick} /> }
         </Catalog>
         <PageFooter />
       </PageContent>

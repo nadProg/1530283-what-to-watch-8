@@ -15,7 +15,7 @@ function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButton
 
   const dispatch = useDispatch();
 
-  const handleFavoriteButtonClick = () => {
+  const onFavoriteButtonClick = () => {
     const newFavoriteStatus = isFilmFavorite ? FavoriteStatus.NotFavorite : FavoriteStatus.Favorite;
     dispatch(postFavoriteFilm(filmId, newFavoriteStatus));
   };
@@ -29,7 +29,7 @@ function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButton
         <span>Play</span>
       </Link>
 
-      <button className="btn btn--list film-card__button" type="button" onClick={handleFavoriteButtonClick}>
+      <button className="btn btn--list film-card__button" type="button" onClick={onFavoriteButtonClick}>
         <svg viewBox="0 0 19 20" width="19" height="20">
           <use xlinkHref={isFilmFavorite ? '#in-list' : '#add'}></use>
         </svg>

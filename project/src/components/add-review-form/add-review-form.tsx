@@ -7,14 +7,16 @@ import { postComment } from '../../store/comments/comments-api-actions';
 import { isNewCommentsLoading } from '../../store/comments/comments-selectors';
 import { validateReviewContent, validateReviewRating } from '../../utils/common';
 
-const INITIAL_RATING = 0;
-const INITIAL_COMMENT = '';
+const INITIAL_FORM_DATA: CommentPost = {
+  rating: 0,
+  comment: '',
+} as const;
 
 function AddReviewForm(): JSX.Element {
   const { id: filmId } = useIdParam() as { id: number };
 
-  const [rating, setRating] = useState(INITIAL_RATING);
-  const [comment, setComment] = useState(INITIAL_COMMENT);
+  const [rating, setRating] = useState(INITIAL_FORM_DATA.rating);
+  const [comment, setComment] = useState(INITIAL_FORM_DATA.comment);
   const [isFormValid, setFormValidity] = useState(false);
 
   const isFormLoading = useSelector(isNewCommentsLoading);
@@ -32,15 +34,15 @@ function AddReviewForm(): JSX.Element {
     dispatch(postComment(filmId, formData));
   };
 
-  const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  const onRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(evt.currentTarget.value));
   };
 
-  const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+  const onCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(evt.currentTarget.value);
   };
 
-  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const onFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     const formData: CommentPost = {
@@ -53,7 +55,7 @@ function AddReviewForm(): JSX.Element {
 
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form" onSubmit={handleFormSubmit} data-testid="form">
+      <form action="#" className="add-review__form" onSubmit={onFormSubmit} data-testid="form">
         <div className="rating">
           <div className="rating__stars">
             {new Array(Rating.MaxValue)
@@ -74,7 +76,7 @@ function AddReviewForm(): JSX.Element {
                       value={value}
                       checked={checked}
                       disabled={isFormLoading}
-                      onChange={handleRatingChange}
+                      onChange={onRatingChange}
                     />
                     <label className="rating__label" htmlFor={inputId} data-testid={inputId}>
                       Rating {value}
@@ -93,7 +95,7 @@ function AddReviewForm(): JSX.Element {
             placeholder="Review text"
             value={comment}
             disabled={isFormLoading}
-            onChange={handleCommentChange}
+            onChange={onCommentChange}
             data-testid="review-text"
           />
           <div className="add-review__submit">
