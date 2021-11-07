@@ -33,7 +33,7 @@ function PlayerScreen(): JSX.Element {
     }
 
     fetchCurrentFilm(filmId);
-  }, [filmId]);
+  }, [film?.id, filmId]);
 
   const {
     ref: videoRef,

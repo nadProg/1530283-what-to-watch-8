@@ -33,7 +33,7 @@ function AddReviewScreen(): JSX.Element {
     }
 
     fetchCurrentFilm(filmId);
-  }, [filmId]);
+  }, [film?.id, filmId]);
 
 
   if (isFetchNotReady(filmStatus)) {
