@@ -1,15 +1,15 @@
 import thunk from 'redux-thunk';
+import MockAdapter from 'axios-mock-adapter';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 import { datatype } from 'faker';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { ThunkDispatch } from '@reduxjs/toolkit';
-import MockAdapter from 'axios-mock-adapter';
+import { Action, State } from '../../types/types';
 import { APIRoute, FavoriteStatus, FetchStatus } from '../../constants';
 import { createAPI } from '../../services/api';
-import { Action, State } from '../../types/types';
 import { adaptFilmToClient } from '../../services/adapters';
 import { setAllFilms, setAllFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setPromoFilm, setPromoFilmFetchStatus, setSimilarFilms, setSimilarFilmsFetchStatus } from './films-actions';
-import { createMockServerFilm, createMockServerFilms } from '../../mocks/films';
 import { getAllFilms, getFavoriteFilms, getPromoFilm, getSimilarFilms, getСurrentFilm, postFavoriteFilm } from './films-api-actions';
+import { createMockServerFilm, createMockServerFilms } from '../../mocks/films';
 
 const mockFilmId = datatype.number();
 const mockServerFilm = createMockServerFilm();

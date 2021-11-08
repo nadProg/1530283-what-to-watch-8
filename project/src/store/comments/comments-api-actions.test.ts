@@ -1,16 +1,16 @@
-import { datatype } from 'faker';
 import thunk from 'redux-thunk';
-import { ThunkDispatch } from '@reduxjs/toolkit';
 import MockAdapter from 'axios-mock-adapter';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 import { configureMockStore } from '@jedmao/redux-mock-store';
+import { datatype } from 'faker';
+import { Action, State } from '../../types/types';
 import { APIRoute, AppRoute, FetchStatus } from '../../constants';
 import { redirectToRoute } from '../app/app-actions';
 import { adaptCommentToClient } from '../../services/adapters';
-import { Action, State } from '../../types/types';
 import { createAPI } from '../../services/api';
-import { createMockNewComment, createServerMockComments } from '../../mocks/comments';
-import { getСurrentComments, postComment } from './comments-api-actions';
 import { setCurrentComments, setCurrentCommentsFetchStatus, setNewCommentFetchStatus } from './comments-actions';
+import { getСurrentComments, postComment } from './comments-api-actions';
+import { createMockNewComment, createServerMockComments } from '../../mocks/comments';
 
 const mockFilmId = datatype.number();
 const mockNewComment = createMockNewComment();

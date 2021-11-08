@@ -1,6 +1,5 @@
 import { lorem } from 'faker';
 import { UNKNOWN_ACTION } from '../../constants';
-
 import { filterReducer } from './filter-reducer';
 import { filterInitialState } from './filter-initial-state';
 import { setFilter } from './filter-actions';

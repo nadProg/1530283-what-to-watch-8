@@ -1,5 +1,4 @@
 import { lorem } from 'faker';
-
 import { AuthorizationStatus, UNKNOWN_ACTION } from '../../constants';
 import { createMockAuthorizationInfo } from '../../mocks/authorization';
 import { clearAuthorizationErrorMessage, setAuthorizationErrorMessage, setAuthorizationInfo, setAuthorizationStatus } from './authorization-actions';

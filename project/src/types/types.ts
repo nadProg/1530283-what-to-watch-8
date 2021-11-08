@@ -114,7 +114,7 @@ export type AuthoarizationInfo = {
   token: Token;
 };
 
-export type ServerAuthInfo = {
+export type ServerAuthorizationInfo = {
   id: number;
   email: string;
   name: string;
