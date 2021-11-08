@@ -8,7 +8,7 @@ import { AppRoute } from '../../constants';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
-import { getСurrentFilm } from '../../store/films/films-api-actions';
+import { getCurrentFilm } from '../../store/films/films-api-actions';
 import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
 import { formatElapsedTime } from '../../utils/date';
 import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
@@ -24,7 +24,7 @@ function PlayerScreen(): JSX.Element {
   const dispatch = useDispatch();
 
   const fetchCurrentFilm = (id: number) => {
-    dispatch(getСurrentFilm(id));
+    dispatch(getCurrentFilm(id));
   };
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import { datatype, internet } from 'faker';
-import { AuthoarizationInfo, Login, ServerAuthorizationInfo } from '../types/types';
+import { AuthorizationInfo, Login, ServerAuthorizationInfo } from '../types/types';
 
-export const createMockAuthorizationInfo = (): AuthoarizationInfo => ({
+export const createMockAuthorizationInfo = (): AuthorizationInfo => ({
   id: datatype.number(),
   email: internet.email(),
   name: internet.userName(),

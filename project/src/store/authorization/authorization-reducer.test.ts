@@ -7,7 +7,7 @@ import { authorizationReducer } from './authorization-reducer';
 
 const mockErrorMessage = lorem.sentence();
 
-const mockAuthorizationInfo = createMockAuthorizationInfo;
+const mockAuthorizationInfo = createMockAuthorizationInfo();
 
 describe('Reducer: Authorization', () => {
   it('without additional parameters should return initial state', () => {

@@ -3,7 +3,7 @@ import type { CommentGet, Film, ValuesOf } from '../../types/types';
 import { FilmCardTab } from '../../constants';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import FilmCardTabs from '../film-card-tabs/film-card-tabs';
-import FilmCardOverview from '../film-card-overfiew/film-card-overview';
+import FilmCardOverview from '../film-card-overview/film-card-overview';
 import FilmCardDetails from '../film-card-details/film-card-details';
 import FilmCardReviews from '../film-card-reviews/film-card-reviews';
 import FilmCardHero from '../film-card-hero/film-card-hero';

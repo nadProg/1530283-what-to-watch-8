@@ -106,7 +106,7 @@ export type FetchedData<T = any> = {
   status: FetchStatusType;
 };
 
-export type AuthoarizationInfo = {
+export type AuthorizationInfo = {
   id: number;
   email: string;
   name: string;

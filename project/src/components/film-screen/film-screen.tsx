@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MAX_SIMILAR_FILMS_COUNT } from '../../constants';
 import { useIdParam } from '../../hooks/use-id-param';
-import { getСurrentComments } from '../../store/comments/comments-api-actions';
+import { getCurrentComments } from '../../store/comments/comments-api-actions';
 import {
   getCurrentCommentsData,
   getCurrentCommentsStatus
 } from '../../store/comments/comments-selectors';
 import {
-  getСurrentFilm,
+  getCurrentFilm,
   getSimilarFilms
 } from '../../store/films/films-api-actions';
 import {
@@ -43,11 +43,11 @@ function FilmScreen(): JSX.Element {
   const dispatch = useDispatch();
 
   const fetchCurrentFilm = (id: number) => {
-    dispatch(getСurrentFilm(id));
+    dispatch(getCurrentFilm(id));
   };
 
   const fetchCurrentComments = (id: number) => {
-    dispatch(getСurrentComments(id));
+    dispatch(getCurrentComments(id));
   };
 
   const fetchSimilarFilms = (id: number) => {

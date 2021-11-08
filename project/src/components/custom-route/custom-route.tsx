@@ -2,14 +2,14 @@ import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import type { ValuesOf } from '../../types/types';
 import { AuthorizationStatus, CustomRouteType, AppRoute } from '../../constants';
-import { getAuhorizationStatus } from '../../store/authorization/authorization-selectors';
+import { getAuthorizationStatus } from '../../store/authorization/authorization-selectors';
 
 type CustomRouteProps = RouteProps & {
   type: ValuesOf<typeof CustomRouteType>,
 }
 
 function CustomRoute({type, ...props}: CustomRouteProps): JSX.Element {
-  const authorizationStatus = useSelector(getAuhorizationStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   switch (type) {
     case CustomRouteType.Private:

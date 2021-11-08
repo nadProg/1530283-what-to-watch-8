@@ -6,7 +6,7 @@ import type { Film } from '../../types/types';
 import SmallFilmCardVideo from '../small-film-card-video/small-film-card-video';
 import SmallFilmCardPreview from '../small-film-card-preview/small-film-card-preview';
 
-const BASE_CLASSNAME = 'small-film-card';
+const BASE_CLASS_NAME = 'small-film-card';
 
 const HOVER_DELAY = 1000;
 
@@ -47,7 +47,7 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
 
   return (
     <article
-      className={classNames(BASE_CLASSNAME, className)}
+      className={classNames(BASE_CLASS_NAME, className)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       data-testid="small-film-card"

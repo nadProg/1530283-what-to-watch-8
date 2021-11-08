@@ -8,7 +8,7 @@ import { APIRoute, FavoriteStatus, FetchStatus } from '../../constants';
 import { createAPI } from '../../services/api';
 import { adaptFilmToClient } from '../../services/adapters';
 import { setAllFilms, setAllFilmsFetchStatus, setCurrentFilm, setCurrentFilmFetchStatus, setFavoriteFilms, setFavoriteFilmsFetchStatus, setPromoFilm, setPromoFilmFetchStatus, setSimilarFilms, setSimilarFilmsFetchStatus } from './films-actions';
-import { getAllFilms, getFavoriteFilms, getPromoFilm, getSimilarFilms, getСurrentFilm, postFavoriteFilm } from './films-api-actions';
+import { getAllFilms, getFavoriteFilms, getPromoFilm, getSimilarFilms, getCurrentFilm, postFavoriteFilm } from './films-api-actions';
 import { createMockServerFilm, createMockServerFilms } from '../../mocks/films';
 
 const mockFilmId = datatype.number();
@@ -151,7 +151,7 @@ describe('Api-actions: Films', () => {
       .onGet(APIRoute.Film(mockFilmId))
       .reply(200, mockServerFilm);
 
-    await store.dispatch(getСurrentFilm(mockFilmId));
+    await store.dispatch(getCurrentFilm(mockFilmId));
 
     expect(store.getActions()).toEqual([
       setCurrentFilmFetchStatus(FetchStatus.Loading),
@@ -166,7 +166,7 @@ describe('Api-actions: Films', () => {
       .onGet(APIRoute.Film(mockFilmId))
       .reply(404);
 
-    await store.dispatch(getСurrentFilm(mockFilmId));
+    await store.dispatch(getCurrentFilm(mockFilmId));
 
     expect(store.getActions()).toEqual([
       setCurrentFilmFetchStatus(FetchStatus.Loading),

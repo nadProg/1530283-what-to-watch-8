@@ -31,8 +31,9 @@ describe('Component: PromoFilmCard', () => {
     );
 
     expect(screen.queryByText(/WTW/i)).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockFilm.genre, 'i'))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(String(mockFilm.released), 'i'))).toBeInTheDocument();
+
+    expect(screen.queryByTestId('film-card-title')).toHaveTextContent(mockFilm.name);
+    expect(screen.queryByTestId('film-card-genre')).toHaveTextContent(mockFilm.genre);
+    expect(screen.queryByTestId('film-card-year')).toHaveTextContent(String(mockFilm.released));
   });
 });

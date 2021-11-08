@@ -13,7 +13,7 @@ const history = createMemoryHistory();
 const mockFilm = createMockFilm();
 const mockClassName = lorem.word();
 
-describe('Component: SmallFilmsmall-film-card', () => {
+describe('Component: SmallFilmCard', () => {
   beforeEach(() => {
     Object.defineProperty(window.HTMLMediaElement.prototype, 'muted', {
       get: () => false,

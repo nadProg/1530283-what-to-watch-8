@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Login } from '../../types/types';
 import { getEmailValidityMessage, getPasswordValidityMessage } from '../../utils/common';
 import { postLogin } from '../../store/authorization/authorization-api-actions';
-import { getAuhorizationErrorMessage } from '../../store/authorization/authorization-selectors';
+import { getAuthorizationErrorMessage } from '../../store/authorization/authorization-selectors';
 import { clearAuthorizationErrorMessage } from '../../store/authorization/authorization-actions';
 
 const INITIAL_FORM_DATA: Login = {
@@ -24,7 +24,7 @@ type LoginFormProps = {
 };
 
 function LoginForm({ className }: LoginFormProps): JSX.Element {
-  const serverErrorMessage = useSelector(getAuhorizationErrorMessage);
+  const serverErrorMessage = useSelector(getAuthorizationErrorMessage);
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [formDirtiness, setFormDirtiness] = useState(INITIAL_FORM_DIRTINESS);
 

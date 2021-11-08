@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames';
 
-const BASE_CLASSNAME = 'catalog';
-const BASE_TITLE_CLASSNAME = 'catalog__title';
+const BASE_CLASS_NAME = 'catalog';
+const BASE_TITLE_CLASS_NAME = 'catalog__title';
 
 type CatalogProps = {
   title?: string,
@@ -12,8 +12,8 @@ type CatalogProps = {
 }
 
 function Catalog({title, hiddenTitle, likeThis, children}: CatalogProps): JSX.Element {
-  const fullClassName = classNames(BASE_CLASSNAME, { [`${BASE_CLASSNAME}--like-this`]: likeThis });
-  const fullTitleClassName = classNames(BASE_TITLE_CLASSNAME, { 'visually-hidden': !title });
+  const fullClassName = classNames(BASE_CLASS_NAME, { [`${BASE_CLASS_NAME}--like-this`]: likeThis });
+  const fullTitleClassName = classNames(BASE_TITLE_CLASS_NAME, { 'visually-hidden': !title });
 
   return (
     <section className={fullClassName} data-testid="catalog-container">

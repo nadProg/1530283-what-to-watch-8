@@ -73,7 +73,7 @@ describe('Component: CustomRoute', () => {
   });
 
   it('should show private content for users', () => {
-    const mockPrivatePath = '/mock-privtate-path';
+    const mockPrivatePath = '/mock-private-path';
 
     history.push(mockPrivatePath);
 
@@ -97,7 +97,7 @@ describe('Component: CustomRoute', () => {
   });
 
   it('should redirect guests to login page', () => {
-    const mockPrivatePath = '/mock-privtate-path';
+    const mockPrivatePath = '/mock-private-path';
 
     history.push(mockPrivatePath);
 

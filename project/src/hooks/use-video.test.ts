@@ -118,7 +118,7 @@ describe('Hook: useVideo', () => {
     expect(isPlay).toBe(false);
   });
 
-  it('should handle requset full screen', () => {
+  it('should handle request full screen', () => {
     const mockRequestFullScreen = jest.fn();
 
     jest.spyOn(React, 'useRef').mockReturnValue({
@@ -135,7 +135,7 @@ describe('Hook: useVideo', () => {
     expect(mockRequestFullScreen).toHaveBeenCalledTimes(1);
   });
 
-  it('should handle requset full screen and onTimeUpdate when no ref exists without errors', () => {
+  it('should handle request full screen and onTimeUpdate when no ref exists without errors', () => {
     jest.spyOn(React, 'useRef').mockReturnValue({
       current: null,
     });

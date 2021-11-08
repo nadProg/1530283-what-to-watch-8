@@ -9,7 +9,7 @@ import { redirectToRoute } from '../app/app-actions';
 import { adaptCommentToClient } from '../../services/adapters';
 import { createAPI } from '../../services/api';
 import { setCurrentComments, setCurrentCommentsFetchStatus, setNewCommentFetchStatus } from './comments-actions';
-import { getСurrentComments, postComment } from './comments-api-actions';
+import { getCurrentComments, postComment } from './comments-api-actions';
 import { createMockNewComment, createServerMockComments } from '../../mocks/comments';
 
 const mockFilmId = datatype.number();
@@ -35,7 +35,7 @@ describe('Api-actions: Comments', () => {
       .onGet(APIRoute.Comments(mockFilmId))
       .reply(200, mockServerComments);
 
-    await store.dispatch(getСurrentComments(mockFilmId));
+    await store.dispatch(getCurrentComments(mockFilmId));
 
     expect(store.getActions()).toEqual([
       setCurrentCommentsFetchStatus(FetchStatus.Loading),
@@ -50,7 +50,7 @@ describe('Api-actions: Comments', () => {
       .onGet(APIRoute.Comments(mockFilmId))
       .reply(400);
 
-    await store.dispatch(getСurrentComments(mockFilmId));
+    await store.dispatch(getCurrentComments(mockFilmId));
 
     expect(store.getActions()).toEqual([
       setCurrentCommentsFetchStatus(FetchStatus.Loading),

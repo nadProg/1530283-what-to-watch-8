@@ -80,7 +80,7 @@ describe('Component: PlayerScreen', () => {
     expect(window.HTMLVideoElement.prototype.requestFullscreen).toHaveBeenCalledTimes(0);
   });
 
-  it('should play video when data is lodeded', () => {
+  it('should play video when data is loaded', () => {
     const successStore = mockStore({
       films: {
         currentFilm: {

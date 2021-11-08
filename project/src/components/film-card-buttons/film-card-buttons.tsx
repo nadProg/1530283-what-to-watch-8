@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, FavoriteStatus } from '../../constants';
-import { getAuhorizationStatus } from '../../store/authorization/authorization-selectors';
+import { getAuthorizationStatus } from '../../store/authorization/authorization-selectors';
 import { postFavoriteFilm } from '../../store/films/films-api-actions';
 
 type FilmCardButtonsProps = {
@@ -11,7 +11,7 @@ type FilmCardButtonsProps = {
 }
 
 function FilmCardButtons({filmId, isFilmFavorite, withAddReview}: FilmCardButtonsProps): JSX.Element {
-  const authorizationStatus = useSelector(getAuhorizationStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const dispatch = useDispatch();
 
