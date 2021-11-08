@@ -25,7 +25,7 @@ describe('Component: Catalog', () => {
     );
 
     expect(screen.queryByTestId('children')).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockTitle, 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('catalog-title')).toHaveTextContent(mockTitle);
 
     expect(screen.queryByTestId('catalog-container')).not.toHaveClass('catalog--like-this');
 
@@ -42,7 +42,7 @@ describe('Component: Catalog', () => {
     );
 
     expect(screen.queryByTestId('children')).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockHiddenTitle, 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('catalog-title')).toHaveTextContent(mockHiddenTitle);
 
     expect(screen.queryByTestId('catalog-title')).toHaveClass('catalog__title');
     expect(screen.queryByTestId('catalog-title')).toHaveClass('visually-hidden');

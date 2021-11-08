@@ -16,12 +16,12 @@ function Review({comment}: ReviewProps): JSX.Element {
         ))}
 
         <footer className="review__details">
-          <cite className="review__author">{comment.user.name}</cite>
-          <time className="review__date" dateTime={formatDateTime(comment.date)}>{formatHumanizedDate(comment.date)}</time>
+          <cite className="review__author" data-testid="comment-user-name">{comment.user.name}</cite>
+          <time className="review__date" dateTime={formatDateTime(comment.date)} data-testid="comment-date">{formatHumanizedDate(comment.date)}</time>
         </footer>
       </blockquote>
 
-      <div className="review__rating">{formatRating(comment.rating)}</div>
+      <div className="review__rating" data-testid="comment-rating">{formatRating(comment.rating)}</div>
     </div>
   );
 }

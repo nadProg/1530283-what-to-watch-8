@@ -64,13 +64,11 @@ describe('Component: UserBlock', () => {
   });
 
   it('should handle redirect to my-list page for signed in user', () => {
-    const myListContent = 'My List';
-
     render(
       <Provider store={userStore}>
         <Router history={history}>
           <Route path={AppRoute.MyList()} exact>
-            <h2>{myListContent}</h2>
+            <div data-testid="my-list-page" />
           </Route>
           <Route>
             <UserBlock />
@@ -81,7 +79,7 @@ describe('Component: UserBlock', () => {
 
     userEvent.click(screen.getByAltText(/User avatar/i));
 
-    expect(screen.queryByText(new RegExp(myListContent, 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('my-list-page')).toBeInTheDocument();
   });
 
   it('should render correctly for guest', () => {
@@ -99,13 +97,11 @@ describe('Component: UserBlock', () => {
   });
 
   it('should handle redirect to login page for guest user', () => {
-    const loginContent = 'Login page';
-
     render(
       <Provider store={guestStore}>
         <Router history={history}>
           <Route path={AppRoute.Login()} exact>
-            <h2>{loginContent}</h2>
+            <div data-testid="login-page" />
           </Route>
           <Route>
             <UserBlock />
@@ -116,6 +112,6 @@ describe('Component: UserBlock', () => {
 
     userEvent.click(screen.getByText(/Sign In/i));
 
-    expect(screen.queryByText(new RegExp(loginContent, 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('login-page')).toBeInTheDocument();
   });
 });

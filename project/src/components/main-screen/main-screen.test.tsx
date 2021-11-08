@@ -234,7 +234,7 @@ describe('Component: Main', () => {
       </Provider>,
     );
 
-    userEvent.click(screen.getByText(new RegExp(ALL_GENRES, 'i')));
+    userEvent.click(screen.getByText(ALL_GENRES));
 
     expect(successStore.dispatch).toBeCalledTimes(1);
   });

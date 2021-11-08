@@ -29,7 +29,7 @@ describe('Component: FilmCardHero', () => {
       </Provider>,
     );
 
-    expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
+    expect(screen.getByAltText(mockFilm.name)).toHaveAttribute('src', mockFilm.backgroundImage);
 
     expect(screen.queryByTestId('film-card-title')).toHaveTextContent(mockFilm.name);
     expect(screen.queryByTestId('film-card-genre')).toHaveTextContent(mockFilm.genre);

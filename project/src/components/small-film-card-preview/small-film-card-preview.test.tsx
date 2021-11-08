@@ -3,16 +3,15 @@ import { internet, lorem } from 'faker';
 import SmallFilmCardPreview from './small-film-card-preview';
 
 const mockSource = internet.url();
-const mockAlt = lorem.words();
+const mockAltText = lorem.words();
 
 describe('Component: SmallFilmCardPreview', () => {
   it('should render correctly', () => {
     render(
-      <SmallFilmCardPreview src={mockSource} alt={mockAlt} />,
+      <SmallFilmCardPreview src={mockSource} alt={mockAltText} />,
     );
 
-    expect(screen.getByAltText(new RegExp(mockAlt, 'i'))).toBeInTheDocument();
-    expect(screen.getByAltText(new RegExp(mockAlt, 'i'))).toHaveAttribute('src', mockSource);
+    expect(screen.getByAltText(mockAltText)).toHaveAttribute('src', mockSource);
   });
 
   it('should render correctly without alt', () => {
@@ -20,7 +19,6 @@ describe('Component: SmallFilmCardPreview', () => {
       <SmallFilmCardPreview src={mockSource} />,
     );
 
-    expect(screen.getByAltText('')).toBeInTheDocument();
     expect(screen.getByAltText('')).toHaveAttribute('src', mockSource);
   });
 });

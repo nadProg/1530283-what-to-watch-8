@@ -57,7 +57,7 @@ function SmallFilmCard({film, className}: SmallFilmCardProps): JSX.Element {
           (<SmallFilmCardVideo src={film.previewVideoLink} poster={film.previewImage} />)
           :
           (<SmallFilmCardPreview src={film.previewImage} alt={film.name} />)}
-        <h3 className="small-film-card__title">
+        <h3 className="small-film-card__title" data-testid="small-card-title">
           <span className="small-film-card__link">{film.name}</span>
         </h3>
       </Link>

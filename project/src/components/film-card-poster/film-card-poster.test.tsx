@@ -11,7 +11,6 @@ describe('Component: FilmCardPoster', () => {
       <FilmCardPoster src={mockSource} alt={mockAltText} />,
     );
 
-    expect(screen.getByAltText(new RegExp(mockAltText, 'i'))).toBeInTheDocument();
     expect(screen.getByAltText(mockAltText)).toHaveAttribute('src', mockSource);
     expect(screen.getByTestId('film-card-poster-container')).not.toHaveClass('film-card__poster--big');
     expect(screen.getByTestId('film-card-poster-container')).not.toHaveClass('film-card__poster--small');
@@ -22,7 +21,6 @@ describe('Component: FilmCardPoster', () => {
       <FilmCardPoster src={mockSource} alt={mockAltText} small />,
     );
 
-    expect(screen.getByAltText(new RegExp(mockAltText, 'i'))).toBeInTheDocument();
     expect(screen.getByAltText(mockAltText)).toHaveAttribute('src', mockSource);
     expect(screen.getByTestId('film-card-poster-container')).not.toHaveClass('film-card__poster--big');
     expect(screen.getByTestId('film-card-poster-container')).toHaveClass('film-card__poster--small');
@@ -33,7 +31,6 @@ describe('Component: FilmCardPoster', () => {
       <FilmCardPoster src={mockSource} alt={mockAltText} big />,
     );
 
-    expect(screen.getByAltText(new RegExp(mockAltText, 'i'))).toBeInTheDocument();
     expect(screen.getByAltText(mockAltText)).toHaveAttribute('src', mockSource);
     expect(screen.getByTestId('film-card-poster-container')).toHaveClass('film-card__poster--big');
     expect(screen.getByTestId('film-card-poster-container')).not.toHaveClass('film-card__poster--small');
@@ -44,7 +41,6 @@ describe('Component: FilmCardPoster', () => {
       <FilmCardPoster src={mockSource} alt={mockAltText} small big />,
     );
 
-    expect(screen.getByAltText(new RegExp(mockAltText, 'i'))).toBeInTheDocument();
     expect(screen.getByAltText(mockAltText)).toHaveAttribute('src', mockSource);
     expect(screen.getByTestId('film-card-poster-container')).toHaveClass('film-card__poster--big');
     expect(screen.getByTestId('film-card-poster-container')).toHaveClass('film-card__poster--small');

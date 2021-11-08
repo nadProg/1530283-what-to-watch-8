@@ -27,11 +27,11 @@ describe('Component: SmallFilmCard', () => {
         <SmallFilmCard film={mockFilm} />
       </Router>,
     );
+    expect(screen.getByAltText(mockFilm.name)).toHaveAttribute('src', mockFilm.previewImage);
 
     expect(screen.queryByTestId('small-film-card')).toBeInTheDocument();
     expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
-    expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('small-card-title')).toHaveTextContent(mockFilm.name);
 
     expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
   });
@@ -43,12 +43,13 @@ describe('Component: SmallFilmCard', () => {
       </Router>,
     );
 
+    expect(screen.getByAltText(mockFilm.name)).toHaveAttribute('src', mockFilm.previewImage);
+
     expect(screen.queryByTestId('small-film-card')).toHaveClass(mockClassName);
 
     expect(screen.queryByTestId('small-film-card')).toBeInTheDocument();
     expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
-    expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('small-card-title')).toHaveTextContent(mockFilm.name);
 
     expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
   });
