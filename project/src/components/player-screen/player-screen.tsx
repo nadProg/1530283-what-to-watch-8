@@ -50,11 +50,15 @@ function PlayerScreen(): JSX.Element {
     requestFullScreen: requestVideoFullScreen,
   } = useVideo();
 
+  if (error || isFetchError(filmStatus)) {
+    return <NotFoundScreen />;
+  }
+
   if (isFetchNotReady(filmStatus)) {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(filmStatus) || !film || error) {
+  if (!film) {
     return <NotFoundScreen />;
   }
 

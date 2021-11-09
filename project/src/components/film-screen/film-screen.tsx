@@ -61,8 +61,8 @@ function FilmScreen(): JSX.Element {
 
     if (film?.id !== filmId) {
       fetchCurrentFilm(filmId);
-      fetchCurrentComments(filmId);
       fetchSimilarFilms(filmId);
+      fetchCurrentComments(filmId);
       return;
     }
 
@@ -77,7 +77,17 @@ function FilmScreen(): JSX.Element {
     if (isFetchIdle(similarFilmsStatus)) {
       fetchSimilarFilms(filmId);
     }
-  }, [film?.id, filmId, filmStatus, commentsStatus, similarFilmsStatus]);
+  }, [film?.id, filmId]);
+
+  if (
+    error ||
+    isFetchError(filmStatus) ||
+    isFetchError(commentsStatus) ||
+    isFetchError(similarFilmsStatus)
+  )
+  {
+    return <NotFoundScreen />;
+  }
 
   if (
     isFetchNotReady(filmStatus) ||
@@ -87,12 +97,7 @@ function FilmScreen(): JSX.Element {
     return <LoadingScreen />;
   }
 
-  if (
-    isFetchError(filmStatus) ||
-    isFetchError(commentsStatus) ||
-    isFetchNotReady(similarFilmsStatus) ||
-    !film || !comments || !similarFilms || error
-  ) {
+  if (!film || !comments || !similarFilms) {
     return <NotFoundScreen />;
   }
 

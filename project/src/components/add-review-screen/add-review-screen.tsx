@@ -35,12 +35,15 @@ function AddReviewScreen(): JSX.Element {
     fetchCurrentFilm(filmId);
   }, [film?.id, filmId]);
 
+  if (error || isFetchError(filmStatus)) {
+    return <NotFoundScreen />;
+  }
 
   if (isFetchNotReady(filmStatus)) {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(filmStatus) || !film || error) {
+  if (!film) {
     return <NotFoundScreen />;
   }
 
