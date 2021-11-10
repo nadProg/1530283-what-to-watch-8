@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIdParam } from '../../hooks/use-id-param';
-import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
+import { AppRoute, FetchStatus } from '../../constants';
+import { isFetchError, isFetchNotReady, isFetchSuccess } from '../../utils/fetched-data';
 import PageHeader from '../page-header/page-header';
 import PageTitle from '../page-title/page-title';
 import Logo from '../logo/logo';
@@ -10,16 +12,17 @@ import FilmCardBackground from '../film-card-background/film-card-background';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import UserBlock from '../user-block/user-block';
 import AddReviewForm from '../add-review-form/add-review-form';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { getCurrentFilm } from '../../store/films/films-api-actions';
 import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
+import { setCurrentFilmFetchStatus } from '../../store/films/films-actions';
 
 function AddReviewScreen(): JSX.Element {
   const { id: filmId, error } = useIdParam();
 
   const film = useSelector(getCurrentFilmData);
   const filmStatus = useSelector(getCurrentFilmStatus);
+  const filmStatusRef = useRef(filmStatus);
 
   const dispatch = useDispatch();
 
@@ -35,8 +38,18 @@ function AddReviewScreen(): JSX.Element {
     fetchCurrentFilm(filmId);
   }, [film?.id, filmId]);
 
+  useEffect(() => {
+    filmStatusRef.current = filmStatus;
+  }, [filmStatus]);
+
+  useEffect(() => () => {
+    if (!isFetchSuccess(filmStatusRef.current)) {
+      dispatch(setCurrentFilmFetchStatus(FetchStatus.Idle));
+    }
+  }, []);
+
   if (error || isFetchError(filmStatus)) {
-    return <NotFoundScreen />;
+    return <Redirect to={AppRoute.NotFound()} />;
   }
 
   if (isFetchNotReady(filmStatus)) {
@@ -44,7 +57,7 @@ function AddReviewScreen(): JSX.Element {
   }
 
   if (!film) {
-    return <NotFoundScreen />;
+    return <Redirect to={AppRoute.NotFound()} />;
   }
 
   return (

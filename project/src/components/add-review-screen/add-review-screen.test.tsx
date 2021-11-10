@@ -1,11 +1,12 @@
 import { Provider } from 'react-redux';
 import ReactRouter from 'react-router';
+import { Route } from 'react-router-dom';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { State } from '../../types/types';
-import { AuthorizationStatus, FetchStatus } from '../../constants';
+import { AppRoute, AuthorizationStatus, FetchStatus } from '../../constants';
 import { createMockFilm } from '../../mocks/films';
 import AddReviewScreen from './add-review-screen';
 
@@ -16,6 +17,8 @@ const mockStore = configureMockStore<State>();
 describe('Component: AddReviewScreen', () => {
   beforeEach(() => {
     jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id)});
+
+    history.push(AppRoute.AddReview());
   });
 
   it('should render correctly when current is fetched successfully', () => {
@@ -41,14 +44,17 @@ describe('Component: AddReviewScreen', () => {
     render(
       <Provider store={successStore}>
         <Router history={history}>
-          <AddReviewScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.AddReview()} exact>
+            <AddReviewScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).toBeInTheDocument();
     expect(successStore.dispatch).toHaveBeenCalledTimes(0);
   });
@@ -78,13 +84,17 @@ describe('Component: AddReviewScreen', () => {
     render(
       <Provider store={successStore}>
         <Router history={history}>
-          <AddReviewScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.AddReview()} exact>
+            <AddReviewScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
-    expect(screen.queryByText(/This page does not exist/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).toBeInTheDocument();
 
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
@@ -115,15 +125,19 @@ describe('Component: AddReviewScreen', () => {
     render(
       <Provider store={initialStore}>
         <Router history={history}>
-          <AddReviewScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.AddReview()} exact>
+            <AddReviewScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
 
     expect(initialStore.dispatch).toHaveBeenCalledTimes(1);
@@ -152,15 +166,19 @@ describe('Component: AddReviewScreen', () => {
     render(
       <Provider store={initialStore}>
         <Router history={history}>
-          <AddReviewScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.AddReview()} exact>
+            <AddReviewScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
 
     expect(initialStore.dispatch).toHaveBeenCalledTimes(1);

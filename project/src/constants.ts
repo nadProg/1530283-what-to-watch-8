@@ -33,6 +33,7 @@ export const AppRoute = {
   Film: (id:string | number = ':id') => `/films/${id}`,
   AddReview: (id:string | number = ':id') => `/films/${id}/review`,
   Player: (id:string | number = ':id') => `/player/${id}`,
+  NotFound: () => '/404',
 } as const;
 
 export const FavoriteStatus = {

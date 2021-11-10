@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
 import MainScreen from '../main-screen/main-screen';
@@ -39,8 +39,11 @@ function App(): JSX.Element {
       <CustomRoute path={AppRoute.AddReview()} exact type={CustomRouteType.Private}>
         <AddReviewScreen />
       </CustomRoute>
-      <Route>
+      <Route path={AppRoute.NotFound()} exact>
         <NotFoundScreen />
+      </Route>
+      <Route>
+        <Redirect to={AppRoute.NotFound()} />
       </Route>
     </Switch>
   );

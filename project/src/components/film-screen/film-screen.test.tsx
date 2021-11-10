@@ -1,11 +1,11 @@
 import { Provider } from 'react-redux';
 import ReactRouter from 'react-router';
-import { Router } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { State } from '../../types/types';
-import { AuthorizationStatus, FetchStatus } from '../../constants';
+import { AppRoute, AuthorizationStatus, FetchStatus } from '../../constants';
 import { createMockFilm, createMockFilms } from '../../mocks/films';
 import { createMockComments } from '../../mocks/comments';
 import FilmScreen from './film-screen';
@@ -21,6 +21,8 @@ const mockStore = configureMockStore<State>();
 describe('Component: FilmScreen', () => {
   beforeEach(() => {
     jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id)});
+
+    history.push(AppRoute.Film());
   });
 
   it('should render correctly when current is fetched successfully', () => {
@@ -51,13 +53,17 @@ describe('Component: FilmScreen', () => {
     render(
       <Provider store={successStore}>
         <Router history={history}>
-          <FilmScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Film()} exact>
+            <FilmScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
 
     expect(screen.queryByText(/WTW/i)).toBeInTheDocument();
@@ -95,17 +101,21 @@ describe('Component: FilmScreen', () => {
     render(
       <Provider store={successStore}>
         <Router history={history}>
-          <FilmScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Film()} exact>
+            <FilmScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
-    expect(screen.queryByText(/This page does not exist/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).toBeInTheDocument();
 
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
-    expect(successStore.dispatch).toHaveBeenCalledTimes(0);
+    expect(successStore.dispatch).toHaveBeenCalledTimes(3);
   });
 
   it('should loading screen when no current film is present at the time', () => {
@@ -136,15 +146,19 @@ describe('Component: FilmScreen', () => {
     render(
       <Provider store={initialStore}>
         <Router history={history}>
-          <FilmScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Film()} exact>
+            <FilmScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
 
     expect(initialStore.dispatch).toHaveBeenCalledTimes(3);
@@ -178,15 +192,19 @@ describe('Component: FilmScreen', () => {
     render(
       <Provider store={initialStore}>
         <Router history={history}>
-          <FilmScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Film()} exact>
+            <FilmScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
 
     expect(initialStore.dispatch).toHaveBeenCalledTimes(3);
@@ -220,15 +238,19 @@ describe('Component: FilmScreen', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <FilmScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Film()} exact>
+            <FilmScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
 
     expect(store.dispatch).toHaveBeenCalledTimes(3);

@@ -21,6 +21,8 @@ describe('Component: PlayerScreen', () => {
   beforeEach(() => {
     jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(mockFilm.id)});
 
+    history.push(AppRoute.Player());
+
     window.HTMLVideoElement.prototype.pause = jest.fn();
     window.HTMLVideoElement.prototype.play = jest.fn();
     window.HTMLVideoElement.prototype.requestFullscreen = jest.fn();
@@ -61,7 +63,12 @@ describe('Component: PlayerScreen', () => {
     render(
       <Provider store={successStore}>
         <Router history={history}>
-          <PlayerScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Player()} exact>
+            <PlayerScreen />
+          </Route>
         </Router>
       </Provider>,
     );
@@ -70,8 +77,7 @@ describe('Component: PlayerScreen', () => {
     expect(screen.queryByText(/Full screen/i)).toBeInTheDocument();
     expect(screen.queryByTestId('video-player')).toBeInTheDocument();
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
 
     expect(successStore.dispatch).toHaveBeenCalledTimes(0);
@@ -103,7 +109,12 @@ describe('Component: PlayerScreen', () => {
     render(
       <Provider store={successStore}>
         <Router history={history}>
-          <PlayerScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Player()} exact>
+            <PlayerScreen />
+          </Route>
         </Router>
       </Provider>,
     );
@@ -186,7 +197,12 @@ describe('Component: PlayerScreen', () => {
     render(
       <Provider store={successStore}>
         <Router history={history}>
-          <PlayerScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Player()} exact>
+            <PlayerScreen />
+          </Route>
         </Router>
       </Provider>,
     );
@@ -277,13 +293,17 @@ describe('Component: PlayerScreen', () => {
     render(
       <Provider store={successStore}>
         <Router history={history}>
-          <PlayerScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Player()} exact>
+            <PlayerScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
-    expect(screen.queryByText(/This page does not exist/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).toBeInTheDocument();
 
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Exit/i)).not.toBeInTheDocument();
@@ -321,8 +341,7 @@ describe('Component: PlayerScreen', () => {
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/Exit/i)).not.toBeInTheDocument();
 
     expect(initialStore.dispatch).toHaveBeenCalledTimes(1);
@@ -351,15 +370,19 @@ describe('Component: PlayerScreen', () => {
     render(
       <Provider store={initialStore}>
         <Router history={history}>
-          <PlayerScreen />
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.Player()} exact>
+            <PlayerScreen />
+          </Route>
         </Router>
       </Provider>,
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
 
-    expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('not-found-screen')).not.toBeInTheDocument();
     expect(screen.queryByText(/Exit/i)).not.toBeInTheDocument();
 
     expect(initialStore.dispatch).toHaveBeenCalledTimes(1);

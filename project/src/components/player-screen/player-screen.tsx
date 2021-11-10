@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import round from 'lodash/round';
 import { useVideo } from '../../hooks/use-video';
 import { useIdParam } from '../../hooks/use-id-param';
-import { AppRoute } from '../../constants';
+import { AppRoute, FetchStatus } from '../../constants';
 import LoadingScreen from '../loading-screen/loading-screen';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
 import { getCurrentFilm } from '../../store/films/films-api-actions';
 import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
 import { formatElapsedTime } from '../../utils/date';
-import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
+import { isFetchError, isFetchNotReady, isFetchSuccess } from '../../utils/fetched-data';
+import { setCurrentFilmFetchStatus } from '../../store/films/films-actions';
 
 const TOGGLER_POSITION_DECIMAL_PRECISION = 2;
 
@@ -20,6 +20,7 @@ function PlayerScreen(): JSX.Element {
 
   const film = useSelector(getCurrentFilmData);
   const filmStatus = useSelector(getCurrentFilmStatus);
+  const filmStatusRef = useRef(filmStatus);
 
   const dispatch = useDispatch();
 
@@ -28,12 +29,22 @@ function PlayerScreen(): JSX.Element {
   };
 
   useEffect(() => {
+    filmStatusRef.current = filmStatus;
+  }, [filmStatus]);
+
+  useEffect(() => {
     if (!filmId || film?.id === filmId) {
       return;
     }
 
     fetchCurrentFilm(filmId);
   }, [film?.id, filmId]);
+
+  useEffect(() => () => {
+    if (!isFetchSuccess(filmStatusRef.current)) {
+      dispatch(setCurrentFilmFetchStatus(FetchStatus.Idle));
+    }
+  }, []);
 
   const {
     ref: videoRef,
@@ -51,7 +62,7 @@ function PlayerScreen(): JSX.Element {
   } = useVideo();
 
   if (error || isFetchError(filmStatus)) {
-    return <NotFoundScreen />;
+    return <Redirect to={AppRoute.NotFound()} />;
   }
 
   if (isFetchNotReady(filmStatus)) {
@@ -59,7 +70,7 @@ function PlayerScreen(): JSX.Element {
   }
 
   if (!film) {
-    return <NotFoundScreen />;
+    return <Redirect to={AppRoute.NotFound()} />;
   }
 
   const onFullScreenButtonClick = () => {
