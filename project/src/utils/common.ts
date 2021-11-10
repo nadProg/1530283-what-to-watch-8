@@ -1,4 +1,4 @@
-import { EMAIL_REGEX, EMPTY_SPACE, MIN_PASSWORD_LENGTH, Rating, ReviewContent } from '../constants';
+import { EMAIL_REGEX, EMPTY_SPACE, LATIN_REGEX, MIN_PASSWORD_LENGTH, NUMERIC_REGEX, Rating, ReviewContent } from '../constants';
 
 export const splitArrayInTwo = <T>(items: T[]): [T[], T[]] => {
   const middleIndex = Math.ceil(items.length / 2);
@@ -26,8 +26,16 @@ export const getPasswordValidityMessage = (password: string): string => {
     return `Password must have at least ${MIN_PASSWORD_LENGTH} symbols.`;
   }
 
+  if (!NUMERIC_REGEX.test(password.toLowerCase())) {
+    return 'Password must contain at least one number.';
+  }
+
+  if (!LATIN_REGEX.test(password.toLowerCase())) {
+    return 'Password must contain at least one literal symbol.';
+  }
+
   if (password.includes(EMPTY_SPACE)) {
-    return 'Password can not containt empty spaces.';
+    return 'Password can not contain empty spaces.';
   }
 
   return '';

@@ -1,9 +1,9 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { AnyAction } from 'redux';
-import { AppRoute } from '../../constants';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { AppRoute, UNKNOWN_ACTION } from '../../constants';
 import { State } from '../../types/types';
-import { redirectToRoute } from '../app/app-actions';
 import { redirect } from './redirect';
+import { redirectToRoute } from '../app/app-actions';
 
 const fakeHistory = {
   location: {
@@ -14,11 +14,11 @@ const fakeHistory = {
   },
 };
 
-jest.mock('../../browser-history', () => fakeHistory);
-
 const middlewares = [redirect];
 const mockStore = configureMockStore<State, AnyAction>(middlewares);
 const store = mockStore();
+
+jest.mock('../../browser-history', () => fakeHistory);
 
 describe('Middleware: redirect', () => {
   beforeEach(() => {
@@ -27,14 +27,19 @@ describe('Middleware: redirect', () => {
 
   it('should be redirect to /login', () => {
     store.dispatch(redirectToRoute(AppRoute.Login()));
+
     expect(fakeHistory.location.pathname).toBe(AppRoute.Login());
     expect(store.getActions()).toEqual([
       redirectToRoute(AppRoute.Login()),
     ]);
   });
 
-  it('should not to be redirect /login because bad action', () => {
-    store.dispatch({type: 'UNKNOWN_ACTION', payload: AppRoute.Login()});
+  it('should not to be redirect /login because of unknown action', () => {
+    store.dispatch({
+      ...UNKNOWN_ACTION,
+      payload: AppRoute.Login(),
+    });
+
     expect(fakeHistory.location.pathname).not.toBe(AppRoute.Login());
   });
 });

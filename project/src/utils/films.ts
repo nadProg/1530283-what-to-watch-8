@@ -1,7 +1,5 @@
-import { RatingDescription, ratingDescriptionToLowerLimit } from '../constants';
+import { MAX_OVERVIEW_ACTORS_COUNT, RatingDescription, ratingDescriptionToLowerLimit } from '../constants';
 import type { ValuesOf } from '../types/types';
-
-const MAX_OVERVIEW_ACTORS_COUNT = 4;
 
 export const formatRating = (rating: number): string => {
   const formattedRating = String(rating).replace('.', ',');

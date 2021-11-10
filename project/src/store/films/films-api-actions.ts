@@ -86,7 +86,7 @@ export const getSimilarFilms = (id: number): ThunkActionResult =>
     }
   };
 
-export const getСurrentFilm = (filmId: number): ThunkActionResult =>
+export const getCurrentFilm = (filmId: number): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     dispatch(setCurrentFilmFetchStatus(FetchStatus.Loading));
 

@@ -1,9 +1,9 @@
 import { AuthorizationStatus } from '../../constants';
-import { AuthoarizationInfo, ValuesOf } from '../../types/types';
+import { AuthorizationInfo, ValuesOf } from '../../types/types';
 
 type AuthorizationState = {
   status:  ValuesOf<typeof AuthorizationStatus>,
-  info: AuthoarizationInfo | null,
+  info: AuthorizationInfo | null,
   errorMessage: string,
 }
 

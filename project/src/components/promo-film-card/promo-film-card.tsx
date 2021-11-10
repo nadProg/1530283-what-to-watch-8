@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import type { Film } from '../../types/types';
-import FilmCardBackground from '../film-card-background/film-card-background';
 import Logo from '../logo/logo';
+import FilmCardBackground from '../film-card-background/film-card-background';
 import UserBlock from '../user-block/user-block';
 import FilmCardPoster from '../film-card-poster/film-card-poster';
 import FilmCardButtons from '../film-card-buttons/film-card-buttons';
@@ -25,10 +25,10 @@ function PromoFilmCard({film}: PromoFilmCardProps): JSX.Element {
         <div className="film-card__info">
           <FilmCardPoster src={film.posterImage} alt={`${film.name} poster`} />
           <div className="film-card__desc">
-            <h2 className="film-card__title">{film.name}</h2>
+            <h2 className="film-card__title" data-testid="film-card-title">{film.name}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{film.genre}</span>
-              <span className="film-card__year">{film.released}</span>
+              <span className="film-card__genre" data-testid="film-card-genre">{film.genre}</span>
+              <span className="film-card__year" data-testid="film-card-year">{film.released}</span>
             </p>
             <FilmCardButtons filmId={film.id} isFilmFavorite={film.isFavorite} />
           </div>

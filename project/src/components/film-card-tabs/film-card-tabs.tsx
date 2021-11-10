@@ -1,10 +1,10 @@
-import classNames from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
+import classNames from 'classnames';
 import upperFirst from 'lodash/upperFirst';
 import { FilmCardTab } from '../../constants';
 
-const BASE_CLASSNAME = 'film-nav';
-const BASE_TAB_CLASSNAME = 'film-nav__item';
+const BASE_CLASS_NAME = 'film-nav';
+const BASE_TAB_CLASS_NAME = 'film-nav__item';
 
 type FilmCardTabsProps = {
   className?: string;
@@ -12,18 +12,18 @@ type FilmCardTabsProps = {
 
 function FilmCardTabs({className}: FilmCardTabsProps): JSX.Element {
   const location = useLocation();
-  const fullClassname = classNames(BASE_CLASSNAME, className);
+  const fullClassName = classNames(BASE_CLASS_NAME, className);
 
   return (
-    <nav className={fullClassname} data-testid="film-card-navigation">
+    <nav className={fullClassName} data-testid="film-card-navigation">
       <ul className="film-nav__list">
         {
           Object.values(FilmCardTab).map((tab) => {
-            const fullItemClassname = classNames(BASE_TAB_CLASSNAME, { [`${BASE_TAB_CLASSNAME}--active`]: location.hash.slice(1) === tab });
+            const fullItemClassName = classNames(BASE_TAB_CLASS_NAME, { [`${BASE_TAB_CLASS_NAME}--active`]: location.hash.slice(1) === tab });
             const path = `${location.pathname}#${tab}`;
 
             return (
-              <li key={tab} className={fullItemClassname}>
+              <li key={tab} className={fullItemClassName}>
                 <Link to={path} className="film-nav__link">{upperFirst(tab)}</Link>
               </li>
             );

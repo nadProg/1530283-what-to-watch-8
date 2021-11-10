@@ -51,7 +51,9 @@ describe('Component: Main', () => {
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
+
     expect(screen.queryByText(/WTW/i)).toBeInTheDocument();
+
     expect(successStore.dispatch).toHaveBeenCalledTimes(0);
   });
 
@@ -88,6 +90,7 @@ describe('Component: Main', () => {
 
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
+
     expect(errorStore.dispatch).toHaveBeenCalledTimes(0);
   });
 
@@ -121,6 +124,7 @@ describe('Component: Main', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
@@ -157,6 +161,7 @@ describe('Component: Main', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
@@ -193,9 +198,11 @@ describe('Component: Main', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
+
     expect(store.dispatch).toHaveBeenCalledTimes(2);
   });
 
@@ -227,7 +234,8 @@ describe('Component: Main', () => {
       </Provider>,
     );
 
-    userEvent.click(screen.getByText(new RegExp(ALL_GENRES, 'i')));
+    userEvent.click(screen.getByText(ALL_GENRES));
+
     expect(successStore.dispatch).toBeCalledTimes(1);
   });
 

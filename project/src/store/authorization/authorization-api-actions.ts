@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import { APIRoute, AppRoute, AuthorizationStatus, FetchStatus } from '../../constants';
-import { ServerAuthInfo, ThunkActionResult, Login } from '../../types/types';
+import { ServerAuthorizationInfo, ThunkActionResult, Login } from '../../types/types';
 import { adaptAuthorizationInfoToClient } from '../../services/adapters';
 import { dropToken, saveToken } from '../../services/token';
 import { redirectToRoute } from '../app/app-actions';
@@ -11,7 +11,7 @@ export const getLogin = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
     try {
       const { data: serverAuthorizationInfo } =
-        await api.get<ServerAuthInfo>(APIRoute.Login());
+        await api.get<ServerAuthorizationInfo>(APIRoute.Login());
 
       const authorizationInfo = adaptAuthorizationInfoToClient(serverAuthorizationInfo);
 
@@ -30,7 +30,7 @@ export const postLogin = (user: Login): ThunkActionResult =>
 
     try {
       const { data: serverAuthorizationInfo } =
-        await api.post<ServerAuthInfo>(APIRoute.Login(), user);
+        await api.post<ServerAuthorizationInfo>(APIRoute.Login(), user);
 
       const authorizationInfo = adaptAuthorizationInfoToClient(serverAuthorizationInfo);
 

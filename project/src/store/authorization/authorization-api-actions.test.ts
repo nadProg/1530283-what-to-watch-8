@@ -3,8 +3,8 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import MockAdapter from 'axios-mock-adapter';
 import { APIRoute, AppRoute, AuthorizationStatus, AUTH_TOKEN_KEY_NAME, FetchStatus } from '../../constants';
-import { createAPI } from '../../services/api';
 import { Action, State } from '../../types/types';
+import { createAPI } from '../../services/api';
 import { adaptAuthorizationInfoToClient } from '../../services/adapters';
 import { setAuthorizationInfo, setAuthorizationStatus, clearAuthorizationErrorMessage, setAuthorizationErrorMessage } from './authorization-actions';
 import { deleteLogout, getLogin, postLogin } from './authorization-api-actions';
@@ -14,7 +14,7 @@ import { createMockLoginData, createMockServerAuthorizationInfo } from '../../mo
 
 const mockLoginData = createMockLoginData();
 const mockServerAuthorizationInfo = createMockServerAuthorizationInfo();
-const adaptedAuhtorizationInfo = adaptAuthorizationInfoToClient(mockServerAuthorizationInfo);
+const adaptedAuthorizationInfo = adaptAuthorizationInfoToClient(mockServerAuthorizationInfo);
 
 describe('Api-actions: Authorization', () => {
   const fakeUnauthorizedCallback = jest.fn();
@@ -38,7 +38,7 @@ describe('Api-actions: Authorization', () => {
     await store.dispatch(getLogin());
 
     expect(store.getActions()).toEqual([
-      setAuthorizationInfo(adaptedAuhtorizationInfo),
+      setAuthorizationInfo(adaptedAuthorizationInfo),
       setAuthorizationStatus(AuthorizationStatus.Auth),
     ]);
   });
@@ -75,12 +75,12 @@ describe('Api-actions: Authorization', () => {
     expect(store.getActions()).toEqual([
       clearAuthorizationErrorMessage(),
       redirectToRoute(AppRoute.Root()),
-      setAuthorizationInfo(adaptedAuhtorizationInfo),
+      setAuthorizationInfo(adaptedAuthorizationInfo),
       setAuthorizationStatus(AuthorizationStatus.Auth),
     ]);
 
     expect(Storage.prototype.setItem).toBeCalledTimes(1);
-    expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, adaptedAuhtorizationInfo.token);
+    expect(Storage.prototype.setItem).toBeCalledWith(AUTH_TOKEN_KEY_NAME, adaptedAuthorizationInfo.token);
   });
 
   it('should handle failed post login', async () => {

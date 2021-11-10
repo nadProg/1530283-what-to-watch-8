@@ -1,5 +1,4 @@
 import { lorem } from 'faker';
-
 import { AuthorizationStatus, UNKNOWN_ACTION } from '../../constants';
 import { createMockAuthorizationInfo } from '../../mocks/authorization';
 import { clearAuthorizationErrorMessage, setAuthorizationErrorMessage, setAuthorizationInfo, setAuthorizationStatus } from './authorization-actions';
@@ -8,7 +7,7 @@ import { authorizationReducer } from './authorization-reducer';
 
 const mockErrorMessage = lorem.sentence();
 
-const mockAuthorizationInfo = createMockAuthorizationInfo;
+const mockAuthorizationInfo = createMockAuthorizationInfo();
 
 describe('Reducer: Authorization', () => {
   it('without additional parameters should return initial state', () => {

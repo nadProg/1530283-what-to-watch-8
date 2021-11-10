@@ -2,11 +2,11 @@ import { Provider } from 'react-redux';
 import ReactRouter from 'react-router';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
+import { datatype } from 'faker';
+import userEvent from '@testing-library/user-event';
 import { State } from '../../types/types';
 import { FetchStatus } from '../../constants';
 import AddReviewForm from './add-review-form';
-import { datatype } from 'faker';
-import userEvent from '@testing-library/user-event';
 
 const mockStore = configureMockStore<State>();
 
@@ -18,13 +18,14 @@ const store = mockStore({
   },
 });
 
+store.dispatch = jest.fn();
+
 describe('Component: AddReviewForm', () => {
   beforeEach(() => {
     jest.spyOn(ReactRouter, 'useParams').mockReturnValue({ id: String(datatype.number())});
   });
 
   it('should render correctly', () => {
-    store.dispatch = jest.fn();
 
     render(
       <Provider store={store}>
@@ -38,13 +39,12 @@ describe('Component: AddReviewForm', () => {
     expect(screen.queryByTestId(/form/i)).toBeInTheDocument();
     expect(screen.queryByTestId(/review-text/i)).toBeInTheDocument();
     expect(screen.queryByTestId(/submit-button/i)).toBeInTheDocument();
+
     expect(store.dispatch).toHaveBeenCalledTimes(0);
   });
 
   it('should handle submit action when valid data is provided', () => {
     const validMockReviewText = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.!';
-
-    store.dispatch = jest.fn();
 
     render(
       <Provider store={store}>
@@ -64,8 +64,6 @@ describe('Component: AddReviewForm', () => {
   it('should prevent submit action when rating is not provided', () => {
     const validMockReviewText = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.!';
 
-    store.dispatch = jest.fn();
-
     render(
       <Provider store={store}>
         <AddReviewForm />
@@ -82,8 +80,6 @@ describe('Component: AddReviewForm', () => {
 
   it('should prevent submit when review text is short', () => {
     const invalidMockReviewText = 'Lorem, ipsum';
-
-    store.dispatch = jest.fn();
 
     render(
       <Provider store={store}>
@@ -102,8 +98,6 @@ describe('Component: AddReviewForm', () => {
 
   it('should prevent submit when review text is long', () => {
     const invalidMockReviewText = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lorem, ipsum dolor sit amet consectetur adipisicing elit.! Lrem, ipsum dolor sit amet consectetur adipisicing elit.!';
-
-    store.dispatch = jest.fn();
 
     render(
       <Provider store={store}>

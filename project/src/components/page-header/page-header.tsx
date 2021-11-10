@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-const BASE_CLASSNAME = 'page-header';
+const BASE_CLASS_NAME = 'page-header';
 
 type PageHeaderProps = {
   children: React.ReactNode,
@@ -8,7 +8,7 @@ type PageHeaderProps = {
 }
 
 function PageHeader({className, children}: PageHeaderProps): JSX.Element {
-  return <header className={classNames(BASE_CLASSNAME, className)} data-testid="page-header">{children}</header>;
+  return <header className={classNames(BASE_CLASS_NAME, className)} data-testid="page-header">{children}</header>;
 }
 
 export default PageHeader;

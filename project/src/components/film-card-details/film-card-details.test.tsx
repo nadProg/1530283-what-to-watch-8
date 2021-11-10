@@ -17,10 +17,10 @@ describe('Component: FilmCardDetails', () => {
     expect(screen.queryByText(/Genre/i)).toBeInTheDocument();
     expect(screen.queryByText(/Released/i)).toBeInTheDocument();
 
-    expect(screen.queryByText(new RegExp(mockFilm.genre, 'i'))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockFilm.director, 'i'))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(String(mockFilm.released), 'i'))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(formatRuntime(mockFilm.runTime), 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('film-card-genre')).toHaveTextContent(mockFilm.genre);
+    expect(screen.queryByTestId('film-card-director')).toHaveTextContent(mockFilm.director);
+    expect(screen.queryByTestId('film-card-year')).toHaveTextContent(String(mockFilm.released));
+    expect(screen.queryByTestId('film-card-run-time')).toHaveTextContent(formatRuntime(mockFilm.runTime));
 
     mockFilm.actors.forEach((actor) => {
       expect(screen.queryByText(new RegExp(actor, 'i'))).toBeInTheDocument();

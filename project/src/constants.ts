@@ -6,6 +6,8 @@ export const CATALOG_INITIAL_PAGE = 1;
 
 export const CATALOG_PAGE_SIZE = 8;
 
+export const MAX_OVERVIEW_ACTORS_COUNT = 4;
+
 export const MAX_SIMILAR_FILMS_COUNT = 4;
 
 export const ALL_GENRES = 'All genres';
@@ -20,6 +22,10 @@ export const LINE_BREAK = '\n';
 
 export const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+export const NUMERIC_REGEX = /\d/;
+
+export const LATIN_REGEX = /[A-za-z]/;
+
 export const AppRoute = {
   Root: () => '/',
   Login: () => '/login',
@@ -27,6 +33,7 @@ export const AppRoute = {
   Film: (id:string | number = ':id') => `/films/${id}`,
   AddReview: (id:string | number = ':id') => `/films/${id}/review`,
   Player: (id:string | number = ':id') => `/player/${id}`,
+  NotFound: () => '/404',
 } as const;
 
 export const FavoriteStatus = {

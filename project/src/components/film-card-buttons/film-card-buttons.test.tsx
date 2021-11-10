@@ -1,18 +1,16 @@
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { datatype } from 'faker';
 import { createMemoryHistory } from 'history';
-import { Provider } from 'react-redux';
-import { Router } from 'react-router-dom';
 import { AuthorizationStatus } from '../../constants';
 import { State } from '../../types/types';
 import FilmCardButtons from './film-card-buttons';
 
 const mockId = datatype.number();
-
 const history = createMemoryHistory();
-
 const mockStore = configureMockStore<State>();
 
 const userStore = mockStore({
@@ -110,6 +108,7 @@ describe('Component: FilmCardButtons', () => {
     );
 
     userEvent.click(screen.getByText(/My list/i));
+
     expect(userStore.dispatch).toHaveBeenCalledTimes(1);
   });
 
@@ -124,6 +123,7 @@ describe('Component: FilmCardButtons', () => {
     );
 
     userEvent.click(screen.getByText(/My list/i));
+
     expect(userStore.dispatch).toHaveBeenCalledTimes(1);
   });
 });

@@ -6,7 +6,6 @@ import { FilmCardTab } from '../../constants';
 import FilmCardTabs from './film-card-tabs';
 
 const mockClassName = lorem.word();
-
 const history = createMemoryHistory();
 
 describe('Component: FilmCardTabs', () => {

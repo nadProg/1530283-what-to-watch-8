@@ -1,11 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppRoute, AuthorizationStatus } from '../../constants';
 import { deleteLogout } from '../../store/authorization/authorization-api-actions';
-import { getAuhorizationStatus, getUserAvatar } from '../../store/authorization/authorization-selectors';
+import { getAuthorizationStatus, getUserAvatar } from '../../store/authorization/authorization-selectors';
+
+const USER_BLOCK_STYLES: CSSProperties = {
+  minHeight: 63,
+};
 
 function UserBlock():JSX.Element {
-  const authorizationStatus = useSelector(getAuhorizationStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
   const userAvatar = useSelector(getUserAvatar);
 
   const dispatch = useDispatch();
@@ -15,7 +20,7 @@ function UserBlock():JSX.Element {
   };
 
   return (
-    <ul className="user-block" style={{ minHeight: 63 }}>
+    <ul className="user-block" style={USER_BLOCK_STYLES}>
       { authorizationStatus === AuthorizationStatus.Auth ?
         (
           <>

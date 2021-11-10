@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import round from 'lodash/round';
-import { AppRoute } from '../../constants';
-import { formatElapsedTime } from '../../utils/date';
-import { isFetchError, isFetchNotReady } from '../../utils/fetched-data';
 import { useVideo } from '../../hooks/use-video';
 import { useIdParam } from '../../hooks/use-id-param';
-import { getСurrentFilm } from '../../store/films/films-api-actions';
-import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
+import { AppRoute, FetchStatus } from '../../constants';
 import LoadingScreen from '../loading-screen/loading-screen';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
 import Spinner from '../spinner/spinner';
+import { getCurrentFilm } from '../../store/films/films-api-actions';
+import { getCurrentFilmData, getCurrentFilmStatus } from '../../store/films/films-selectors';
+import { formatElapsedTime } from '../../utils/date';
+import { isFetchError, isFetchNotReady, isFetchSuccess } from '../../utils/fetched-data';
+import { setCurrentFilmFetchStatus } from '../../store/films/films-actions';
 
 const TOGGLER_POSITION_DECIMAL_PRECISION = 2;
 
@@ -20,12 +20,17 @@ function PlayerScreen(): JSX.Element {
 
   const film = useSelector(getCurrentFilmData);
   const filmStatus = useSelector(getCurrentFilmStatus);
+  const filmStatusRef = useRef(filmStatus);
 
   const dispatch = useDispatch();
 
   const fetchCurrentFilm = (id: number) => {
-    dispatch(getСurrentFilm(id));
+    dispatch(getCurrentFilm(id));
   };
+
+  useEffect(() => {
+    filmStatusRef.current = filmStatus;
+  }, [filmStatus]);
 
   useEffect(() => {
     if (!filmId || film?.id === filmId) {
@@ -33,7 +38,13 @@ function PlayerScreen(): JSX.Element {
     }
 
     fetchCurrentFilm(filmId);
-  }, [filmId]);
+  }, [film?.id, filmId]);
+
+  useEffect(() => () => {
+    if (!isFetchSuccess(filmStatusRef.current)) {
+      dispatch(setCurrentFilmFetchStatus(FetchStatus.Idle));
+    }
+  }, []);
 
   const {
     ref: videoRef,
@@ -50,12 +61,16 @@ function PlayerScreen(): JSX.Element {
     requestFullScreen: requestVideoFullScreen,
   } = useVideo();
 
+  if (error || isFetchError(filmStatus)) {
+    return <Redirect to={AppRoute.NotFound()} />;
+  }
+
   if (isFetchNotReady(filmStatus)) {
     return <LoadingScreen />;
   }
 
-  if (isFetchError(filmStatus) || !film || error) {
-    return <NotFoundScreen />;
+  if (!film) {
+    return <Redirect to={AppRoute.NotFound()} />;
   }
 
   const onFullScreenButtonClick = () => {

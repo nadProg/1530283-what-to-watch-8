@@ -39,6 +39,7 @@ describe('Component: MyListScreen', () => {
     );
 
     expect(screen.queryByText(/My List/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
@@ -102,6 +103,7 @@ describe('Component: MyListScreen', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/My List/i)).not.toBeInTheDocument();
@@ -133,6 +135,7 @@ describe('Component: MyListScreen', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/My List/i)).not.toBeInTheDocument();
@@ -164,6 +167,7 @@ describe('Component: MyListScreen', () => {
     );
 
     expect(screen.queryByText(/Loading Screen/i)).toBeInTheDocument();
+
     expect(screen.queryByText(/This page does not exist/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Go to main page/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/My List/i)).not.toBeInTheDocument();

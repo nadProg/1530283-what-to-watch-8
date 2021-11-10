@@ -4,13 +4,13 @@ import { Router as BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { Toaster } from 'react-hot-toast';
-import { AuthorizationStatus } from './constants';
-import browserHistory from './browser-history';
-import App from './components/app/app';
-import { setAuthorizationStatus } from './store/authorization/authorization-actions';
 import { rootReducer } from './store/root-reducer';
+import { AuthorizationStatus } from './constants';
 import { redirect } from './store/middleware/redirect';
 import { createAPI } from './services/api';
+import { setAuthorizationStatus } from './store/authorization/authorization-actions';
+import browserHistory from './browser-history';
+import App from './components/app/app';
 import { getLogin } from './store/authorization/authorization-api-actions';
 
 const api = createAPI(() => {

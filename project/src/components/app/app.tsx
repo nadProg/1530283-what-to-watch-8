@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppRoute, AuthorizationStatus, CustomRouteType } from '../../constants';
 import MainScreen from '../main-screen/main-screen';
@@ -10,10 +10,10 @@ import AddReviewScreen from '../add-review-screen/add-review-screen';
 import CustomRoute from '../custom-route/custom-route';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { getAuhorizationStatus } from '../../store/authorization/authorization-selectors';
+import { getAuthorizationStatus } from '../../store/authorization/authorization-selectors';
 
 function App(): JSX.Element {
-  const authorizationStatus = useSelector(getAuhorizationStatus);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
     return <LoadingScreen />;
@@ -39,8 +39,11 @@ function App(): JSX.Element {
       <CustomRoute path={AppRoute.AddReview()} exact type={CustomRouteType.Private}>
         <AddReviewScreen />
       </CustomRoute>
-      <Route>
+      <Route path={AppRoute.NotFound()} exact>
         <NotFoundScreen />
+      </Route>
+      <Route>
+        <Redirect to={AppRoute.NotFound()} />
       </Route>
     </Switch>
   );

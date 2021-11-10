@@ -1,11 +1,11 @@
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import { act } from '@testing-library/react-hooks';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { lorem } from 'faker';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
-import { createMockFilm } from '../../mocks/films';
 import { asyncDelay } from '../../utils/common';
+import { createMockFilm } from '../../mocks/films';
 import SmallFilmCard from './small-film-card';
 
 const history = createMemoryHistory();
@@ -13,7 +13,7 @@ const history = createMemoryHistory();
 const mockFilm = createMockFilm();
 const mockClassName = lorem.word();
 
-describe('Component: SmallFilmsmall-film-card', () => {
+describe('Component: SmallFilmCard', () => {
   beforeEach(() => {
     Object.defineProperty(window.HTMLMediaElement.prototype, 'muted', {
       get: () => false,
@@ -27,12 +27,13 @@ describe('Component: SmallFilmsmall-film-card', () => {
         <SmallFilmCard film={mockFilm} />
       </Router>,
     );
+    expect(screen.getByAltText(mockFilm.name)).toHaveAttribute('src', mockFilm.previewImage);
 
     expect(screen.queryByTestId('small-film-card')).toBeInTheDocument();
     expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-card-title')).toHaveTextContent(mockFilm.name);
+
     expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
-    expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
   });
 
   it('should render correctly with className props', () => {
@@ -42,13 +43,15 @@ describe('Component: SmallFilmsmall-film-card', () => {
       </Router>,
     );
 
+    expect(screen.getByAltText(mockFilm.name)).toHaveAttribute('src', mockFilm.previewImage);
+
+    expect(screen.queryByTestId('small-film-card')).toHaveClass(mockClassName);
 
     expect(screen.queryByTestId('small-film-card')).toBeInTheDocument();
-    expect(screen.queryByTestId('small-film-card')).toHaveClass(mockClassName);
     expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-card-title')).toHaveTextContent(mockFilm.name);
+
     expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
-    expect(screen.getByAltText(new RegExp(mockFilm.name, 'i'))).toBeInTheDocument();
   });
 
   it('should render video on mouseover', async () => {
@@ -73,8 +76,8 @@ describe('Component: SmallFilmsmall-film-card', () => {
       userEvent.unhover(screen.getByTestId('small-film-card'));
     });
 
-    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
     expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
 
     await act(async () => {
       await asyncDelay(TIME_NOT_TO_SHOW_VIDEO);
@@ -83,14 +86,14 @@ describe('Component: SmallFilmsmall-film-card', () => {
       await asyncDelay(TIME_NOT_TO_SHOW_VIDEO);
     });
 
-    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
     expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
 
     act(() => {
       userEvent.unhover(screen.getByTestId('small-film-card'));
     });
 
-    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
     expect(screen.queryByTestId('small-film-card-image-preview')).toBeInTheDocument();
+    expect(screen.queryByTestId('small-film-card-video-preview')).not.toBeInTheDocument();
   });
 });

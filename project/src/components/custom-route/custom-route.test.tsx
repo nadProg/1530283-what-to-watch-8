@@ -8,7 +8,6 @@ import { State } from '../../types/types';
 import CustomRoute from './custom-route';
 
 const history = createMemoryHistory();
-
 const mockStore = configureMockStore<State>();
 
 const userStore = mockStore({
@@ -25,8 +24,6 @@ const guestStore = mockStore({
 
 describe('Component: CustomRoute', () => {
   it('should show content for guests', () => {
-    const guestContent = 'Guest content';
-    const rootContent = 'Root content';
     const mockGuestPath = '/mock-guest-path';
 
     history.push(mockGuestPath);
@@ -35,24 +32,22 @@ describe('Component: CustomRoute', () => {
       <Provider store={guestStore}>
         <Router history={history}>
           <Route path={AppRoute.Root()} exact>
-            <h2>{rootContent}</h2>
+            <div data-testid="root-content" />
           </Route>
           <Route>
             <CustomRoute path={mockGuestPath} type={CustomRouteType.Guest}>
-              <h2>{guestContent}</h2>
+              <div data-testid="guest-content" />
             </CustomRoute>
           </Route>
         </Router>,
       </Provider>,
     );
 
-    expect(screen.queryByText(new RegExp(rootContent, 'i'))).not.toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(guestContent, 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('root-content')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('guest-content')).toBeInTheDocument();
   });
 
   it('should redirect user to root page', () => {
-    const guestContent = 'Guest content';
-    const rootContent = 'Root content';
     const mockGuestPath = '/mock-guest-path';
 
     history.push(mockGuestPath);
@@ -62,25 +57,23 @@ describe('Component: CustomRoute', () => {
       <Provider store={userStore}>
         <Router history={history}>
           <Route path={AppRoute.Root()} exact>
-            <h2>{rootContent}</h2>
+            <div data-testid="root-content" />
           </Route>
           <Route>
             <CustomRoute path={mockGuestPath} type={CustomRouteType.Guest}>
-              <h2>{guestContent}</h2>
+              <div data-testid="guest-content" />
             </CustomRoute>
           </Route>
         </Router>,
       </Provider>,
     );
 
-    expect(screen.queryByText(new RegExp(rootContent, 'i'))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(guestContent, 'i'))).not.toBeInTheDocument();
+    expect(screen.queryByTestId('root-content')).toBeInTheDocument();
+    expect(screen.queryByTestId('guest-content')).not.toBeInTheDocument();
   });
 
   it('should show private content for users', () => {
-    const privateContent = 'Private content';
-    const loginContent = 'Login content';
-    const mockPrivatePath = '/mock-privtate-path';
+    const mockPrivatePath = '/mock-private-path';
 
     history.push(mockPrivatePath);
 
@@ -88,25 +81,23 @@ describe('Component: CustomRoute', () => {
       <Provider store={userStore}>
         <Router history={history}>
           <Route path={AppRoute.Login()} exact>
-            <h2>{loginContent}</h2>
+            <div data-testid="login-content" />
           </Route>
           <Route>
             <CustomRoute path={mockPrivatePath} type={CustomRouteType.Private}>
-              <h2>{privateContent}</h2>
+              <div data-testid="private-content" />
             </CustomRoute>
           </Route>
         </Router>,
       </Provider>,
     );
 
-    expect(screen.queryByText(new RegExp(loginContent, 'i'))).not.toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(privateContent, 'i'))).toBeInTheDocument();
+    expect(screen.queryByTestId('login-content')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('private-content')).toBeInTheDocument();
   });
 
   it('should redirect guests to login page', () => {
-    const privateContent = 'Private content';
-    const loginContent = 'Login content';
-    const mockPrivatePath = '/mock-privtate-path';
+    const mockPrivatePath = '/mock-private-path';
 
     history.push(mockPrivatePath);
 
@@ -114,18 +105,18 @@ describe('Component: CustomRoute', () => {
       <Provider store={guestStore}>
         <Router history={history}>
           <Route path={AppRoute.Login()} exact>
-            <h2>{loginContent}</h2>
+            <div data-testid="login-content" />
           </Route>
           <Route>
             <CustomRoute path={mockPrivatePath} type={CustomRouteType.Private}>
-              <h2>{privateContent}</h2>
+              <div data-testid="private-content" />
             </CustomRoute>
           </Route>
         </Router>,
       </Provider>,
     );
 
-    expect(screen.queryByText(new RegExp(loginContent, 'i'))).toBeInTheDocument();
-    expect(screen.queryByText(new RegExp(privateContent, 'i'))).not.toBeInTheDocument();
+    expect(screen.queryByTestId('login-content')).toBeInTheDocument();
+    expect(screen.queryByTestId('private-content')).not.toBeInTheDocument();
   });
 });

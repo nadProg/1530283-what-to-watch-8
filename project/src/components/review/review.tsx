@@ -1,6 +1,6 @@
 import { LINE_BREAK } from '../../constants';
 import { CommentGet } from '../../types/types';
-import { formatDatetime, formatHumanizedDate } from '../../utils/date';
+import { formatDateTime, formatHumanizedDate } from '../../utils/date';
 import { formatRating } from '../../utils/films';
 
 type ReviewProps = {
@@ -16,12 +16,12 @@ function Review({comment}: ReviewProps): JSX.Element {
         ))}
 
         <footer className="review__details">
-          <cite className="review__author">{comment.user.name}</cite>
-          <time className="review__date" dateTime={formatDatetime(comment.date)}>{formatHumanizedDate(comment.date)}</time>
+          <cite className="review__author" data-testid="comment-user-name">{comment.user.name}</cite>
+          <time className="review__date" dateTime={formatDateTime(comment.date)} data-testid="comment-date">{formatHumanizedDate(comment.date)}</time>
         </footer>
       </blockquote>
 
-      <div className="review__rating">{formatRating(comment.rating)}</div>
+      <div className="review__rating" data-testid="comment-rating">{formatRating(comment.rating)}</div>
     </div>
   );
 }

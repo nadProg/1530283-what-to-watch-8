@@ -1,8 +1,23 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, RefObject } from 'react';
 
 const ONE_HUNDRED_PERCENT = 100;
 
-const useVideo = () => {
+type useVideoResult = {
+  ref: RefObject<HTMLVideoElement>,
+  isPlay: boolean,
+  isReady: boolean,
+  duration: number,
+  percentage: number,
+  elapsedTime: number,
+  togglePlay: () => void,
+  onPlay: () => void,
+  onPause: () => void,
+  onLoadedData: () => void,
+  onTimeUpdate: () => void,
+  requestFullScreen: () => void,
+}
+
+const useVideo = (): useVideoResult => {
   const ref = useRef<HTMLVideoElement>(null);
 
   const [isReady, setReady] = useState(false);

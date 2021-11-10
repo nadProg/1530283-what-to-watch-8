@@ -22,10 +22,10 @@ function FilmCardHero({film}: FilmCardHeroProps): JSX.Element {
       </PageHeader>
       <div className="film-card__wrap">
         <div className="film-card__desc">
-          <h2 className="film-card__title">{film.name}</h2>
+          <h2 className="film-card__title" data-testid="film-card-title">{film.name}</h2>
           <p className="film-card__meta">
-            <span className="film-card__genre">{film.genre}</span>
-            <span className="film-card__year">{film.released}</span>
+            <span className="film-card__genre" data-testid="film-card-genre">{film.genre}</span>
+            <span className="film-card__year" data-testid="film-card-year">{film.released}</span>
           </p>
           <FilmCardButtons filmId={film.id} isFilmFavorite={film.isFavorite} withAddReview />
         </div>

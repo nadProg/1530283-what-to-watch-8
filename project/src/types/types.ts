@@ -106,7 +106,7 @@ export type FetchedData<T = any> = {
   status: FetchStatusType;
 };
 
-export type AuthoarizationInfo = {
+export type AuthorizationInfo = {
   id: number;
   email: string;
   name: string;
@@ -114,7 +114,7 @@ export type AuthoarizationInfo = {
   token: Token;
 };
 
-export type ServerAuthInfo = {
+export type ServerAuthorizationInfo = {
   id: number;
   email: string;
   name: string;

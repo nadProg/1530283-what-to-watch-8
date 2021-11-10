@@ -7,13 +7,13 @@ type FilmCardBackgroundProps = {
   big?: boolean
 }
 
-const BASE_CLASSNAME = 'film-card__poster';
+const BASE_CLASS_NAME = 'film-card__poster';
 
 function FilmCardPoster({src, alt, small, big}: FilmCardBackgroundProps): JSX.Element {
   const fullClassName = classNames(
-    BASE_CLASSNAME,
-    { [`${BASE_CLASSNAME}--small`]: small },
-    { [`${BASE_CLASSNAME}--big`]: big },
+    BASE_CLASS_NAME,
+    { [`${BASE_CLASS_NAME}--small`]: small },
+    { [`${BASE_CLASS_NAME}--big`]: big },
   );
 
   return (

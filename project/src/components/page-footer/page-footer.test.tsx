@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { render, screen } from '@testing-library/react';
 import PageFooter from './page-footer';
 
 const history = createMemoryHistory();
