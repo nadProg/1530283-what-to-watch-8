@@ -102,6 +102,45 @@ describe('Component: AddReviewScreen', () => {
     expect(successStore.dispatch).toHaveBeenCalledTimes(0);
   });
 
+  it('should show error when server responds with invalid data', () => {
+    const invalidStore = mockStore({
+      films: {
+        currentFilm: {
+          data: null,
+          status: FetchStatus.Succeeded,
+        },
+      },
+      authorization: {
+        status: AuthorizationStatus.Auth,
+      },
+      comments: {
+        newComment: {
+          status: FetchStatus.Idle,
+        },
+      },
+    });
+
+    invalidStore.dispatch = jest.fn();
+
+    render(
+      <Provider store={invalidStore}>
+        <Router history={history}>
+          <Route path={AppRoute.NotFound()} exact>
+            <div data-testid="not-found-screen" />
+          </Route>
+          <Route path={AppRoute.AddReview()} exact>
+            <AddReviewScreen />
+          </Route>
+        </Router>
+      </Provider>,
+    );
+
+    expect(screen.queryByTestId('not-found-screen')).toBeInTheDocument();
+
+    expect(screen.queryByText(/Loading Screen/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/WTW/i)).not.toBeInTheDocument();
+  });
+
   it('should loading screen when no current film is present at the time', () => {
     const initialStore = mockStore({
       films: {
